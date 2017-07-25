@@ -34,18 +34,9 @@ public class ZhihuHttp {
         if (retrofit == null) {
             synchronized (ZhihuHttp.class) {
                 if (retrofit == null) {
-                    //添加一个log拦截器,打印所有的log
-                    HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-                    //可以设置请求过滤的水平,body,basic,headers
-//                    httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-                    //设置 请求的缓存的大小跟位置
-//                    File cacheFile = new File(HansApp.getAppContext().getCacheDir(), "cache");
-//                    Cache cache = new Cache(cacheFile, 1024 * 1024 * 50); //50Mb 缓存的大小
-
+                    //添加一个log拦截器,打印所的log
                     client = new OkHttpClient
                             .Builder()
-//                            .addInterceptor(addQueryParameterInterceptor())  //参数添加
-//                            .addInterceptor(addHeaderInterceptor()) // token过滤
                             .addInterceptor(new HttpLoggingInterceptor()) //日志,所有的请求响应度看到
 //                            .cache(cache)  //添加缓存
                             .connectTimeout(10, TimeUnit.SECONDS)

@@ -11,11 +11,6 @@ import retrofit2.http.Path;
 /**
  * 网络请求的接口
  * Created by Administrator on 2016/11/9.
- * pid=1，paopId=1：竞技平台
- * pid=2，paopId=2：游戏平台
- * pid=3，paopId=3：教育平台
- * 凡是日志记录接口，get/post都可以
- * 凡是需要从服务器获取数据的，只能post
  */
 public interface ZhihuService {
     @GET("/api/4/news/latest")

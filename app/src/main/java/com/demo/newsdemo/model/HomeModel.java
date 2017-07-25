@@ -32,6 +32,12 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
                         LogUtil.e(context.getClass().getSimpleName(),"loadData");
                         getDataCallBack.getDataSuccess(zhihuEntity);
                     }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        getDataCallBack.getDataFailed();
+                    }
                 });
     };
 }

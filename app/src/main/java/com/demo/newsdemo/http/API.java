@@ -9,7 +9,7 @@ public class API {
 
     public static String GANK_IO_URL="http://www.gank.io/api/data/";
 
-    public static String ZHIHU_URL="http://news-at.zhihu.com/api/4/";
+    public static String ZHIHU_URL="http://news-at.zhihu.com";
 
     public static String NETEASY_NEWS_URL="http://c.m.163.com/nc/article/";
 
