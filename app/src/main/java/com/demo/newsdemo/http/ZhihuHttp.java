@@ -1,7 +1,6 @@
 package com.demo.newsdemo.http;
 
 
-import com.qgzn.edu.funnystar.utils.API;
 
 import java.util.concurrent.TimeUnit;
 
@@ -12,28 +11,28 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Http
+ * ZhihuHttp
  * Created by Administrator on 2016/12/14.
  */
-public class Http {
+public class ZhihuHttp {
 
     private static OkHttpClient client;
-    private static HttpService httpService;
+    private static ZhihuService zhihuService;
     private static Retrofit retrofit;
 
     /**
      * @return retrofit的底层利用反射的方式, 获取所有的api接口的类
      */
-    public static HttpService getHttpService() {
-        if (httpService == null) {
-            httpService = getRetrofit().create(HttpService.class);
+    public static ZhihuService getZhihuService() {
+        if (zhihuService == null) {
+            zhihuService = getRetrofit().create(ZhihuService.class);
         }
-        return httpService;
+        return zhihuService;
     }
 
     public static Retrofit getRetrofit() {
         if (retrofit == null) {
-            synchronized (Http.class) {
+            synchronized (ZhihuHttp.class) {
                 if (retrofit == null) {
                     //添加一个log拦截器,打印所有的log
                     HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
@@ -57,7 +56,7 @@ public class Http {
                     // 获取retrofit的实例
                     retrofit = new Retrofit
                             .Builder()
-                            .baseUrl(API.INTERFACE_BASE_URL)  //自己配置
+                            .baseUrl(API.ZHIHU_URL)  //自己配置
                             .client(client)
                             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                             .addConverterFactory(GsonConverterFactory.create()) //这里是用的fastjson的

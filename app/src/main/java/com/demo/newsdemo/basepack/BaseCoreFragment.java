@@ -8,8 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.qgzn.edu.funnystar.http.Http;
-import com.qgzn.edu.funnystar.http.HttpService;
+
+import com.demo.newsdemo.http.ZhihuHttp;
+import com.demo.newsdemo.http.ZhihuService;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -21,13 +22,13 @@ import butterknife.Unbinder;
 public abstract class BaseCoreFragment extends Fragment {
     protected View rootView;
     protected LayoutInflater inflater;
-    protected static HttpService httpService;
+    protected static ZhihuService zhihuService;
 
     protected Unbinder unbinder;
     protected Context context;
     protected String TAG;
     static {
-        httpService = Http.getHttpService();
+        zhihuService = ZhihuHttp.getZhihuService();
     }
     //  加载进度的dialog
 //    private CustomProgressDialog mProgressDialog;

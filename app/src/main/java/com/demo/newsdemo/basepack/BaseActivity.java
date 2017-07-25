@@ -4,28 +4,16 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.WindowManager;
 
-import com.qgzn.edu.funnystar.bean.CodeBean;
-import com.qgzn.edu.funnystar.http.Http;
-import com.qgzn.edu.funnystar.http.HttpService;
-import com.qgzn.edu.funnystar.utils.Constant;
-import com.qgzn.edu.funnystar.utils.LogUtils;
+
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 public abstract class BaseActivity extends BaseRxActivity {
     protected Unbinder unbinder;
-    protected static HttpService httpService;
     protected Context context;
     protected String TAG;
 
-    static {
-        httpService = Http.getHttpService();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
