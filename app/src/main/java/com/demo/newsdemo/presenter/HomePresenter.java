@@ -42,5 +42,20 @@ public class HomePresenter implements HomeContract.Presenter {
         });
     }
 
+    @Override
+    public void loadMoreData(String date,Context context) {
+        model.requestMoreData(date, context, new GetDataCallBack<ZhihuEntity>() {
+                @Override
+                public void getDataSuccess(ZhihuEntity zhihuEntity) {
+                    mView.updateList(zhihuEntity);
+                }
+
+                @Override
+                public void getDataFailed() {
+                    mView.showGetdataFailed();
+                }
+            });
+    }
+
 
 }

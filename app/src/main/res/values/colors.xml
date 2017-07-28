@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#ff5722</color>
+    <color name="colorPrimaryDark">#ff5722</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="orange">#ff5722</color>
+    <color name="deepPurple">#673AB7</color>
+    <color name="lightPurple">#cc33ff</color>
+    <color name="lightBlue">#0099ff</color>
+
+    <color name="deepPurple900">#311B92</color>
+    <color name="white_fff">#fff</color>
+    <color name="gray_888888">#888888</color>
+    <color name="Gray100">#dddddd</color>
+    <color name="Gray600">#999999</color>
+
+    <color name="black_7F7F7F">#7F7F7F</color>
+    <color name="white">#ffffffff</color>
+    <color name="gray">#808080</color>
+
+    <color name="toolbar_color">#27B7F3</color>
+    <color name="background_color">#F7F7F7</color>
+    <color name="waterMark">#77000000</color>
+
+    <color name="login_hint">#666666</color>
+    <color name="LightGray">#999999</color>
+    <color name="aLightGray">#50999999</color>
+    <color name="black">#000000</color>
+
+    <color name="red">#ff0000</color>
+    <color name="nev_item">#88ff0000</color>
 </resources>

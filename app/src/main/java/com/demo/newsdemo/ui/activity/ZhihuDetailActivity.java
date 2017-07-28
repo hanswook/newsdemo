@@ -30,6 +30,7 @@ public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailCont
     @Inject
     ZhihuDetailPresenter zhihuDetailPresenter;
 
+    String zhihuId;
     @Override
     public int getLayoutId() {
         return R.layout.activity_zhihu_detail;
@@ -38,13 +39,21 @@ public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailCont
     @Override
     protected void initData() {
         super.initData();
+        initDagger();
+        initIntentData();
+        zhihuDetailPresenter.loadData(this, zhihuId);
+    }
 
+    private void initIntentData() {
+        zhihuId = getIntent().getStringExtra("zhihu_id");
+
+    }
+
+    private void initDagger() {
         DaggerZhihuDetailComponent.builder()
                 .zhihuDetailModule(new ZhihuDetailModule(this, new ZhihuDetailModel()))
                 .build()
                 .inject(this);
-        String zhihuId = getIntent().getStringExtra("zhihu_id");
-        zhihuDetailPresenter.loadData(this, "9538838");
     }
 
     @Override

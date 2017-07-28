@@ -16,9 +16,12 @@ public interface HomeContract{
     }
     interface Presenter{
         void loadData(Context context);
+        void loadMoreData(String date,Context context);
     }
     interface Model{
         void requestLastDailyData(Context context,GetDataCallBack<ZhihuEntity> getDataCallBack);
+        void requestMoreData(String date, Context context, final GetDataCallBack<ZhihuEntity> callBack);
+
     }
 
 }
