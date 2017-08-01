@@ -2,8 +2,11 @@ package com.demo.newsdemo.contract;
 
 import android.content.Context;
 
+import com.demo.newsdemo.bean.StoriesBean;
 import com.demo.newsdemo.bean.ZhihuEntity;
 import com.demo.newsdemo.callback.GetDataCallBack;
+
+import java.util.List;
 
 /**
  * Created by hans on 2017/7/25 13:31.
@@ -11,7 +14,7 @@ import com.demo.newsdemo.callback.GetDataCallBack;
 
 public interface HomeContract{
     interface View{
-        void updateList(ZhihuEntity zhihuEntity);
+        void updateList(List<StoriesBean> stories);
         void showGetdataFailed();
     }
     interface Presenter{
@@ -19,8 +22,8 @@ public interface HomeContract{
         void loadMoreData(String date,Context context);
     }
     interface Model{
-        void requestLastDailyData(Context context,GetDataCallBack<ZhihuEntity> getDataCallBack);
-        void requestMoreData(String date, Context context, final GetDataCallBack<ZhihuEntity> callBack);
+        void requestLastDailyData(Context context,GetDataCallBack<List<StoriesBean>> getDataCallBack);
+        void requestMoreData(String date, Context context, final GetDataCallBack<List<StoriesBean>> callBack);
 
     }
 

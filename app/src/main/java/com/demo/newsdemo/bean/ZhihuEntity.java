@@ -2,6 +2,8 @@ package com.demo.newsdemo.bean;
 
 import java.util.List;
 
+import io.realm.RealmObject;
+
 /**
  * Created by hans on 2017/5/11 15:56.
  */

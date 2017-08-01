@@ -2,11 +2,14 @@ package com.demo.newsdemo.presenter;
 
 import android.content.Context;
 
+import com.demo.newsdemo.bean.StoriesBean;
 import com.demo.newsdemo.bean.ZhihuEntity;
 import com.demo.newsdemo.callback.GetDataCallBack;
 import com.demo.newsdemo.contract.HomeContract;
 import com.demo.newsdemo.model.HomeModel;
 import com.demo.newsdemo.utils.LogUtil;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -28,10 +31,9 @@ public class HomePresenter implements HomeContract.Presenter {
     @Override
     public void loadData(Context context) {
         LogUtil.e(context.getClass().getSimpleName(), "loadData");
-        model.requestLastDailyData(context, new GetDataCallBack<ZhihuEntity>() {
+        model.requestLastDailyData(context, new GetDataCallBack<List<StoriesBean>>() {
             @Override
-            public void getDataSuccess(ZhihuEntity zhihuEntity) {
-
+            public void getDataSuccess(List<StoriesBean> zhihuEntity) {
                 mView.updateList(zhihuEntity);
             }
 
@@ -43,18 +45,18 @@ public class HomePresenter implements HomeContract.Presenter {
     }
 
     @Override
-    public void loadMoreData(String date,Context context) {
-        model.requestMoreData(date, context, new GetDataCallBack<ZhihuEntity>() {
-                @Override
-                public void getDataSuccess(ZhihuEntity zhihuEntity) {
-                    mView.updateList(zhihuEntity);
-                }
+    public void loadMoreData(String date, Context context) {
+        model.requestMoreData(date, context, new GetDataCallBack<List<StoriesBean>>() {
+            @Override
+            public void getDataSuccess(List<StoriesBean> zhihuEntity) {
+                mView.updateList(zhihuEntity);
+            }
 
-                @Override
-                public void getDataFailed() {
-                    mView.showGetdataFailed();
-                }
-            });
+            @Override
+            public void getDataFailed() {
+                mView.showGetdataFailed();
+            }
+        });
     }
 
 

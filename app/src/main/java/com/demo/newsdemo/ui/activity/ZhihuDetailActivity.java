@@ -45,6 +45,7 @@ public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailCont
     }
 
     private void initIntentData() {
+        zhihuId="9544617";
         zhihuId = getIntent().getStringExtra("zhihu_id");
 
     }

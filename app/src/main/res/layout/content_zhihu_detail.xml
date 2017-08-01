@@ -19,7 +19,7 @@
         <ImageView
             android:id="@+id/zhihu_detail_image"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height_200dp"
+            android:layout_height="@dimen/item_height_320dp"
             android:scaleType="centerCrop" />
 
         <TextView

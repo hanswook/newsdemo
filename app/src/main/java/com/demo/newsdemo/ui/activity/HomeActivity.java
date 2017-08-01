@@ -31,7 +31,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class HomeActivity extends BaseActivity implements HomeContract.View {
 
@@ -63,6 +62,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     }
 
     private void requestData() {
+        isLoading = true;
         homePresenter.loadData(this);
     }
 
@@ -135,6 +135,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
             }
         });
+
     }
 
     private void initRecycler() {
@@ -168,14 +169,29 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
 
     @Override
-    public void updateList(ZhihuEntity zhihuEntity) {
-        LogUtil.e(TAG, "zhihu:" + zhihuEntity.getDate() + ",size:" + zhihuEntity.getStories().size());
+    public void updateList(List<StoriesBean> stories) {
+        LogUtil.e(TAG, "zhihu:" + stories.get(0).getDataDate() + ",size:" + stories.size());
+        getDataString();
+        for (int i = 0; i < stories.size(); i++) {
+            stories.get(i).setDelegateType(0);
+            stories.get(i).setDataDate(dateShow);
+        }
+        StoriesBean sb = new StoriesBean();
+        sb.setDelegateType(1);
+        sb.setDataDate(dateShow);
+        stories.add(0, sb);
+        datas.addAll(stories);
+        adapter.notifyItemRangeInserted(datas.size() - stories.size(), datas.size() - 1);
+        LogUtil.e(TAG, datas.size() + "");
+        LogUtil.e(TAG, "storiesSize:" + stories.size());
+        isLoading = false;
     }
 
     @Override
     public void showGetdataFailed() {
         LogUtil.e(TAG, "zhihu:showGetdataFailed");
-
+        LogUtil.e(TAG, "getDataFailed");
+        isLoading = false;
     }
 
     private void getDataString() {
@@ -187,7 +203,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
     private void loadMore() {
         isLoading = true;
-        homePresenter.getBeforeData(dataDate + "", context);
+        homePresenter.loadMoreData(dataDate + "", context);
         dataDate--;
     }
 }
