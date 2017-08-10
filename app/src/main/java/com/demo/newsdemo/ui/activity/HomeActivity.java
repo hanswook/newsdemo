@@ -2,7 +2,6 @@ package com.demo.newsdemo.ui.activity;
 
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -10,9 +9,8 @@ import android.view.View;
 
 import com.demo.newsdemo.R;
 import com.demo.newsdemo.adapter.ZhihuListAdapter;
-import com.demo.newsdemo.basepack.BaseActivity;
-import com.demo.newsdemo.bean.StoriesBean;
-import com.demo.newsdemo.bean.ZhihuEntity;
+import com.demo.newsdemo.base.BaseActivity;
+import com.demo.newsdemo.model.bean.zhihu.StoriesBean;
 import com.demo.newsdemo.contract.HomeContract;
 import com.demo.newsdemo.di.DaggerHomeComponent;
 import com.demo.newsdemo.di.HomeModule;
@@ -56,6 +54,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     @Override
     protected void initData() {
         super.initData();
+        homePresenter.attachView(this);
         initDagger();
         initDataType();
         requestData();
@@ -205,5 +204,21 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         isLoading = true;
         homePresenter.loadMoreData(dataDate + "", context);
         dataDate--;
+    }
+
+    @Override
+    public void showError() {
+
+    }
+
+    @Override
+    public void complete() {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        homePresenter.attachView(this);
     }
 }

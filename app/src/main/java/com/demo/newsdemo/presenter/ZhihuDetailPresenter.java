@@ -2,8 +2,8 @@ package com.demo.newsdemo.presenter;
 
 import android.content.Context;
 
-import com.demo.newsdemo.bean.TheStoryBean;
-import com.demo.newsdemo.callback.GetDataCallBack;
+import com.demo.newsdemo.model.bean.zhihu.TheStoryBean;
+import com.demo.newsdemo.contract.callback.GetDataCallBack;
 import com.demo.newsdemo.contract.ZhihuDetailContract;
 
 import javax.inject.Inject;
@@ -24,8 +24,8 @@ public class ZhihuDetailPresenter implements ZhihuDetailContract.Presenter{
     }
 
     @Override
-    public void loadData(Context context, String id) {
-            model.requestDetailData(context, id, new GetDataCallBack<TheStoryBean>() {
+    public void loadDetailData(Context context, String id) {
+            model.getDetailData(context, id, new GetDataCallBack<TheStoryBean>() {
                 @Override
                 public void getDataSuccess(TheStoryBean theStoryBean) {
                     view.updateUI(theStoryBean);
@@ -37,4 +37,6 @@ public class ZhihuDetailPresenter implements ZhihuDetailContract.Presenter{
                 }
             });
     }
+
+
 }

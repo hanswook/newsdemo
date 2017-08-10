@@ -114,4 +114,6 @@ public class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseViewHolder>
         this.onItemClickListener = onItemClickListener;
     }
 
+
+
 }

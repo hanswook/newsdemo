@@ -1,15 +1,13 @@
-package com.demo.newsdemo.bean;
+package com.demo.newsdemo.model.bean.zhihu;
 
 import java.util.List;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by hans on 2017/5/11 16:51.
  */
 
-public class StoriesBean extends RealmObject {
+public class StoriesBean  {
     /**
      * images : ["https://pic4.zhimg.com/v2-abf262f484c3cc4d9282749f1fccc1ef.jpg"]
      * type : 0
@@ -19,7 +17,6 @@ public class StoriesBean extends RealmObject {
      * delegateType: 0 是数据 1是日期item.
      * dataDate 是日期item
      */
-    @PrimaryKey
     private int _id;
 
     public int get_id() {

@@ -1,7 +1,7 @@
 package com.demo.newsdemo.base;
 
-import com.demo.newsdemo.http.ZhihuHttp;
-import com.demo.newsdemo.http.ZhihuService;
+import com.demo.newsdemo.net.ZhihuHttp;
+import com.demo.newsdemo.net.ZhihuService;
 
 /**
  * Created by hans on 2017/7/25 14:01.

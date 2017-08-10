@@ -2,7 +2,7 @@ package com.demo.newsdemo.adapter;
 
 import android.content.Context;
 
-import com.demo.newsdemo.bean.StoriesBean;
+import com.demo.newsdemo.model.bean.zhihu.StoriesBean;
 import com.demo.newsdemo.utils.recycler.BaseRecyclerAdapter;
 
 import java.util.List;
@@ -17,4 +17,7 @@ public class ZhihuListAdapter extends BaseRecyclerAdapter<StoriesBean> {
         addItemViewDelegate(new ZhihuDailyCardDelegate());
         addItemViewDelegate(new ZhihuDateDelegate());
     }
+
+
+
 }

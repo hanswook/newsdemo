@@ -1,8 +1,7 @@
-package com.demo.newsdemo.bean;
+package com.demo.newsdemo.model.bean.zhihu;
 
 import java.util.List;
 
-import io.realm.RealmObject;
 
 /**
  * Created by hans on 2017/5/11 15:56.

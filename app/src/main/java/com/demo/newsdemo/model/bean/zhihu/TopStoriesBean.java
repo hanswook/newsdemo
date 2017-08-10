@@ -1,4 +1,4 @@
-package com.demo.newsdemo.bean;
+package com.demo.newsdemo.model.bean.zhihu;
 
 /**
  * Created by hans on 2017/5/11 16:52.

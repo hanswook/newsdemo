@@ -1,4 +1,4 @@
-package com.demo.newsdemo.basepack;
+package com.demo.newsdemo.base;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +11,7 @@ import io.reactivex.disposables.Disposable;
  */
 
 public abstract class BaseRxActivity extends AppCompatActivity {
+
     private CompositeDisposable disposables2Stop;
 
     private CompositeDisposable disposables2Destroy;

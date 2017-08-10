@@ -9,12 +9,16 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-        classpath "io.realm:realm-gradle-plugin:3.5.0"}
+    }
 }
 
 allprojects {
     repositories {
         jcenter()
+        maven {
+            // All of React Native (JS, Android binaries) is installed from npm
+            url "$projectDir/../node_modules/react-native/android"
+        }
     }
 }
 

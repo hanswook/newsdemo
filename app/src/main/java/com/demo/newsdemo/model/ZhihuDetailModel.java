@@ -3,8 +3,8 @@ package com.demo.newsdemo.model;
 import android.content.Context;
 
 import com.demo.newsdemo.base.BaseModel;
-import com.demo.newsdemo.bean.TheStoryBean;
-import com.demo.newsdemo.callback.GetDataCallBack;
+import com.demo.newsdemo.model.bean.zhihu.TheStoryBean;
+import com.demo.newsdemo.contract.callback.GetDataCallBack;
 import com.demo.newsdemo.contract.ZhihuDetailContract;
 import com.demo.newsdemo.utils.CommonSubscriber;
 
@@ -19,7 +19,7 @@ public class ZhihuDetailModel extends BaseModel implements ZhihuDetailContract.M
 
 
     @Override
-    public void requestDetailData(Context context, String id, final GetDataCallBack<TheStoryBean> callBack) {
+    public void getDetailData(Context context, String id, final GetDataCallBack<TheStoryBean> callBack) {
         zhihuService.getZhihuStory(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

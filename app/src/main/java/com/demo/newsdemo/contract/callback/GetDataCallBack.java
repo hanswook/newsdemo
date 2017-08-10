@@ -1,4 +1,4 @@
-package com.demo.newsdemo.callback;
+package com.demo.newsdemo.contract.callback;
 
 /**
  * Created by hans on 2017/7/25 14:20.

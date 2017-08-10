@@ -1,4 +1,4 @@
-package com.demo.newsdemo.bean;
+package com.demo.newsdemo.model.bean.zhihu;
 
 import java.util.List;
 

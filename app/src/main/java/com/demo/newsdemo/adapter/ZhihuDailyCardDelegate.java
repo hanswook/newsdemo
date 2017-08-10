@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.demo.newsdemo.R;
-import com.demo.newsdemo.bean.StoriesBean;
+import com.demo.newsdemo.model.bean.zhihu.StoriesBean;
 import com.demo.newsdemo.utils.recycler.BaseViewHolder;
 import com.demo.newsdemo.utils.recycler.ItemViewDelegate;
 

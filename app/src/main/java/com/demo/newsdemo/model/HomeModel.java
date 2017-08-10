@@ -3,9 +3,9 @@ package com.demo.newsdemo.model;
 import android.content.Context;
 
 import com.demo.newsdemo.base.BaseModel;
-import com.demo.newsdemo.bean.StoriesBean;
-import com.demo.newsdemo.bean.ZhihuEntity;
-import com.demo.newsdemo.callback.GetDataCallBack;
+import com.demo.newsdemo.model.bean.zhihu.StoriesBean;
+import com.demo.newsdemo.model.bean.zhihu.ZhihuEntity;
+import com.demo.newsdemo.contract.callback.GetDataCallBack;
 import com.demo.newsdemo.contract.HomeContract;
 import com.demo.newsdemo.utils.CommonSubscriber;
 import com.demo.newsdemo.utils.LogUtil;
@@ -26,7 +26,6 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
 
     @Override
     public void requestLastDailyData(final Context context, final GetDataCallBack<List<StoriesBean>> getDataCallBack) {
-        LogUtil.e(context.getClass().getSimpleName(), "requestLastDailyData");
 
         zhihuService.getLastDaily()
                 .map(new Function<ZhihuEntity, List<StoriesBean>>() {
@@ -40,7 +39,7 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
                 .subscribe(new CommonSubscriber<List<StoriesBean>>(context) {
                     @Override
                     public void onNext(List<StoriesBean> zhihuEntity) {
-                        LogUtil.e(context.getClass().getSimpleName(), "loadData");
+                        LogUtil.e(context.getClass().getSimpleName(), "loadDetailData");
                         getDataCallBack.getDataSuccess(zhihuEntity);
                     }
 

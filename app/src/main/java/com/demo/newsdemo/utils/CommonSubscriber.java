@@ -3,7 +3,7 @@ package com.demo.newsdemo.utils;
 
 import android.content.Context;
 
-import com.demo.newsdemo.basepack.BaseActivity;
+import com.demo.newsdemo.base.BaseActivity;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -22,13 +22,10 @@ public abstract class CommonSubscriber<T> implements Observer<T> {
 
     private static final String TAG = "CommonSubscriber";
 
-
     @Override
     public void onSubscribe(Disposable d) {
         if (!NetWorkUtils.isConnectedByState(context)) {
             LogUtil.e(TAG, "网络不可用");
-        } else {
-//            LogUtil.e(TAG, "网络可用");
         }
         if (context instanceof BaseActivity){
             ((BaseActivity)context).addRxDestroy(d);

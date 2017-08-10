@@ -1,9 +1,11 @@
-package com.demo.newsdemo.basepack;
+package com.demo.newsdemo.base;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
-
 
 
 import butterknife.ButterKnife;
@@ -22,6 +24,17 @@ public abstract class BaseActivity extends BaseRxActivity {
         TAG = getClass().getSimpleName();
         unbinder = ButterKnife.bind(this);
         context = this;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            View decorView = getWindow().getDecorView();
+            int option = View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(option);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
+            localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
+        }
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -42,8 +55,9 @@ public abstract class BaseActivity extends BaseRxActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         unbinder.unbind();
+        super.onDestroy();
+
     }
 
 

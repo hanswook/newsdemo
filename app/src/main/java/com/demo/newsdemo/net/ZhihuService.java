@@ -1,8 +1,9 @@
-package com.demo.newsdemo.http;
+package com.demo.newsdemo.net;
 
 
-import com.demo.newsdemo.bean.TheStoryBean;
-import com.demo.newsdemo.bean.ZhihuEntity;
+import com.demo.newsdemo.model.bean.SplashBean;
+import com.demo.newsdemo.model.bean.zhihu.TheStoryBean;
+import com.demo.newsdemo.model.bean.zhihu.ZhihuEntity;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -23,5 +24,8 @@ public interface ZhihuService {
     Observable<TheStoryBean> getZhihuStory(@Path("id") String id);
 
     @GET("http://lab.zuimeia.com/wallpaper/category/1/?page_size=1")
-    Observable<ZhihuEntity> getImage();
+    Observable<SplashBean> getImage();
+
+
+
 }

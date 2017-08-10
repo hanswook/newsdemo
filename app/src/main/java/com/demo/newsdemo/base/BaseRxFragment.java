@@ -1,4 +1,4 @@
-package com.demo.newsdemo.basepack;
+package com.demo.newsdemo.base;
 
 import android.os.Bundle;
 
