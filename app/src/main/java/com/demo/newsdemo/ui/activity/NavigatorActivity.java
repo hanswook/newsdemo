@@ -39,7 +39,7 @@ public class NavigatorActivity extends BaseActivity {
 
                 break;
             case R.id.btn2:
-                startActivity(new Intent(context, ReactNativeActivity.class));
+//                startActivity(new Intent(context, ReactNativeActivity.class));
 
                 break;
             case R.id.btn3:

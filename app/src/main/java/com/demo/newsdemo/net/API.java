@@ -5,12 +5,11 @@ package com.demo.newsdemo.net;
  */
 
 public class API {
-    public static String BASE_URL="http://www.baidu.com";
 
-    public static String GANK_IO_URL="http://www.gank.io/api/data/";
+    public static String GANK_IO_URL="http://gank.io/api";
+
 
     public static String ZHIHU_URL="http://news-at.zhihu.com";
 
-    public static String NETEASY_NEWS_URL="http://c.m.163.com/nc/article/";
 
 }

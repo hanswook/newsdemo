@@ -2,6 +2,8 @@ package com.demo.newsdemo.model;
 
 import android.content.Context;
 
+import com.demo.newsdemo.base.BaseActivity;
+import com.demo.newsdemo.base.BaseContract;
 import com.demo.newsdemo.base.BaseModel;
 import com.demo.newsdemo.contract.SplashContract;
 import com.demo.newsdemo.contract.callback.GetDataCallBack;
@@ -10,6 +12,7 @@ import com.demo.newsdemo.model.bean.zhihu.ZhihuEntity;
 import com.demo.newsdemo.utils.CommonSubscriber;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -18,9 +21,9 @@ import io.reactivex.schedulers.Schedulers;
 
 public class SplashModel extends BaseModel implements SplashContract.Model{
     @Override
-    public void getData(Context context, final GetDataCallBack<SplashBean> callBack) {
+    public void getData(final BaseContract.BaseView mView, final GetDataCallBack<SplashBean> callBack) {
         zhihuService.getImage().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new CommonSubscriber<SplashBean>(context) {
+                .subscribe(new CommonSubscriber<SplashBean>(mView) {
                     @Override
                     public void onNext(SplashBean splashBean) {
                         callBack.getDataSuccess(splashBean);

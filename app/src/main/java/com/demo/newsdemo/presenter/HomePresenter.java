@@ -2,6 +2,7 @@ package com.demo.newsdemo.presenter;
 
 import android.content.Context;
 
+import com.demo.newsdemo.base.BaseActivity;
 import com.demo.newsdemo.base.BasePresenter;
 import com.demo.newsdemo.model.bean.zhihu.StoriesBean;
 import com.demo.newsdemo.contract.callback.GetDataCallBack;
@@ -22,13 +23,14 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
 
     @Inject
     public HomePresenter(HomeContract.View mView, HomeContract.Model model) {
+        attachView(mView);
         this.model = model;
     }
 
     @Override
-    public void loadData(Context context) {
-        LogUtil.e(context.getClass().getSimpleName(), "loadDetailData");
-        model.requestLastDailyData(context, new GetDataCallBack<List<StoriesBean>>() {
+    public void loadData() {
+        LogUtil.e(mView.getClass().getSimpleName(), "loadDetailData");
+        model.requestLastDailyData(mView, new GetDataCallBack<List<StoriesBean>>() {
             @Override
             public void getDataSuccess(List<StoriesBean> zhihuEntity) {
                 mView.updateList(zhihuEntity);
@@ -42,8 +44,8 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
     }
 
     @Override
-    public void loadMoreData(String date, Context context) {
-        model.requestMoreData(date, context, new GetDataCallBack<List<StoriesBean>>() {
+    public void loadMoreData(String date, BaseActivity activity) {
+        model.requestMoreData(date, mView, new GetDataCallBack<List<StoriesBean>>() {
             @Override
             public void getDataSuccess(List<StoriesBean> zhihuEntity) {
                 mView.updateList(zhihuEntity);

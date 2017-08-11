@@ -1,7 +1,10 @@
 package com.demo.newsdemo.contract;
 
+import android.app.Activity;
 import android.content.Context;
 
+import com.demo.newsdemo.base.BaseActivity;
+import com.demo.newsdemo.base.BaseContract;
 import com.demo.newsdemo.contract.callback.GetDataCallBack;
 import com.demo.newsdemo.model.bean.SplashBean;
 
@@ -11,17 +14,18 @@ import com.demo.newsdemo.model.bean.SplashBean;
  */
 
 public interface SplashContract {
-    interface View {
+
+    interface View extends BaseContract.BaseView{
         void updateUI(SplashBean splashBean);
         void getDataFailed();
 
     }
 
-    interface Presenter {
-        void loadData(Context context);
+    interface Presenter<T> extends BaseContract.BasePresenter<T>{
+        void loadData();
     }
 
     interface Model {
-        void getData(Context context, GetDataCallBack<SplashBean> callBack);
+        void getData(BaseContract.BaseView mView, GetDataCallBack<SplashBean> callBack);
     }
 }

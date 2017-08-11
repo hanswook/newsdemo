@@ -2,6 +2,8 @@ package com.demo.newsdemo.model;
 
 import android.content.Context;
 
+import com.demo.newsdemo.base.BaseActivity;
+import com.demo.newsdemo.base.BaseContract;
 import com.demo.newsdemo.base.BaseModel;
 import com.demo.newsdemo.model.bean.zhihu.StoriesBean;
 import com.demo.newsdemo.model.bean.zhihu.ZhihuEntity;
@@ -14,6 +16,7 @@ import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
@@ -25,7 +28,7 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
 
 
     @Override
-    public void requestLastDailyData(final Context context, final GetDataCallBack<List<StoriesBean>> getDataCallBack) {
+    public void requestLastDailyData(final BaseContract.BaseView mView, final GetDataCallBack<List<StoriesBean>> getDataCallBack) {
 
         zhihuService.getLastDaily()
                 .map(new Function<ZhihuEntity, List<StoriesBean>>() {
@@ -36,10 +39,10 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new CommonSubscriber<List<StoriesBean>>(context) {
+                .subscribe(new CommonSubscriber<List<StoriesBean>>(mView) {
                     @Override
                     public void onNext(List<StoriesBean> zhihuEntity) {
-                        LogUtil.e(context.getClass().getSimpleName(), "loadDetailData");
+                        LogUtil.e(mView.getClass().getSimpleName(), "loadDetailData");
                         getDataCallBack.getDataSuccess(zhihuEntity);
                     }
 
@@ -52,7 +55,7 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
     }
 
     @Override
-    public void requestMoreData(String date, Context context, final GetDataCallBack<List<StoriesBean>> callBack) {
+    public void requestMoreData(String date, final BaseContract.BaseView mView, final GetDataCallBack<List<StoriesBean>> callBack) {
         zhihuService.getTheDaily(date)
                 .map(new Function<ZhihuEntity, List<StoriesBean>>() {
                     @Override
@@ -61,11 +64,12 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
                     }
                 }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new CommonSubscriber<List<StoriesBean>>(context) {
+                .subscribe(new CommonSubscriber<List<StoriesBean>>(mView) {
                     @Override
                     public void onNext(List<StoriesBean> zhihuEntity) {
                         callBack.getDataSuccess(zhihuEntity);
                     }
+
                     @Override
                     public void onError(Throwable e) {
                         callBack.getDataFailed();

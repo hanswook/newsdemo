@@ -5,12 +5,16 @@ package com.demo.newsdemo.base;
  */
 
 public interface BaseContract {
-    interface BasePresenter<T>{
+
+    interface BasePresenter<T> {
         void attachView(T view);
+
         void detachView();
     }
-    interface BaseView{
+
+    interface BaseView {
         void showError();
+
         void complete();
     }
 }

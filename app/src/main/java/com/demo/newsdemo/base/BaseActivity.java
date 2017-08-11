@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.WindowManager;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -16,6 +19,11 @@ public abstract class BaseActivity extends BaseRxActivity {
     protected Context context;
     protected String TAG;
 
+    private List<BasePresenter> presenterList = new ArrayList<>();
+
+    protected void addPresenter(BasePresenter presenter) {
+        presenterList.add(presenter);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +64,8 @@ public abstract class BaseActivity extends BaseRxActivity {
     @Override
     protected void onDestroy() {
         unbinder.unbind();
+        for (BasePresenter p : presenterList)
+            p.detachView();
         super.onDestroy();
 
     }

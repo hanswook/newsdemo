@@ -29,7 +29,7 @@ import io.reactivex.functions.Consumer;
 public class SplashActivity extends BaseActivity implements SplashContract.View {
 
     @Inject
-    SplashPresenter zhihuDetailPresenter;
+    SplashPresenter splashPresenter;
 
     @BindView(R.id.splash_image)
     ImageView splashImage;
@@ -46,12 +46,13 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
                 .splashModule(new SplashModule(this, new SplashModel()))
                 .build()
                 .inject(this);
+        addPresenter(splashPresenter);
     }
 
     @Override
     protected void initView() {
         super.initView();
-        zhihuDetailPresenter.loadData(context);
+        splashPresenter.loadData();
     }
 
     @Override
@@ -67,14 +68,23 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
         turnToNext(1);
     }
 
-    protected void turnToNext(long delay){
+    protected void turnToNext(long delay) {
         Observable.timer(delay, TimeUnit.SECONDS).subscribe(new Consumer<Long>() {
             @Override
             public void accept(@NonNull Long aLong) throws Exception {
-                startActivity(new Intent(SplashActivity.this,GankIOActivity.class));
+                startActivity(new Intent(SplashActivity.this, GankIOActivity.class));
                 SplashActivity.this.finish();
             }
         });
     }
 
+    @Override
+    public void showError() {
+
+    }
+
+    @Override
+    public void complete() {
+
+    }
 }

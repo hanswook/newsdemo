@@ -2,6 +2,8 @@ package com.demo.newsdemo.contract;
 
 import android.content.Context;
 
+import com.demo.newsdemo.base.BaseActivity;
+import com.demo.newsdemo.base.BaseContract;
 import com.demo.newsdemo.model.bean.zhihu.TheStoryBean;
 import com.demo.newsdemo.contract.callback.GetDataCallBack;
 
@@ -10,16 +12,16 @@ import com.demo.newsdemo.contract.callback.GetDataCallBack;
  */
 
 public interface ZhihuDetailContract {
-    interface View {
+    interface View extends BaseContract.BaseView{
         void updateUI(TheStoryBean data);
         void requestFailed();
     }
 
     interface Model {
-       void getDetailData(Context context, String id, GetDataCallBack<TheStoryBean> callBack);
+       void getDetailData(BaseContract.BaseView mView, String id, GetDataCallBack<TheStoryBean> callBack);
     }
 
-    interface Presenter {
-        void loadDetailData(Context context, String id);
+    interface Presenter<T> extends BaseContract.BasePresenter<T>{
+        void loadDetailData( String id);
     }
 }

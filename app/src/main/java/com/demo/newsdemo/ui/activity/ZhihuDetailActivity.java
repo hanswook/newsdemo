@@ -13,7 +13,6 @@ import com.demo.newsdemo.contract.ZhihuDetailContract;
 import com.demo.newsdemo.di.DaggerZhihuDetailComponent;
 import com.demo.newsdemo.di.ZhihuDetailModule;
 import com.demo.newsdemo.model.ZhihuDetailModel;
-import com.demo.newsdemo.model.viewModel.ZhihuDetailEntity;
 import com.demo.newsdemo.presenter.ZhihuDetailPresenter;
 import com.demo.newsdemo.utils.LogUtil;
 
@@ -32,7 +31,7 @@ public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailCont
     @Inject
     ZhihuDetailPresenter zhihuDetailPresenter;
 
-    private ZhihuDetailEntity detailEntity;
+    private String detailId;
 
     @Override
     public int getLayoutId() {
@@ -42,19 +41,15 @@ public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailCont
     @Override
     protected void initData() {
         super.initData();
-        initDataType();
         initDagger();
         initIntentData();
-        zhihuDetailPresenter.loadDetailData(this, detailEntity.getDetailId());
+        zhihuDetailPresenter.loadDetailData(detailId);
     }
 
-    private void initDataType() {
-        detailEntity = new ZhihuDetailEntity();
-    }
 
     private void initIntentData() {
-        detailEntity.setDetailId("9544617");
-        detailEntity.setDetailId(getIntent().getStringExtra("zhihu_id"));
+        detailId = "9544617";
+        detailId = getIntent().getStringExtra("zhihu_id");
     }
 
     private void initDagger() {
@@ -62,6 +57,7 @@ public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailCont
                 .zhihuDetailModule(new ZhihuDetailModule(this, new ZhihuDetailModel()))
                 .build()
                 .inject(this);
+        addPresenter(zhihuDetailPresenter);
     }
 
     @Override
@@ -91,5 +87,15 @@ public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailCont
     @Override
     public void requestFailed() {
         LogUtil.e(TAG, "requestFailed");
+    }
+
+    @Override
+    public void showError() {
+
+    }
+
+    @Override
+    public void complete() {
+
     }
 }

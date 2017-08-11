@@ -54,7 +54,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     @Override
     protected void initData() {
         super.initData();
-        homePresenter.attachView(this);
+//        homePresenter.attachView(this);
         initDagger();
         initDataType();
         requestData();
@@ -62,7 +62,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
     private void requestData() {
         isLoading = true;
-        homePresenter.loadData(this);
+        homePresenter.loadData();
     }
 
     private void initDataType() {
@@ -78,6 +78,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
                 .homeModule(new HomeModule(this, new HomeModel()))
                 .build()
                 .inject(this);
+        addPresenter(homePresenter);
     }
 
     @Override
@@ -202,7 +203,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
     private void loadMore() {
         isLoading = true;
-        homePresenter.loadMoreData(dataDate + "", context);
+        homePresenter.loadMoreData(dataDate + "", this);
         dataDate--;
     }
 

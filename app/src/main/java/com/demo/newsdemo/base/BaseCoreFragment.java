@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import com.demo.newsdemo.net.ZhihuHttp;
 import com.demo.newsdemo.net.ZhihuService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -21,73 +24,40 @@ import butterknife.Unbinder;
 
 public abstract class BaseCoreFragment extends Fragment {
     protected View rootView;
-    protected LayoutInflater inflater;
-    protected static ZhihuService zhihuService;
 
     protected Unbinder unbinder;
     protected Context context;
     protected String TAG;
-    static {
-        zhihuService = ZhihuHttp.getZhihuService();
+    protected abstract int getLayoutId();
+
+    protected abstract void init();
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initData();
     }
-    //  加载进度的dialog
-//    private CustomProgressDialog mProgressDialog;
+
+    protected abstract void initData();
 
     @Nullable
     @Override
     public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        this.inflater = inflater;
-//        mProgressDialog = CustomProgressDialog.createDialog(getContext());
-//        mProgressDialog.setCanceledOnTouchOutside(false);
         if (rootView == null) {
             rootView = inflater.inflate(this.getLayoutId(), container, false);
             unbinder = ButterKnife.bind(this, rootView);
             init();
         }
-        ViewGroup parent = (ViewGroup) rootView.getParent();
-        if (parent != null) {
-            parent.removeView(rootView);
-        }
-        context=getContext();
-        TAG=context.getClass().getSimpleName();
+        context = getContext();
+        TAG = context.getClass().getSimpleName();
         return rootView;
     }
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         unbinder.unbind();
-    }
-    /*
-    *//**
-     * 显示ProgressDialog
-     *//*
-    @Override
-    public void showProgress(String msg) {
-        mProgressDialog.setMessage(msg);
-        mProgressDialog.show();
-    }
-    *//**
-     * 显示ProgressDialog
-     *//*
-    @Override
-    public void showProgress() {
-        mProgressDialog.show();
+        super.onDestroyView();
     }
 
-    */
-
-    /**
-     * 取消ProgressDialog
-     *//*
-    @Override
-    public void dismissProgress() {
-        if (mProgressDialog != null) {
-            mProgressDialog.dismiss();
-        }
-    }*/
-    protected abstract int getLayoutId();
-
-    protected abstract void init();
 }

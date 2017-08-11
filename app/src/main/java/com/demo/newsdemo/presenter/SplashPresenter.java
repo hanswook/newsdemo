@@ -2,6 +2,7 @@ package com.demo.newsdemo.presenter;
 
 import android.content.Context;
 
+import com.demo.newsdemo.base.BasePresenter;
 import com.demo.newsdemo.contract.SplashContract;
 import com.demo.newsdemo.contract.callback.GetDataCallBack;
 import com.demo.newsdemo.model.bean.SplashBean;
@@ -13,30 +14,30 @@ import javax.inject.Inject;
  * Created by hans on 2017/8/9 15:54.
  */
 
-public class SplashPresenter implements SplashContract.Presenter{
+public class SplashPresenter extends BasePresenter<SplashContract.View> implements SplashContract.Presenter<SplashContract.View> {
 
-    SplashContract.View view;
     SplashContract.Model model;
 
     @Inject
     public SplashPresenter(SplashContract.View view, SplashContract.Model model) {
-        this.view = view;
+        attachView(view);
         this.model = model;
     }
 
     @Override
-    public void loadData(Context context) {
-        model.getData(context, new GetDataCallBack<SplashBean>() {
+    public void loadData() {
+        model.getData(mView, new GetDataCallBack<SplashBean>() {
             @Override
             public void getDataSuccess(SplashBean splashBean) {
-                view.updateUI(splashBean);
+                mView.updateUI(splashBean);
             }
 
             @Override
             public void getDataFailed() {
-                view.getDataFailed();
+                mView.getDataFailed();
             }
         });
 
     }
+
 }
