@@ -9,6 +9,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * ZhihuHttp
@@ -50,7 +51,7 @@ public class GirlHttp {
                             .baseUrl(API.URL_GET_GIRL)  //自己配置
                             .client(client)
                             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                            .addConverterFactory(GsonConverterFactory.create()) //这里是用的fastjson的
+                            .addConverterFactory(ScalarsConverterFactory.create()) //这里是用的fastjson的
                             .build();
                 }
             }

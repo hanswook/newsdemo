@@ -78,15 +78,15 @@ public class TypeFragment extends BaseCoreFragment {
             return;
         fragments = new ArrayList<>();
         mType = getArguments().getString(TYPE);
-        if (ResourceUtil.res2String(context, R.string.gank).equalsIgnoreCase(mType)) {
+        if (ResourceUtil.res2String(getActivity(), R.string.gank).equalsIgnoreCase(mType)) {
             mTitles = ResourceUtil.stringArray2List(getActivity(), R.array.gank);
             LogUtil.e(TAG, "mTitles:" + mTitles.size() + ",:" + mTitles.get(0));
             for (String title : mTitles) {
                 fragments.add(GankItemFragment.newInstance(title));
             }
-        } else if (ResourceUtil.res2String(context, R.string.girl).equalsIgnoreCase(mType)) {
-            mTitles = ResourceUtil.stringArray2List(context, R.array.girl);
-            List<String> subTypes = ResourceUtil.stringArray2List(context, R.array.girl_cid);
+        } else if (ResourceUtil.res2String(getActivity(), R.string.girl).equalsIgnoreCase(mType)) {
+            mTitles = ResourceUtil.stringArray2List(getActivity(), R.array.girl);
+            List<String> subTypes = ResourceUtil.stringArray2List(getActivity(), R.array.girl_cid);
             for (String subtype : subTypes) {
                 fragments.add(GirlItemFragment.newInstance(subtype));
             }

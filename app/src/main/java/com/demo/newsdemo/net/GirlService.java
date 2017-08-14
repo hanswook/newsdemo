@@ -18,11 +18,13 @@ import retrofit2.http.Query;
 public interface GirlService {
 
 
-
     @GET("{id}")
     Observable<String> getGirlDetailData(@Path("id") String id);
 
     @GET("show.htm")
     Observable<String> getGirlItemData(@Query("cid") String cid, @Query("pager_offset") int pager_offset);
+
+    @GET("show.htm")
+    Observable<Object> getGirlItemData1(@Query("cid") String cid, @Query("pager_offset") int pager_offset);
 
 }
