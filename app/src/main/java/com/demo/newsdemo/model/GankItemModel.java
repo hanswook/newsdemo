@@ -7,6 +7,7 @@ import com.demo.newsdemo.contract.callback.GetDataCallBack;
 import com.demo.newsdemo.model.bean.GankItemData;
 import com.demo.newsdemo.model.bean.HttpResult;
 import com.demo.newsdemo.utils.CommonSubscriber;
+import com.demo.newsdemo.utils.LogUtil;
 
 import java.util.List;
 
@@ -22,8 +23,10 @@ import io.reactivex.schedulers.Schedulers;
 public class GankItemModel extends BaseModel implements GankItemContract.Model {
 
 
+
     @Override
     public void requestNetForData(String type, int pageCount, BaseContract.BaseView mView, final GetDataCallBack<List<GankItemData>> callBack) {
+        LogUtil.e("GankItemModel","requestNetForData");
         gankService.getGankData(type, pageCount)
                 .map(new Function<HttpResult<List<GankItemData>>, List<GankItemData>>() {
                     @Override

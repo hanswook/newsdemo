@@ -1,10 +1,8 @@
 package com.demo.newsdemo.ui.fragment;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,19 +10,19 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.demo.newsdemo.R;
 import com.demo.newsdemo.base.BaseRxFragment;
-import com.demo.newsdemo.contract.GankItemContract;
-import com.demo.newsdemo.di.DaggerGankItemComponent;
-import com.demo.newsdemo.di.GankItemModule;
-import com.demo.newsdemo.model.GankItemModel;
-import com.demo.newsdemo.model.bean.GankItemData;
-import com.demo.newsdemo.presenter.GankItemPresenter;
+import com.demo.newsdemo.contract.GirlItemContract;
+import com.demo.newsdemo.contract.GirlItemContract;
+import com.demo.newsdemo.di.DaggerGirlItemComponent;
+import com.demo.newsdemo.di.GirlItemModule;
+import com.demo.newsdemo.model.GirlItemModel;
+import com.demo.newsdemo.model.bean.GirlItemData;
+import com.demo.newsdemo.model.bean.GirlItemData;
+import com.demo.newsdemo.presenter.GirlItemPresenter;
 import com.demo.newsdemo.utils.ImageLoader;
 import com.demo.newsdemo.utils.LogUtil;
 import com.demo.newsdemo.utils.recycler.BaseRecyclerAdapter;
@@ -42,14 +40,14 @@ import butterknife.OnClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GankItemFragment extends BaseRxFragment implements GankItemContract.View, SwipeRefreshLayout.OnRefreshListener {
+public class GirlItemFragment extends BaseRxFragment implements GirlItemContract.View, SwipeRefreshLayout.OnRefreshListener {
 
     private int PAGE_COUNT = 1;
 
     private String mSubtype;
 
-    private CommonAdapter<GankItemData> adapter;
-    private List<GankItemData> datas;
+    private CommonAdapter<GirlItemData> adapter;
+    private List<GirlItemData> datas;
 
     private boolean isLoadMore;
 
@@ -73,7 +71,7 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
     }
 
     @Inject
-    GankItemPresenter mPresenter;
+    GirlItemPresenter mPresenter;
 
 
     @Override
@@ -86,24 +84,24 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
         isLoading = false;
         isLoadMore = false;
         datas = new ArrayList<>();
-        adapter = new CommonAdapter<GankItemData>(getActivity(), R.layout.item_gank_layout, datas) {
+        adapter = new CommonAdapter<GirlItemData>(getActivity(), R.layout.item_gank_layout, datas) {
             @Override
-            protected void convert(BaseViewHolder holder, GankItemData gankItemData, int position) {
+            protected void convert(BaseViewHolder holder, GirlItemData girlItemData, int position) {
                 TextView descTv = holder.getView(R.id.gank_item_desc);
                 TextView whoTv = holder.getView(R.id.gank_item_who);
                 TextView publishDateTv = holder.getView(R.id.gank_item_publishedat);
                 ImageView iconImg = holder.getView(R.id.gank_item_icon);
 
-                descTv.setText(gankItemData.getDesc());
-                String who = TextUtils.isEmpty(gankItemData.getWho()) ? "null" : gankItemData.getWho();
+                descTv.setText(GirlItemData.getDesc());
+                String who = TextUtils.isEmpty(GirlItemData.getWho()) ? "null" : GirlItemData.getWho();
                 whoTv.setText(who);
-                publishDateTv.setText(gankItemData.getPublishedAt().substring(0, 10));
-                String[] images = gankItemData.getImages();
+                publishDateTv.setText(GirlItemData.getPublishedAt().substring(0, 10));
+                String[] images = GirlItemData.getImages();
                 if (images != null && images.length > 0) {
                     LogUtil.e(TAG, images[0] + "?imageView2/0/w/100");
                     ImageLoader.load(context, images[0] + "?imageView2/0/w/100", iconImg, R.mipmap.web);
                 } else {
-                    String url = gankItemData.getUrl();
+                    String url = GirlItemData.getUrl();
                     int iconId;
                     if (url.contains("github")) {
                         iconId = R.mipmap.github;
@@ -213,7 +211,7 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
     @Override
     protected void fetchData() {
         LogUtil.e(TAG, "fetchData");
-        DaggerGankItemComponent.builder().gankItemModule(new GankItemModule(this, new GankItemModel()))
+        DaggerGirlItemComponent.builder().GirlItemModule(new GirlItemModule(this, new GirlItemModel()))
                 .build().inject(this);
         addPresenter(mPresenter);
         mPresenter.loadData(mSubtype, PAGE_COUNT);
@@ -235,7 +233,7 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
     }
 
     @Override
-    public void updateUI(List<GankItemData> data) {
+    public void updateUI(List<GirlItemData> data) {
         isLoading=false;
         if (isLoadMore) {
             if (data.size() == 0) {
@@ -254,9 +252,9 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
     }
 
 
-    public static GankItemFragment newInstance(String subtype) {
-        LogUtil.e("GankItemFragment", "GankItemFragment newInstance");
-        GankItemFragment fragment = new GankItemFragment();
+    public static GirlItemFragment newInstance(String subtype) {
+        LogUtil.e("GirlItemFragment", "GirlItemFragment newInstance");
+        GirlItemFragment fragment = new GirlItemFragment();
         Bundle bundle = new Bundle();
         bundle.putString(SUB_TYPE, subtype);
         fragment.setArguments(bundle);

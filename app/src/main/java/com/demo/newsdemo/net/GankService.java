@@ -22,7 +22,7 @@ public interface GankService {
 //    http://gank.io/api/data/Android/10/1
 
 
-    @GET("/data/{type}/10/{page_count}")
+    @GET("data/{type}/10/{page_count}")
     Observable<HttpResult<List<GankItemData>>> getGankData(@Path("type") String type,
                                                            @Path("page_count") int page_count);
 

@@ -8,20 +8,15 @@ import android.os.Bundle;
 
 import com.demo.newsdemo.BuildConfig;
 import com.demo.newsdemo.R;
-import com.facebook.react.ReactInstanceManager;
-import com.facebook.react.ReactRootView;
-import com.facebook.react.common.LifecycleState;
-import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
-import com.facebook.react.shell.MainReactPackage;
 
-public class ReactNativeActivity extends AppCompatActivity implements DefaultHardwareBackBtnHandler{
+public class ReactNativeActivity extends AppCompatActivity {
 
-
-    private ReactRootView mReactRootView;
+//implements DefaultHardwareBackBtnHandler
+  /*  private ReactRootView mReactRootView;
     private ReactInstanceManager mReactInstanceManager;
     private LifecycleState mLifecycleState
             = LifecycleState.BEFORE_RESUME;
-
+*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +30,7 @@ public class ReactNativeActivity extends AppCompatActivity implements DefaultHar
                 startActivity(serviceIntent);
             }
         }
-        mReactRootView = new ReactRootView(this);
+   /*     mReactRootView = new ReactRootView(this);
         mReactInstanceManager = ReactInstanceManager.builder()
                 .setApplication(getApplication())
                 .setBundleAssetName("index.android.bundle")
@@ -48,10 +43,10 @@ public class ReactNativeActivity extends AppCompatActivity implements DefaultHar
         mReactRootView.startReactApplication(mReactInstanceManager,
                 "HelloWorld", null);
 
-        setContentView(mReactRootView);
+        setContentView(mReactRootView);*/
 
     }
-
+/*
     @Override
     protected void onPause() {
         super.onPause();
@@ -107,5 +102,5 @@ public class ReactNativeActivity extends AppCompatActivity implements DefaultHar
     @Override
     public void invokeDefaultOnBackPressed() {
         super.onBackPressed();
-    }
+    }*/
 }

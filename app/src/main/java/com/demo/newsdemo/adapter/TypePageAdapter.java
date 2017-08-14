@@ -12,14 +12,13 @@ import java.util.List;
  * Created by hans on 2017/8/11 14:51.
  */
 
-public class TypePageAdapter extends FragmentPagerAdapter{
+public class TypePageAdapter extends FragmentPagerAdapter {
 
     private List<BaseRxFragment> fragments;
     private List<String> mTitles;
 
 
-    public TypePageAdapter(FragmentManager fm, List<BaseRxFragment> fragments, List<String> mTitles) {
-        super(fm);
+    public void setData(List<BaseRxFragment> fragments, List<String> mTitles) {
         this.fragments = fragments;
         this.mTitles = mTitles;
     }
@@ -31,11 +30,16 @@ public class TypePageAdapter extends FragmentPagerAdapter{
 
     @Override
     public Fragment getItem(int position) {
-        return null;
+        return fragments.get(position);
     }
 
     @Override
     public int getCount() {
-        return 0;
+        return fragments.size();
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return mTitles.get(position);
     }
 }

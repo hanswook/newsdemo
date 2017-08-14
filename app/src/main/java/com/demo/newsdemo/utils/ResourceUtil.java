@@ -1,6 +1,7 @@
 package com.demo.newsdemo.utils;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import java.util.List;
 public class ResourceUtil {
 
     public static List<String> stringArray2List(Context context, int arrayId) {
+        LogUtil.e("ResourceUtil","arrayId:"+arrayId);
         return Arrays.asList(context.getResources().getStringArray(arrayId));
     }
 

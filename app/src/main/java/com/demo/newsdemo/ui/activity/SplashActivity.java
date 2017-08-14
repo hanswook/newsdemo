@@ -59,7 +59,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
     public void updateUI(SplashBean splashBean) {
         Glide.with(context).load(splashBean.getData().getBase_url() + splashBean.getData().getImages().get(0).getImage_url()).into(splashImage);
         LogUtil.e(TAG, splashBean.getData().getBase_url() + splashBean.getData().getImages().get(0).getImage_url());
-        turnToNext(5);
+        turnToNext(3);
     }
 
     @Override

@@ -14,13 +14,13 @@ import retrofit2.http.Path;
  * Created by Administrator on 2016/11/9.
  */
 public interface ZhihuService {
-    @GET("/api/4/news/latest")
+    @GET("api/4/news/latest")
     Observable<ZhihuEntity> getLastDaily();
 
-    @GET("/api/4/news/before/{date}")
+    @GET("api/4/news/before/{date}")
     Observable<ZhihuEntity> getTheDaily(@Path("date") String date);
 
-    @GET("/api/4/news/{id}")
+    @GET("api/4/news/{id}")
     Observable<TheStoryBean> getZhihuStory(@Path("id") String id);
 
     @GET("http://lab.zuimeia.com/wallpaper/category/1/?page_size=1")

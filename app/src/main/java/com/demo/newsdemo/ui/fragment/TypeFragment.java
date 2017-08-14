@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
 import com.demo.newsdemo.R;
 import com.demo.newsdemo.adapter.TypePageAdapter;
 import com.demo.newsdemo.base.BaseCoreFragment;
 import com.demo.newsdemo.base.BaseRxFragment;
+import com.demo.newsdemo.utils.LogUtil;
 import com.demo.newsdemo.utils.ResourceUtil;
 
 import java.util.ArrayList;
@@ -43,7 +45,10 @@ public class TypeFragment extends BaseCoreFragment {
 
     @Override
     protected void init() {
-        mTypeAdapter = new TypePageAdapter(getChildFragmentManager(), fragments, mTitles);
+        LogUtil.e(TAG, "init");
+
+        mTypeAdapter = new TypePageAdapter(getChildFragmentManager());
+        mTypeAdapter.setData(fragments, mTitles);
         mViewpager.setAdapter(mTypeAdapter);
         mViewpager.setOffscreenPageLimit(mTitles.size() - 1);
         mTablayout.setTabMode(TabLayout.MODE_SCROLLABLE);
@@ -68,28 +73,32 @@ public class TypeFragment extends BaseCoreFragment {
 
     @Override
     protected void initData() {
+        LogUtil.e(TAG, "initData");
         if (getArguments() == null)
             return;
         fragments = new ArrayList<>();
         mType = getArguments().getString(TYPE);
-//        if (ResourceUtil.res2String(context,R.string.gank).equalsIgnoreCase(mType)){
-        mTitles = ResourceUtil.stringArray2List(context, R.array.gank);
-        for (String title : mTitles) {
-            fragments.add(GankItemFragment.newInstance(title));
-        }
-       /* }else if (ResourceUtil.res2String(context,R.string.girl).equalsIgnoreCase(mType)){
-            mTitles=ResourceUtil.stringArray2List(context,R.array.girl);
-            List<String> subTypes=ResourceUtil.stringArray2List(context,R.array.girl_cid);
-            for (String subtype:subTypes){
+        if (ResourceUtil.res2String(context, R.string.gank).equalsIgnoreCase(mType)) {
+            mTitles = ResourceUtil.stringArray2List(getActivity(), R.array.gank);
+            LogUtil.e(TAG, "mTitles:" + mTitles.size() + ",:" + mTitles.get(0));
+            for (String title : mTitles) {
+                fragments.add(GankItemFragment.newInstance(title));
+            }
+        } else if (ResourceUtil.res2String(context, R.string.girl).equalsIgnoreCase(mType)) {
+            mTitles = ResourceUtil.stringArray2List(context, R.array.girl);
+            List<String> subTypes = ResourceUtil.stringArray2List(context, R.array.girl_cid);
+            for (String subtype : subTypes) {
                 fragments.add(GirlItemFragment.newInstance(subtype));
             }
-        }*/
+        }
     }
 
-    public static TypeFragment newInstance(String type){
-        TypeFragment fragment=new TypeFragment();
-        Bundle bundle=new Bundle();
-        bundle.putString(TYPE,type);
+    public static TypeFragment newInstance(String type) {
+        LogUtil.e("TypeFragment", "TypeFragment newInstance");
+
+        TypeFragment fragment = new TypeFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(TYPE, type);
         fragment.setArguments(bundle);
         return fragment;
     }

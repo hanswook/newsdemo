@@ -35,5 +35,11 @@ public class ImageLoader {
                 .crossFade()
                 .into(imageView);
     }
-
+    public static void loadCircle(Context context, int resId, ImageView iv) {
+        Glide.with(context)
+                .load(resId)
+                .crossFade()
+                .transform(new CircleTransform(context))
+                .into(iv);
+    }
 }
