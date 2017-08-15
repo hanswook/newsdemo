@@ -69,7 +69,7 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
 
     @OnClick(R.id.type_item_fab)
     public void onViewClicked() {
-        mRecyclerview.scrollToPosition(0);
+        mRecyclerview.smoothScrollToPosition(0);
     }
 
     @Inject

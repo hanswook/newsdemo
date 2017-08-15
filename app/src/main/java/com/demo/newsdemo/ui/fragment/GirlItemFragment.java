@@ -68,7 +68,7 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
 
     private int mLastVisibleItemPosition;
 
-    private StaggeredGridLayoutManager layoutManager;
+    private LinearLayoutManager layoutManager;
 
 
     @BindView(R.id.type_item_recyclerview)
@@ -80,7 +80,7 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
 
     @OnClick(R.id.type_item_fab)
     public void onViewClicked() {
-        mRecyclerview.scrollToPosition(0);
+        mRecyclerview.smoothScrollToPosition(0);
     }
 
     @Inject
@@ -126,7 +126,7 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
                 return false;
             }
         });
-        layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        layoutManager = new LinearLayoutManager(context);
         mRecyclerview.setLayoutManager(layoutManager);
         mRecyclerview.setAdapter(adapter);
 
@@ -149,6 +149,8 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+                RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+
 //                if (mLastVisibleItemPosition < layoutManager.findLastVisibleItemPosition())
 //                    mFab.show();
 //                if (mLastVisibleItemPosition > layoutManager.findLastVisibleItemPosition() && mFab.isShown())
