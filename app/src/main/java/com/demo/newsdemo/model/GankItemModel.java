@@ -27,7 +27,7 @@ public class GankItemModel extends BaseModel implements GankItemContract.Model {
     @Override
     public void requestNetForData(String type, int pageCount, BaseContract.BaseView mView, final GetDataCallBack<List<GankItemData>> callBack) {
         LogUtil.e("GankItemModel","requestNetForData");
-        gankService.getGankData(type, pageCount)
+        retrofitService.getGankData(type, pageCount)
                 .map(new Function<HttpResult<List<GankItemData>>, List<GankItemData>>() {
                     @Override
                     public List<GankItemData> apply(@NonNull HttpResult<List<GankItemData>> listHttpResult) throws Exception {

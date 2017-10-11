@@ -21,7 +21,7 @@ public class ZhihuDetailModel extends BaseModel implements ZhihuDetailContract.M
 
     @Override
     public void getDetailData(BaseContract.BaseView mView, String id, final GetDataCallBack<TheStoryBean> callBack) {
-        zhihuService.getZhihuStory(id)
+        retrofitService.getZhihuStory(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new CommonSubscriber<TheStoryBean>(mView) {

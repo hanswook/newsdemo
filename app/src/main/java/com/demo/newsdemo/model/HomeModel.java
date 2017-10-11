@@ -30,7 +30,7 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
     @Override
     public void requestLastDailyData(final BaseContract.BaseView mView, final GetDataCallBack<List<StoriesBean>> getDataCallBack) {
 
-        zhihuService.getLastDaily()
+        retrofitService.getLastDaily()
                 .map(new Function<ZhihuEntity, List<StoriesBean>>() {
                     @Override
                     public List<StoriesBean> apply(@NonNull ZhihuEntity zhihuEntity) throws Exception {
@@ -56,7 +56,7 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
 
     @Override
     public void requestMoreData(String date, final BaseContract.BaseView mView, final GetDataCallBack<List<StoriesBean>> callBack) {
-        zhihuService.getTheDaily(date)
+        retrofitService.getTheDaily(date)
                 .map(new Function<ZhihuEntity, List<StoriesBean>>() {
                     @Override
                     public List<StoriesBean> apply(@NonNull ZhihuEntity zhihuEntity) throws Exception {

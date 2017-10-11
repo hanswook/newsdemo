@@ -22,7 +22,7 @@ import io.reactivex.schedulers.Schedulers;
 public class SplashModel extends BaseModel implements SplashContract.Model{
     @Override
     public void getData(final BaseContract.BaseView mView, final GetDataCallBack<SplashBean> callBack) {
-        zhihuService.getImage().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        retrofitService.getImage().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new CommonSubscriber<SplashBean>(mView) {
                     @Override
                     public void onNext(SplashBean splashBean) {

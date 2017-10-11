@@ -24,7 +24,6 @@ public class GirlItemModel extends BaseModel implements GirlItemContract.Model {
 
     @Override
     public void requestNetForData(String cid, int pageCount, final BaseContract.BaseView mView, final GetDataCallBack<List<GirlItemData>> callBack) {
-        LogUtil.e("girl model","requestNetForData:");
 
         girlService.getGirlItemData(cid,pageCount)
                 .observeOn(AndroidSchedulers.mainThread())
