@@ -5,6 +5,7 @@ package com.demo.newsdemo.net;
  */
 
 public class API {
+    public static final String HEADER_KEY="url_name";
 
 
     public static final String GANK_IO_URL="http://gank.io/";

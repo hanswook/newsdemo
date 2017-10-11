@@ -29,7 +29,6 @@
         <activity android:name=".ui.activity.HomeActivity" />
         <activity android:name=".ui.activity.ZhihuDetailActivity" />
         <!--<activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />-->
-        <activity android:name=".ui.activity.ReactNativeActivity" />
         <activity android:name=".ui.activity.NavigatorActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,6 +37,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.GankIOActivity" />
+        <activity android:name=".ui.activity.AboutActivity" android:parentActivityName=".ui.activity.MainActivity"
+            android:theme="@style/AppTheme.Translucent">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.MainActivity" />
+        </activity>
         <activity android:name=".ui.activity.SplashActivity">
             <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -9,12 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-import com.demo.newsdemo.net.ZhihuHttp;
-import com.demo.newsdemo.net.ZhihuService;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 

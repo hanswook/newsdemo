@@ -46,7 +46,7 @@ public class RetrofitHelper {
 
     public static Retrofit getRetrofit() {
         if (retrofit == null) {
-            synchronized (GankHttp.class) {
+            synchronized (RetrofitHelper.class) {
                 if (retrofit == null) {
                     //添加一个log拦截器,打印所的log
 
@@ -61,7 +61,7 @@ public class RetrofitHelper {
                             List<String> headerValues = request.headers("url_name");
                             if (headerValues != null && headerValues.size() > 0) {
                                 //如果有这个header，先将配置的header删除，因此header仅用作app和okhttp之间使用
-                                builder.removeHeader(HttpConfig.HEADER_KEY);
+                                builder.removeHeader(API.HEADER_KEY);
 
                                 //匹配获得新的BaseUrl
                                 String headerValue = headerValues.get(0);
@@ -70,8 +70,6 @@ public class RetrofitHelper {
                                 HttpUrl newBaseUrl = null;
                                 if ("gank".equals(headerValue)) {
                                     newBaseUrl = HttpUrl.parse(API.GANK_IO_URL);
-                                } else if ("girl".equals(headerValue)) {
-                                    newBaseUrl = HttpUrl.parse(API.URL_GET_GIRL);
                                 } else if ("zhihu".equals(headerValue)) {
                                     newBaseUrl = HttpUrl.parse(API.ZHIHU_URL);
                                 } else {
@@ -109,7 +107,7 @@ public class RetrofitHelper {
                     // 获取retrofit的实例
                     retrofit = new Retrofit
                             .Builder()
-                            .baseUrl(API.URL_GET_GIRL)  //自己配置
+                            .baseUrl(API.GANK_IO_URL)  //自己配置
                             .client(client)
                             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                             .addConverterFactory(GsonConverterFactory.create())

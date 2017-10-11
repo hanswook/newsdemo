@@ -25,24 +25,7 @@ public interface RetrofitService {
     @GET("api/data/{type}/10/{page_count}")
     Observable<HttpResult<List<GankItemData>>> getGankData(@Path("type") String type,
                                                            @Path("page_count") int page_count);
-    @GET("dbgroup/{id}")
-    Observable<String> getGirlDetailData(@Path("id") String id);
 
-    @GET("dbgroup/show.htm")
-    Observable<String> getGirlItemData(@Query("cid") String cid, @Query("pager_offset") int pager_offset);
-
-    @GET("dbgroup/show.htm")
-    Observable<Object> getGirlItemData1(@Query("cid") String cid, @Query("pager_offset") int pager_offset);
-
-
-   /* @GET("dbgroup/{id}")
-    Observable<String> getGirlDetailData(@Path("id") String id);
-
-    @GET("dbgroup/show.htm")
-    Observable<String> getGirlItemData(@Query("cid") String cid, @Query("pager_offset") int pager_offset);
-
-    @GET("dbgroup/show.htm")
-    Observable<Object> getGirlItemData1(@Query("cid") String cid, @Query("pager_offset") int pager_offset);*/
 
     @Headers({"url_name:zhihu"})
     @GET("api/4/news/latest")
