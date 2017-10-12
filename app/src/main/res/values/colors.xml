@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ff5722</color>
+    <color name="colorPrimary">#ff9966</color>
     <color name="colorPrimaryDark">#ffcc33</color>
-    <color name="colorAccent">#ff66ff</color>
+    <color name="colorAccent">#3399ff</color>
     <color name="orange">#ff5722</color>
     <color name="deepPurple">#673AB7</color>
     <color name="lightPurple">#cc33ff</color>
@@ -30,7 +30,7 @@
     <color name="red">#ff0000</color>
     <color name="nev_item">#88ff0000</color>
 
-    <color name="nav_item_icon">#ff4422</color>
+    <color name="nav_item_icon">#ff9966</color>
     <color name="zhihuC">#ff9966</color>
     <color name="gankC">#3399ff</color>
 

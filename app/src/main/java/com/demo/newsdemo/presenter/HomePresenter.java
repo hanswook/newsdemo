@@ -53,7 +53,7 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
 
             @Override
             public void getDataFailed() {
-                mView.showGetdataFailed();
+                mView.showError();
             }
         });
     }

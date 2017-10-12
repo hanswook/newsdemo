@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.demo.newsdemo.R;
 import com.demo.newsdemo.adapter.ZhihuListAdapter;
@@ -54,7 +56,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     @Override
     protected void initData() {
         super.initData();
-//        homePresenter.attachView(this);
         initDagger();
         initDataType();
         requestData();
@@ -221,5 +222,14 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     protected void onDestroy() {
         super.onDestroy();
         homePresenter.attachView(this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+            if(item.getItemId()==android.R.id.home){
+                finish();
+                return true;
+            }
+        return super.onOptionsItemSelected(item);
     }
 }
