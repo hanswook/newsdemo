@@ -25,6 +25,7 @@ import com.demo.newsdemo.di.GankItemModule;
 import com.demo.newsdemo.model.GankItemModel;
 import com.demo.newsdemo.model.bean.GankItemData;
 import com.demo.newsdemo.presenter.GankItemPresenter;
+import com.demo.newsdemo.ui.activity.WebDetailActivity;
 import com.demo.newsdemo.utils.ImageLoader;
 import com.demo.newsdemo.utils.LogUtil;
 import com.demo.newsdemo.utils.recycler.BaseRecyclerAdapter;
@@ -134,9 +135,10 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
         adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-//                Intent intent=new Intent(context,GankDetailActivity.class);
-//                intent.putExtra("gank_item_data",datas.get(position))
-                Toast.makeText(context, "跳转下一个界面", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(context,WebDetailActivity.class);
+                intent.putExtra("gank_item_data_url",datas.get(position).getUrl());
+                startActivity(intent);
+//                Toast.makeText(context, "跳转下一个界面", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -192,8 +194,8 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
     private void loadMore() {
         LogUtil.e(TAG, "loadMore:mSubtype:" + mSubtype + ",PAGE_COUNT:" + PAGE_COUNT);
         if (!isLoading) {
-            isLoading=true;
-            LogUtil.e(TAG,"load data isLoading:"+isLoading);
+            isLoading = true;
+            LogUtil.e(TAG, "load data isLoading:" + isLoading);
             mPresenter.loadData(mSubtype, PAGE_COUNT);
             PAGE_COUNT++;
         }
@@ -224,7 +226,7 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
 
     @Override
     public void showError() {
-        isLoading=false;
+        isLoading = false;
         mSwipfreshlayout.setRefreshing(false);
 
     }
@@ -236,7 +238,7 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
 
     @Override
     public void updateUI(List<GankItemData> data) {
-        isLoading=false;
+        isLoading = false;
         if (isLoadMore) {
             if (data.size() == 0) {
                 LogUtil.e(TAG, "updateUI : 获取数据成功，数据数量为0");
