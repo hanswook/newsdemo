@@ -36,6 +36,7 @@ import com.demo.newsdemo.utils.ScaleImageView;
 import com.demo.newsdemo.utils.recycler.BaseRecyclerAdapter;
 import com.demo.newsdemo.utils.recycler.BaseViewHolder;
 import com.demo.newsdemo.utils.recycler.CommonAdapter;
+import com.demo.newsdemo.utils.recycler.MyLinearLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,14 +102,14 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
             @Override
             protected void convert(BaseViewHolder holder, GirlItemData girlItemData, int position) {
                 ScaleImageView imageView = holder.getView(R.id.girl_item_iv);
-                LogUtil.e(TAG, "adapter:w:" + girlItemData.getWidth() + ",h:" + girlItemData.getHeight());
+//                LogUtil.e(TAG, "adapter:w:" + girlItemData.getWidth() + ",h:" + girlItemData.getHeight());
                 imageView.setInitSize(girlItemData.getWidth(), girlItemData.getHeight());
                 ViewGroup.LayoutParams layoutParams = imageView.getLayoutParams();
 //                layoutParams.height = girlItemData.getHeight();
 //                layoutParams.width = girlItemData.getWidth();
 //                imageView.setLayoutParams(layoutParams);
                 ImageLoader.load(context, girlItemData.getUrl(), imageView);
-                LogUtil.e(TAG, "layoutParams:width:" + layoutParams.width + ",layoutParams.height:" + layoutParams.height);
+//                LogUtil.e(TAG, "layoutParams:width:" + layoutParams.width + ",layoutParams.height:" + layoutParams.height);
 
             }
         };
@@ -126,7 +127,7 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
                 return false;
             }
         });
-        layoutManager = new LinearLayoutManager(context);
+        layoutManager = new MyLinearLayoutManager(context);
         mRecyclerview.setLayoutManager(layoutManager);
         mRecyclerview.setAdapter(adapter);
 
@@ -232,7 +233,7 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
                                     .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                                     .get();
                             if (bitmap != null) {
-                                LogUtil.e(TAG, "bitmap:w:" + bitmap.getWidth() + ",h:" + bitmap.getHeight());
+//                                LogUtil.e(TAG, "bitmap:w:" + bitmap.getWidth() + ",h:" + bitmap.getHeight());
                                 item.setWidth(bitmap.getWidth());
                                 item.setHeight(bitmap.getHeight());
                             }

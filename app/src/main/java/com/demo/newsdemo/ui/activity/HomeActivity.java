@@ -2,11 +2,13 @@ package com.demo.newsdemo.ui.activity;
 
 
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.demo.newsdemo.R;
@@ -18,6 +20,7 @@ import com.demo.newsdemo.di.DaggerHomeComponent;
 import com.demo.newsdemo.di.HomeModule;
 import com.demo.newsdemo.model.HomeModel;
 import com.demo.newsdemo.presenter.HomePresenter;
+import com.demo.newsdemo.utils.CommonSubscriber;
 import com.demo.newsdemo.utils.DateUtil;
 import com.demo.newsdemo.utils.LogUtil;
 import com.demo.newsdemo.utils.ShortTimeUtil;
@@ -27,10 +30,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import io.reactivex.Observable;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class HomeActivity extends BaseActivity implements HomeContract.View {
 
@@ -42,11 +51,19 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     @BindView(R.id.zhihu_recycler)
     RecyclerView zhihuRecycler;
 
+    @BindView(R.id.zhihu_swipe)
+    SwipeRefreshLayout zhihuSwipe;
+    @BindView(R.id.zhihu_noweb_tv)
+    TextView zhihuNoInternet;
+
     private List<StoriesBean> datas;
     private int dataDate, dateNow;
     private String dateShow;
     private ZhihuListAdapter adapter;
     protected Boolean isLoading;
+
+    int a = 0;
+
 
     @Override
     public int getLayoutId() {
@@ -88,6 +105,29 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         initTitleBar();
         initRecycler();
         initListener();
+        zhihuSwipe.setOnRefreshListener(() -> {
+            a++;
+            Toast.makeText(context, "拉了一下:" + a, Toast.LENGTH_SHORT).show();
+
+            /*if (a % 2 == 0) {
+                zhihuRecycler.setVisibility(View.VISIBLE);
+                zhihuNoInternet.setVisibility(View.GONE);
+            } else {
+                zhihuRecycler.setVisibility(View.GONE);
+                zhihuNoInternet.setVisibility(View.VISIBLE);
+            }
+
+            */
+            Observable.timer(2, TimeUnit.SECONDS)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new CommonSubscriber<Long>(this) {
+                        @Override
+                        public void onNext(Long aLong) {
+                            zhihuSwipe.setRefreshing(false);
+                        }
+                    });
+        });
     }
 
     private void initListener() {
@@ -226,10 +266,12 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-            if(item.getItemId()==android.R.id.home){
-                finish();
-                return true;
-            }
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
+
+
 }
