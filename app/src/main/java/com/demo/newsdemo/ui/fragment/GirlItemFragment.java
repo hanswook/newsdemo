@@ -134,7 +134,6 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
                     mSwipfreshlayout.setRefreshing(false);
             }
         });
-        mFab.show();
     }
 
     private void loadMore() {
