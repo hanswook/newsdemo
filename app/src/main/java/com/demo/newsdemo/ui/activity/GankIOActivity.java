@@ -107,6 +107,7 @@ public class GankIOActivity extends BaseActivity {
             drawerLayout.setFitsSystemWindows(true);
             drawerLayout.setClipToPadding(false);
         }
+        setStatusBarColor(R.color.colorAccent);
 
     }
 
@@ -160,4 +161,5 @@ public class GankIOActivity extends BaseActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

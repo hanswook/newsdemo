@@ -11,7 +11,6 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
@@ -27,6 +26,7 @@ import com.demo.newsdemo.model.bean.GirlItemData;
 import com.demo.newsdemo.presenter.GirlItemPresenter;
 import com.demo.newsdemo.utils.CommonSubscriber;
 import com.demo.newsdemo.utils.LogUtil;
+import com.demo.newsdemo.utils.image.GlideApp;
 import com.demo.newsdemo.utils.wechatimage.ImagePagerUtils;
 
 import java.util.ArrayList;
@@ -38,8 +38,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -113,65 +111,29 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
             }
         }, mRecyclerview);
 
-        /*loadmoreWrapper = new LoadmoreWrapper(adapter);
-        loadmoreWrapper.setLoadMoreView(R.layout.default_loading);
-        loadmoreWrapper.setOnLoadMoreListener(new LoadmoreWrapper.OnLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                if (datas.size() < (PAGE_COUNT * 20)) {
-                    LogUtil.e("没有加载更多,data.size:" + datas.size() + "/pageNo:" + PAGE_COUNT);
-                    return;
-                } else {
-                    isLoadMore = true;
-                    loadMore();
-                    LogUtil.e("加载更多了一次" + PAGE_COUNT);
-                }
-            }
-        });*/
-//        layoutManager = new MyLinearLayoutManager(context);
+
         mRecyclerview.setAdapter(adapter);
         layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerview.setLayoutManager(layoutManager);
-       /* mRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-                if (layoutManager instanceof LinearLayoutManager) {
-                    int lastItemPosition = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
-                    LogUtil.e(TAG, "lastItemPosition:" + lastItemPosition + ",datas.size():" + datas.size());
-                    if (lastItemPosition >= datas.size() - 1) {
-                        isLoadMore = true;
-                        loadMore();
-                    }
-                }
-
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-
-//                if (mLastVisibleItemPosition < layoutManager.findLastVisibleItemPosition())
-//                    mFab.show();
-//                if (mLastVisibleItemPosition > layoutManager.findLastVisibleItemPosition() && mFab.isShown())
-//                    mFab.hide();
-//                mLastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
-            }
-        });*/
 
         mSwipfreshlayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent, R.color.colorPrimaryDark);
 
         mSwipfreshlayout.setOnRefreshListener(this);
 
-        mSwipfreshlayout.post(new Runnable() {
+//        mSwipfreshlayout.post(() -> mSwipfreshlayout.setRefreshing(true));
+        mRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void run() {
-                mSwipfreshlayout.setRefreshing(true);
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LogUtil.e(TAG, "dx:" + dx + ",dy:" + dy);
+                if (dy > 15)
+                    mFab.show();
+                if (dy < -15 && mFab.isShown())
+                    mFab.hide();
+                if (dy>50 && mSwipfreshlayout.isRefreshing())
+                    mSwipfreshlayout.setRefreshing(false);
             }
         });
-
         mFab.show();
     }
 
@@ -225,27 +187,22 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
     public void updateUI(List<GirlItemData> data) {
         Observable.just(data).subscribeOn(Schedulers.newThread())
                 .observeOn(Schedulers.computation())
-                .map(new Function<List<GirlItemData>, List<GirlItemData>>() {
-                    @Override
-                    public List<GirlItemData> apply(@NonNull List<GirlItemData> girlItemDatas) throws Exception {
-                        for (GirlItemData item : girlItemDatas) {
-                            imageDatas.add(item.getUrl());
-                            RequestOptions requestOptions = new RequestOptions()
-                                    .diskCacheStrategy(DiskCacheStrategy.ALL);
-
-                            Bitmap bitmap = Glide.with(context).asBitmap().load(item.getUrl())
-                                    .apply(requestOptions)
-                                    .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-                                    .get();
-                            if (bitmap != null) {
+                .map(girlItemDatas -> {
+                    for (GirlItemData item : girlItemDatas) {
+                        imageDatas.add(item.getUrl());
+                        Bitmap bitmap = GlideApp.with(context).asBitmap().load(item.getUrl())
+                                .apply(new RequestOptions()
+                                        .diskCacheStrategy(DiskCacheStrategy.ALL))
+                                .submit(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                                .get();
+                        if (bitmap != null) {
 //                                LogUtil.e(TAG, "bitmap:w:" + bitmap.getWidth() + ",h:" + bitmap.getHeight());
-                                item.setWidth(bitmap.getWidth());
-                                item.setHeight(bitmap.getHeight());
-                            }
+                            item.setWidth(bitmap.getWidth());
+                            item.setHeight(bitmap.getHeight());
                         }
-
-                        return girlItemDatas;
                     }
+
+                    return girlItemDatas;
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new CommonSubscriber<List<GirlItemData>>(this) {
@@ -261,8 +218,8 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
                                 int size = girlItemDatas.size();
                                 datas.addAll(girlItemDatas);
 //                                adapter.notifyDataSetChanged();
-                                LogUtil.e(TAG,"originsize:"+originSize+",size:"+size);
-                                adapter.notifyItemRangeInserted(originSize, datas.size()-originSize);
+                                LogUtil.e(TAG, "originsize:" + originSize + ",size:" + size);
+                                adapter.notifyItemRangeInserted(originSize, datas.size() - originSize);
                                 adapter.loadMoreComplete();
                             }
                         } else {
@@ -290,7 +247,7 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
     @Override
     public void onRefresh() {
         isLoadMore = false;
-        PAGE_COUNT = 1;
+        PAGE_COUNT = 0;
         loadMore();
     }
 }

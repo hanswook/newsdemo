@@ -4,20 +4,14 @@ package com.demo.newsdemo.ui.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.demo.newsdemo.R;
+import com.demo.newsdemo.adapter.GankItemAdapter;
 import com.demo.newsdemo.base.BaseRxFragment;
 import com.demo.newsdemo.contract.GankItemContract;
 import com.demo.newsdemo.di.DaggerGankItemComponent;
@@ -27,10 +21,6 @@ import com.demo.newsdemo.model.bean.GankItemData;
 import com.demo.newsdemo.presenter.GankItemPresenter;
 import com.demo.newsdemo.ui.activity.WebDetailActivity;
 import com.demo.newsdemo.utils.LogUtil;
-import com.demo.newsdemo.utils.image.GlideApp;
-import com.demo.newsdemo.utils.recycler.BaseRecyclerAdapter;
-import com.demo.newsdemo.utils.recycler.BaseViewHolder;
-import com.demo.newsdemo.utils.recycler.CommonAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,11 +35,9 @@ import butterknife.OnClick;
  */
 public class GankItemFragment extends BaseRxFragment implements GankItemContract.View, SwipeRefreshLayout.OnRefreshListener {
 
-    private int PAGE_COUNT = 1;
-
+    private int PAGE_COUNT = 0;
     private String mSubtype;
-
-    private CommonAdapter<GankItemData> adapter;
+    private GankItemAdapter adapter;
     private List<GankItemData> datas;
 
     private boolean isLoadMore;
@@ -87,7 +75,9 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
         isLoading = false;
         isLoadMore = false;
         datas = new ArrayList<>();
-        adapter = new CommonAdapter<GankItemData>(getActivity(), R.layout.item_gank_layout, datas) {
+        adapter = new GankItemAdapter(R.layout.item_gank_layout, datas) {
+        };
+       /* adapter = new CommonAdapter<GankItemData>(getActivity(), R.layout.item_gank_layout, datas) {
             @Override
             protected void convert(BaseViewHolder holder, GankItemData gankItemData, int position) {
                 TextView descTv = holder.getView(R.id.gank_item_desc);
@@ -130,42 +120,27 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
                     GlideApp.with(context).load(iconId).into(iconImg);
                 }
             }
-        };
-
-        adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+        };*/
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                Intent intent=new Intent(context,WebDetailActivity.class);
-                intent.putExtra("gank_item_data_url",datas.get(position).getUrl());
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(context, WebDetailActivity.class);
+                intent.putExtra("gank_item_data_url", datas.get(position).getUrl());
                 startActivity(intent);
-//                Toast.makeText(context, "跳转下一个界面", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                return false;
             }
         });
+        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                isLoadMore = true;
+                loadMore();
+            }
+        }, mRecyclerview);
         layoutManager = new LinearLayoutManager(context);
         mRecyclerview.setLayoutManager(layoutManager);
         mRecyclerview.setAdapter(adapter);
 
         mRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-                if (layoutManager instanceof LinearLayoutManager) {
-                    int lastItemPosition = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
-                    LogUtil.e(TAG, "lastItemPosition:" + lastItemPosition + ",datas.size():" + datas.size());
-                    if (lastItemPosition >= datas.size() - 1) {
-                        isLoadMore = true;
-                        loadMore();
-                    }
-                }
-
-            }
-
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -173,6 +148,8 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
                     mFab.show();
                 if (mLastVisibleItemPosition > layoutManager.findLastVisibleItemPosition() && mFab.isShown())
                     mFab.hide();
+                if (dy>50 && mSwipfreshlayout.isRefreshing())
+                    mSwipfreshlayout.setRefreshing(false);
                 mLastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
             }
         });
@@ -181,12 +158,7 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
 
         mSwipfreshlayout.setOnRefreshListener(this);
 
-        mSwipfreshlayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mSwipfreshlayout.setRefreshing(true);
-            }
-        });
+//        mSwipfreshlayout.post(() -> mSwipfreshlayout.setRefreshing(true));
 
 
     }
@@ -196,8 +168,8 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
         if (!isLoading) {
             isLoading = true;
             LogUtil.e(TAG, "load data isLoading:" + isLoading);
-            mPresenter.loadData(mSubtype, PAGE_COUNT);
             PAGE_COUNT++;
+            mPresenter.loadData(mSubtype, PAGE_COUNT);
         }
 
     }
@@ -242,10 +214,13 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
         if (isLoadMore) {
             if (data.size() == 0) {
                 LogUtil.e(TAG, "updateUI : 获取数据成功，数据数量为0");
+                adapter.loadMoreFail();
             } else {
                 int size = data.size();
                 datas.addAll(data);
                 adapter.notifyItemRangeInserted(PAGE_COUNT * 10, ((PAGE_COUNT * 10) + size));
+                adapter.loadMoreComplete();
+
             }
         } else {
             datas.clear();
@@ -268,7 +243,7 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
     @Override
     public void onRefresh() {
         isLoadMore = false;
-        PAGE_COUNT = 1;
+        PAGE_COUNT = 0;
         loadMore();
     }
 }

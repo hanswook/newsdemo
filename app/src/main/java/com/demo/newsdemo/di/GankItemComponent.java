@@ -1,6 +1,5 @@
 package com.demo.newsdemo.di;
 
-import com.demo.newsdemo.ui.activity.HomeActivity;
 import com.demo.newsdemo.ui.fragment.GankItemFragment;
 
 import dagger.Component;
