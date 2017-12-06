@@ -44,7 +44,7 @@ public abstract class BaseCoreFragment extends Fragment {
             init();
         }
         context = getContext();
-        TAG = context.getClass().getSimpleName();
+        TAG = this.getClass().getSimpleName();
         return rootView;
     }
 

@@ -30,8 +30,10 @@ dependencies {
     compile 'com.android.support:design:26.1.0'
     compile 'com.android.support:cardview-v7:26.1.0'
     compile 'com.android.support:recyclerview-v7:26.1.0'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.google.code.gson:gson:2.8.0'
+    api rootProject.ext.dependencies["glide"]
+    api rootProject.ext.dependencies["gson"]
+    api rootProject.ext.dependencies["glide-okhttp3"]
+    annotationProcessor rootProject.ext.dependencies["glide-compiler"]
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
     compile 'io.reactivex.rxjava2:rxjava:2.0.7'
@@ -46,6 +48,8 @@ dependencies {
     compile 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
     compile 'org.jsoup:jsoup:1.9.2'
     compile 'com.squareup.retrofit2:converter-scalars:2.3.0'
+    compile 'com.github.chrisbanes.photoview:library:1.2.4'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.11'

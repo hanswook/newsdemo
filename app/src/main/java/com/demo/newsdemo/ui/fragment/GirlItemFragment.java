@@ -6,37 +6,28 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.demo.newsdemo.R;
+import com.demo.newsdemo.adapter.DbGirlsAdapter;
 import com.demo.newsdemo.base.BaseRxFragment;
-import com.demo.newsdemo.contract.GirlItemContract;
 import com.demo.newsdemo.contract.GirlItemContract;
 import com.demo.newsdemo.di.DaggerGirlItemComponent;
 import com.demo.newsdemo.di.GirlItemModule;
 import com.demo.newsdemo.model.GirlItemModel;
 import com.demo.newsdemo.model.bean.GirlItemData;
-import com.demo.newsdemo.model.bean.GirlItemData;
 import com.demo.newsdemo.presenter.GirlItemPresenter;
 import com.demo.newsdemo.utils.CommonSubscriber;
-import com.demo.newsdemo.utils.ImageLoader;
 import com.demo.newsdemo.utils.LogUtil;
-import com.demo.newsdemo.utils.ScaleImageView;
-import com.demo.newsdemo.utils.recycler.BaseRecyclerAdapter;
-import com.demo.newsdemo.utils.recycler.BaseViewHolder;
-import com.demo.newsdemo.utils.recycler.CommonAdapter;
-import com.demo.newsdemo.utils.recycler.MyLinearLayoutManager;
+import com.demo.newsdemo.utils.wechatimage.ImagePagerUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,20 +47,19 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class GirlItemFragment extends BaseRxFragment implements GirlItemContract.View, SwipeRefreshLayout.OnRefreshListener {
 
-    private int PAGE_COUNT = 1;
+    private int PAGE_COUNT = 0;
 
     private String mSubtype;
-
-    private CommonAdapter<GirlItemData> adapter;
+    private DbGirlsAdapter adapter;
     private List<GirlItemData> datas;
+    private ArrayList<String> imageDatas;
 
     private boolean isLoadMore;
 
     private boolean isLoading;
 
-    private int mLastVisibleItemPosition;
 
-    private LinearLayoutManager layoutManager;
+    private StaggeredGridLayoutManager layoutManager;
 
 
     @BindView(R.id.type_item_recyclerview)
@@ -98,40 +88,51 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
         isLoading = false;
         isLoadMore = false;
         datas = new ArrayList<>();
-        adapter = new CommonAdapter<GirlItemData>(getActivity(), R.layout.item_girl_layout, datas) {
-            @Override
-            protected void convert(BaseViewHolder holder, GirlItemData girlItemData, int position) {
-                ScaleImageView imageView = holder.getView(R.id.girl_item_iv);
-//                LogUtil.e(TAG, "adapter:w:" + girlItemData.getWidth() + ",h:" + girlItemData.getHeight());
-                imageView.setInitSize(girlItemData.getWidth(), girlItemData.getHeight());
-                ViewGroup.LayoutParams layoutParams = imageView.getLayoutParams();
-//                layoutParams.height = girlItemData.getHeight();
-//                layoutParams.width = girlItemData.getWidth();
-//                imageView.setLayoutParams(layoutParams);
-                ImageLoader.load(context, girlItemData.getUrl(), imageView);
-//                LogUtil.e(TAG, "layoutParams:width:" + layoutParams.width + ",layoutParams.height:" + layoutParams.height);
+        imageDatas = new ArrayList<>();
 
-            }
-        };
-
-        adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+        adapter = new DbGirlsAdapter(R.layout.item_girl_layout, datas);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-//                Intent intent=new Intent(context,GankDetailActivity.class);
-//                intent.putExtra("gank_item_data",datas.get(position))
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Toast.makeText(context, "跳转下一个界面", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                return false;
+                ImagePagerUtils.imageBrower(position, imageDatas, context);
             }
         });
-        layoutManager = new MyLinearLayoutManager(context);
-        mRecyclerview.setLayoutManager(layoutManager);
-        mRecyclerview.setAdapter(adapter);
+        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                LogUtil.e(TAG, "onLoadMoreRequested,data.size:" + datas.size() + "/pageNo:" + PAGE_COUNT);
+                if (datas.size() > (PAGE_COUNT * 20)) {
+                    LogUtil.e("没有加载更多,data.size:" + datas.size() + "/pageNo:" + PAGE_COUNT);
+                    return;
+                } else {
+                    isLoadMore = true;
+                    loadMore();
+                    LogUtil.e("加载更多了一次,当前页数为:" + PAGE_COUNT + "加载后总页数会加一");
+                }
+            }
+        }, mRecyclerview);
 
-        mRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        /*loadmoreWrapper = new LoadmoreWrapper(adapter);
+        loadmoreWrapper.setLoadMoreView(R.layout.default_loading);
+        loadmoreWrapper.setOnLoadMoreListener(new LoadmoreWrapper.OnLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                if (datas.size() < (PAGE_COUNT * 20)) {
+                    LogUtil.e("没有加载更多,data.size:" + datas.size() + "/pageNo:" + PAGE_COUNT);
+                    return;
+                } else {
+                    isLoadMore = true;
+                    loadMore();
+                    LogUtil.e("加载更多了一次" + PAGE_COUNT);
+                }
+            }
+        });*/
+//        layoutManager = new MyLinearLayoutManager(context);
+        mRecyclerview.setAdapter(adapter);
+        layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        mRecyclerview.setLayoutManager(layoutManager);
+       /* mRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -158,7 +159,7 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
 //                    mFab.hide();
 //                mLastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
             }
-        });
+        });*/
 
         mSwipfreshlayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent, R.color.colorPrimaryDark);
 
@@ -176,11 +177,11 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
 
     private void loadMore() {
         LogUtil.e(TAG, "loadMore:mSubtype:" + mSubtype + ",PAGE_COUNT:" + PAGE_COUNT);
+        LogUtil.e(TAG, "load data isLoading:" + isLoading);
         if (!isLoading) {
             isLoading = true;
-            LogUtil.e(TAG, "load data isLoading:" + isLoading);
-            mPresenter.loadData(mSubtype, PAGE_COUNT);
             PAGE_COUNT++;
+            mPresenter.loadData(mSubtype, PAGE_COUNT);
         }
 
     }
@@ -202,8 +203,8 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
                 .girlItemModule(new GirlItemModule(this, new GirlItemModel()))
                 .build().inject(this);
         addPresenter(mPresenter);
-        mPresenter.loadData(mSubtype, PAGE_COUNT);
         PAGE_COUNT++;
+        mPresenter.loadData(mSubtype, PAGE_COUNT);
 
     }
 
@@ -228,8 +229,12 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
                     @Override
                     public List<GirlItemData> apply(@NonNull List<GirlItemData> girlItemDatas) throws Exception {
                         for (GirlItemData item : girlItemDatas) {
-                            Bitmap bitmap = Glide.with(context).load(item.getUrl())
-                                    .asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL)
+                            imageDatas.add(item.getUrl());
+                            RequestOptions requestOptions = new RequestOptions()
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL);
+
+                            Bitmap bitmap = Glide.with(context).asBitmap().load(item.getUrl())
+                                    .apply(requestOptions)
                                     .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                                     .get();
                             if (bitmap != null) {
@@ -250,10 +255,15 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
                         if (isLoadMore) {
                             if (girlItemDatas.size() == 0) {
                                 LogUtil.e(TAG, "updateUI : 获取数据成功，数据数量为0");
+                                adapter.loadMoreFail();
                             } else {
+                                int originSize = datas.size();
                                 int size = girlItemDatas.size();
                                 datas.addAll(girlItemDatas);
-                                adapter.notifyItemRangeInserted(PAGE_COUNT * 10, ((PAGE_COUNT * 10) + size));
+//                                adapter.notifyDataSetChanged();
+                                LogUtil.e(TAG,"originsize:"+originSize+",size:"+size);
+                                adapter.notifyItemRangeInserted(originSize, datas.size()-originSize);
+                                adapter.loadMoreComplete();
                             }
                         } else {
                             datas.clear();

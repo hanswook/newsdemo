@@ -18,9 +18,9 @@ import com.demo.newsdemo.R;
 import com.demo.newsdemo.base.BaseActivity;
 import com.demo.newsdemo.base.BaseCoreFragment;
 import com.demo.newsdemo.ui.fragment.TypeFragment;
-import com.demo.newsdemo.utils.ImageLoader;
 import com.demo.newsdemo.utils.LogUtil;
 import com.demo.newsdemo.utils.ResourceUtil;
+import com.demo.newsdemo.utils.image.GlideApp;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -59,7 +59,8 @@ public class GankIOActivity extends BaseActivity {
 
     private void initNavigationView() {
         ImageView icon= (ImageView) mainNavView.getHeaderView(0).findViewById(R.id.nav_head_icon);
-        ImageLoader.loadCircle(context,R.mipmap.icon,icon);
+//        ImageLoader.loadCircle(context,R.mipmap.icon,icon);
+        GlideApp.with(context).load(R.mipmap.icon).into(icon);
         TextView name= (TextView) mainNavView.getHeaderView(0).findViewById(R.id.nav_head_name);
         name.setText("GankIo nav");
 

@@ -33,4 +33,7 @@
     <string name="email">hxxx1992@163.com</string>
     <string name="about_text">demo版本，感谢对项目的支持和关注,项目会不断的升级更新,如果小主感兴趣欢迎一起来贡献,有好的想法也可以随时发email给我.</string>
 
+    <string name="viewpager_indicator">%1$d/%2$d</string>
+
+
 </resources>

@@ -26,8 +26,8 @@ import com.demo.newsdemo.model.GankItemModel;
 import com.demo.newsdemo.model.bean.GankItemData;
 import com.demo.newsdemo.presenter.GankItemPresenter;
 import com.demo.newsdemo.ui.activity.WebDetailActivity;
-import com.demo.newsdemo.utils.ImageLoader;
 import com.demo.newsdemo.utils.LogUtil;
+import com.demo.newsdemo.utils.image.GlideApp;
 import com.demo.newsdemo.utils.recycler.BaseRecyclerAdapter;
 import com.demo.newsdemo.utils.recycler.BaseViewHolder;
 import com.demo.newsdemo.utils.recycler.CommonAdapter;
@@ -102,7 +102,7 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
                 String[] images = gankItemData.getImages();
                 if (images != null && images.length > 0) {
                     LogUtil.e(TAG, images[0] + "?imageView2/0/w/100");
-                    ImageLoader.load(context, images[0] + "?imageView2/0/w/100", iconImg, R.mipmap.web);
+                    GlideApp.with(context).load(images[0] + "?imageView2/0/w/100").placeholder(R.mipmap.web).into(iconImg);
                 } else {
                     String url = gankItemData.getUrl();
                     int iconId;
@@ -127,7 +127,7 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
                     } else {
                         iconId = R.mipmap.web;
                     }
-                    ImageLoader.load(context, iconId, iconImg);
+                    GlideApp.with(context).load(iconId).into(iconImg);
                 }
             }
         };

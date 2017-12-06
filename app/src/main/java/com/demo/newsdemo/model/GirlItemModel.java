@@ -38,7 +38,7 @@ public class GirlItemModel implements GirlItemContract.Model {
                 .subscribe(new CommonSubscriber<String>(mView) {
                     @Override
                     public void onNext(String s) {
-                        LogUtil.e("girl model", "s:" + s);
+                        LogUtil.d("girl model", "s:" + s);
                         callBack.getDataSuccess(JsoupUtil.parseGirls(s));
                     }
                 });
