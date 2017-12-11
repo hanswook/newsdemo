@@ -10,6 +10,8 @@ import android.view.Window;
 import android.view.WindowManager;
 
 
+import com.demo.newsdemo.utils.LogUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,7 @@ public abstract class BaseActivity extends BaseRxActivity {
 
     protected void addPresenter(BasePresenter presenter) {
         presenterList.add(presenter);
+        LogUtil.e(TAG, "addpresenter presenter.size:" + presenterList.size());
     }
 
     @Override
@@ -74,7 +77,8 @@ public abstract class BaseActivity extends BaseRxActivity {
             statusBar.setStatusBarColor(color);
         }
     }
-    public void setStatusBarColor( int color) {
+
+    public void setStatusBarColor(int color) {
         if (Build.VERSION.SDK_INT >= 21) {
             Window statusBar = getWindow();
             statusBar.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -86,9 +90,13 @@ public abstract class BaseActivity extends BaseRxActivity {
 
     @Override
     protected void onDestroy() {
-        unbinder.unbind();
+        LogUtil.e(TAG, "onDestroy  bef  presenter.size:" + presenterList.size());
+        if (unbinder != null)
+            unbinder.unbind();
         for (BasePresenter p : presenterList)
             p.detachView();
+        LogUtil.e(TAG, "onDestroy  aft  presenter.size:" + presenterList.size());
+
         super.onDestroy();
 
     }

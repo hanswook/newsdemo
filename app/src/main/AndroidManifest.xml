@@ -17,6 +17,9 @@
     <!-- 摄像头 -->
     <uses-permission android:name="android.permission.CAMERA" />
 
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+
     <application
         android:name=".base.AppContext"
         android:allowBackup="true"
