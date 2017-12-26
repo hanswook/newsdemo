@@ -34,7 +34,8 @@ public class GirlItemPresenter extends BasePresenter<GirlItemContract.View> impl
             @Override
             public void getDataSuccess(List<GirlItemData> girlItemData) {
                 LogUtil.e("getDataSuccess:","gankItemData.size:"+girlItemData.size());
-                mView.updateUI(girlItemData);
+                if (girlItemData != null && girlItemData.size() > 0)
+                    mView.updateUI(girlItemData);
             }
 
             @Override

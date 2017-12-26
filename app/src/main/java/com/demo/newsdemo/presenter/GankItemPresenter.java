@@ -28,12 +28,13 @@ public class GankItemPresenter extends BasePresenter<GankItemContract.View> impl
 
     @Override
     public void loadData(String type, int pageCount) {
-        LogUtil.e("GankItemPresenter","loadData:type:"+type+",pageCount:"+pageCount);
+        LogUtil.e("GankItemPresenter", "loadData:type:" + type + ",pageCount:" + pageCount);
         model.requestNetForData(type, pageCount, mView, new GetDataCallBack<List<GankItemData>>() {
             @Override
             public void getDataSuccess(List<GankItemData> gankItemData) {
-                LogUtil.e("getDataSuccess:","gankItemData.size:"+gankItemData.size());
-                mView.updateUI(gankItemData);
+                LogUtil.e("getDataSuccess:", "gankItemData.size:" + gankItemData.size());
+                if (gankItemData != null && gankItemData.size() > 0)
+                    mView.updateUI(gankItemData);
             }
 
             @Override

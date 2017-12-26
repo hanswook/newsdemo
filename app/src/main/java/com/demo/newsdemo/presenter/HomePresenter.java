@@ -33,7 +33,8 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
         model.requestLastDailyData(mView, new GetDataCallBack<List<StoriesBean>>() {
             @Override
             public void getDataSuccess(List<StoriesBean> zhihuEntity) {
-                mView.updateList(zhihuEntity);
+                if (zhihuEntity != null && zhihuEntity.size() > 0)
+                    mView.updateList(zhihuEntity);
             }
 
             @Override
