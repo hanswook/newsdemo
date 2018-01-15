@@ -73,7 +73,7 @@ public class GankIOActivity extends BaseActivity {
                         doReplace(ResourceUtil.res2String(context, R.string.gank));
                         break;
                     case R.id.nav_girl:
-                        doReplace(ResourceUtil.res2String(context, R.string.girl));
+//                        doReplace(ResourceUtil.res2String(context, R.string.girl));
                         break;
                     case R.id.nav_set:
                         openSet();
