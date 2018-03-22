@@ -18,6 +18,7 @@ import java.util.List;
  */
 
 public class DbGirlsAdapter extends BaseQuickAdapter<GirlItemData, BaseViewHolder> {
+
     public DbGirlsAdapter(int layoutResId, @Nullable List<GirlItemData> data) {
         super(layoutResId, data);
     }
