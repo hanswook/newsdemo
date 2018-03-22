@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.demo.newsdemo.ui.activity.SplashActivity">
+    tools:context="com.hans.newslook.ui.activity.SplashActivity">
 
     <ImageView
         android:id="@+id/splash_image"
