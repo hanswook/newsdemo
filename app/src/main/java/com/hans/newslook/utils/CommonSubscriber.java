@@ -10,7 +10,9 @@ import io.reactivex.disposables.Disposable;
 
 
 /**
- * Created by hans on 2017/3/14 14:41.
+ * Created by hans
+ * date: 2017/3/14 14:41 17:19.
+ * e-mail: hxxx1992@163.com
  */
 
 public abstract class CommonSubscriber<T> implements Observer<T> {
@@ -24,12 +26,8 @@ public abstract class CommonSubscriber<T> implements Observer<T> {
 
     @Override
     public void onSubscribe(Disposable d) {
-        if (!NetWorkUtils.isConnectedByState(AppContext.getInstance())) {
-            LogUtil.e(TAG, "网络不可用");
-        }
         if (view instanceof BaseActivity) {
             ((BaseActivity) view).addRxDestroy(d);
-//            LogUtil.e("加入Rx池内");
         }
     }
 
@@ -40,6 +38,5 @@ public abstract class CommonSubscriber<T> implements Observer<T> {
 
     @Override
     public void onComplete() {
-//        LogUtil.e(TAG, "成功了");
     }
 }

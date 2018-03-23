@@ -52,18 +52,10 @@ public class GankIOActivity extends BaseActivity {
         initStatusBar();
         initDrawer();
         initNavigationView();
-        LogUtil.e(TAG, "initView");
-
         doReplace(ResourceUtil.res2String(context, R.string.gank));
     }
 
     private void initNavigationView() {
-        ImageView icon= (ImageView) mainNavView.getHeaderView(0).findViewById(R.id.nav_head_icon);
-//        ImageLoader.loadCircle(context,R.mipmap.icon,icon);
-        GlideApp.with(context).load(R.mipmap.icon).into(icon);
-        TextView name= (TextView) mainNavView.getHeaderView(0).findViewById(R.id.nav_head_name);
-        name.setText("GankIo nav");
-
         mainNavView.setCheckedItem(R.id.nav_gank);
         mainNavView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -94,8 +86,8 @@ public class GankIOActivity extends BaseActivity {
 
     private void initDrawer() {
         setSupportActionBar(mainToolbar);
-        ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,
-                drawerLayout,mainToolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+                drawerLayout, mainToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         mainToolbar.setTitle("GankIo");
@@ -103,7 +95,7 @@ public class GankIOActivity extends BaseActivity {
     }
 
     private void initStatusBar() {
-        if (Build.VERSION.SDK_INT<Build.VERSION_CODES.LOLLIPOP){
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             drawerLayout.setFitsSystemWindows(true);
             drawerLayout.setClipToPadding(false);
         }
@@ -146,14 +138,14 @@ public class GankIOActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_gank,menu);
+        getMenuInflater().inflate(R.menu.menu_gank, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id=item.getItemId();
-        switch (id){
+        int id = item.getItemId();
+        switch (id) {
             case R.id.menu_share:
                 Toast.makeText(context, "分享", Toast.LENGTH_SHORT).show();
                 break;

@@ -14,6 +14,7 @@ import com.hans.newslook.di.DaggerZhihuDetailComponent;
 import com.hans.newslook.di.ZhihuDetailModule;
 import com.hans.newslook.model.ZhihuDetailModel;
 import com.hans.newslook.presenter.ZhihuDetailPresenter;
+import com.hans.newslook.utils.HtmlUtils;
 import com.hans.newslook.utils.LogUtil;
 
 import javax.inject.Inject;
@@ -25,8 +26,6 @@ public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailCont
 
     @BindView(R.id.zhihu_detail_webview)
     WebView zhihuWebview;
-    @BindView(R.id.zhihu_detail_image)
-    ImageView zhihuDetailImage;
 
     @Inject
     ZhihuDetailPresenter zhihuDetailPresenter;
@@ -48,7 +47,6 @@ public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailCont
 
 
     private void initIntentData() {
-        detailId = "9544617";
         detailId = getIntent().getStringExtra("zhihu_id");
     }
 
@@ -79,8 +77,11 @@ public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailCont
         settings.setDomStorageEnabled(true);
 
         zhihuWebview.setWebChromeClient(new WebChromeClient());
-        zhihuWebview.loadDataWithBaseURL(data.getShare_url(), data.getBody(), "text/html", "utf-8", data.getCss().get(0));
-        Glide.with(context).load(data.getImage()).into(zhihuDetailImage);
+        String aaa=HtmlUtils.structHtml(data);
+        LogUtil.e(TAG,"aaa:"+aaa);
+//        zhihuWebview.loadData(aaa, "text/html", "utf-8");
+        zhihuWebview.loadDataWithBaseURL("file:///android_asset/", aaa, "text/html", "UTF-8", null);
+
 
     }
 

@@ -31,12 +31,18 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
         model.requestLastDailyData(mView, new GetDataCallBack<List<StoriesBean>>() {
             @Override
             public void getDataSuccess(List<StoriesBean> zhihuEntity) {
+                if (!isAttached()) {
+                    return;
+                }
                 if (zhihuEntity != null && zhihuEntity.size() > 0)
                     mView.updateList(zhihuEntity);
             }
 
             @Override
             public void getDataFailed() {
+                if (!isAttached()) {
+                    return;
+                }
                 mView.showGetdataFailed();
             }
         });
@@ -47,11 +53,17 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
         model.requestMoreData(date, mView, new GetDataCallBack<List<StoriesBean>>() {
             @Override
             public void getDataSuccess(List<StoriesBean> zhihuEntity) {
+                if (!isAttached()) {
+                    return;
+                }
                 mView.updateList(zhihuEntity);
             }
 
             @Override
             public void getDataFailed() {
+                if (!isAttached()) {
+                    return;
+                }
                 mView.showError();
             }
         });

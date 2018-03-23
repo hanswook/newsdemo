@@ -26,12 +26,16 @@ public class SplashPresenter extends BasePresenter<SplashContract.View> implemen
         model.getData(mView, new GetDataCallBack<SplashBean>() {
             @Override
             public void getDataSuccess(SplashBean splashBean) {
-                mView.updateUI(splashBean);
+                if (!isAttached()) {
+                    return;
+                } mView.updateUI(splashBean);
             }
 
             @Override
             public void getDataFailed() {
-                mView.getDataFailed();
+                if (!isAttached()) {
+                    return;
+                } mView.getDataFailed();
             }
         });
 

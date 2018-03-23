@@ -9,7 +9,9 @@ import com.hans.newslook.base.BaseRxFragment;
 import java.util.List;
 
 /**
- * Created by hans on 2017/8/11 14:51.
+ * Created by hans
+ * date: 2017/8/11 17:36.
+ * e-mail: hxxx1992@163.com
  */
 
 public class TypePageAdapter extends FragmentPagerAdapter {

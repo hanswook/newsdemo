@@ -6,7 +6,9 @@ import com.jakewharton.rxrelay2.Relay;
 import io.reactivex.Observable;
 
 /**
- * Created by hans on 2017/8/9 09:13.
+ * Created by hans
+ * date: 2017/8/9 09:13 17:15.
+ * e-mail: hxxx1992@163.com
  */
 
 public class RxBus {

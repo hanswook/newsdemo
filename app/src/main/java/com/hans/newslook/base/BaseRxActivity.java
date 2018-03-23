@@ -7,7 +7,9 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Created by hans on 2017/4/26 10:23.
+ * Created by hans
+ * date: 2017/4/26 10:23 17:22.
+ * e-mail: hxxx1992@163.com
  */
 
 public abstract class BaseRxActivity extends AppCompatActivity {
@@ -31,7 +33,6 @@ public abstract class BaseRxActivity extends AppCompatActivity {
                     "addUtilDestroy should be called between onCreate and onDestroy");
         }
         disposables2Destroy.add(disposable);
-//        LogUtil.e(getClass().getSimpleName(),"加入Rx池内");
         return true;
     }
 
@@ -84,8 +85,6 @@ public abstract class BaseRxActivity extends AppCompatActivity {
                     "onDestroy called multiple times or onCreate not called");
         }
         disposables2Destroy.dispose();
-//        LogUtil.e(getClass().getSimpleName(),"清空Rx池内");
-
         disposables2Destroy = null;
     }
 }

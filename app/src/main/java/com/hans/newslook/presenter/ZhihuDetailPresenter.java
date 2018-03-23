@@ -26,11 +26,17 @@ public class ZhihuDetailPresenter extends BasePresenter<ZhihuDetailContract.View
         model.getDetailData(mView, id, new GetDataCallBack<TheStoryBean>() {
             @Override
             public void getDataSuccess(TheStoryBean theStoryBean) {
+                if (!isAttached()) {
+                    return;
+                }
                 mView.updateUI(theStoryBean);
             }
 
             @Override
             public void getDataFailed() {
+                if (!isAttached()) {
+                    return;
+                }
                 mView.requestFailed();
             }
         });

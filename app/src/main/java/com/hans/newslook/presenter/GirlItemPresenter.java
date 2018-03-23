@@ -27,18 +27,22 @@ public class GirlItemPresenter extends BasePresenter<GirlItemContract.View> impl
 
     @Override
     public void loadData(String type, int pageCount) {
-        LogUtil.e("GankItemPresenter","loadData:type:"+type+",pageCount:"+pageCount);
+        LogUtil.e("GankItemPresenter", "loadData:type:" + type + ",pageCount:" + pageCount);
         model.requestNetForData(type, pageCount, mView, new GetDataCallBack<List<GirlItemData>>() {
             @Override
             public void getDataSuccess(List<GirlItemData> girlItemData) {
-                LogUtil.e("getDataSuccess:","gankItemData.size:"+girlItemData.size());
+                if (!isAttached()) {
+                    return;
+                }
                 if (girlItemData != null && girlItemData.size() > 0)
                     mView.updateUI(girlItemData);
             }
 
             @Override
             public void getDataFailed() {
-                mView.showError();
+                if (!isAttached()) {
+                    return;
+                } mView.showError();
             }
         });
     }

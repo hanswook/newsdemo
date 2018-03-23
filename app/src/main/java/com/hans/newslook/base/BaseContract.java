@@ -1,8 +1,11 @@
 package com.hans.newslook.base;
 
 /**
- * Created by hans on 2017/8/9 16:39.
+ * Created by hans
+ * date: 2017/8/9 16:39 17:22.
+ * e-mail: hxxx1992@163.com
  */
+
 
 public interface BaseContract {
 
@@ -10,6 +13,8 @@ public interface BaseContract {
         void attachView(T view);
 
         void detachView();
+
+        boolean isAttached();
     }
 
     interface BaseView {

@@ -25,6 +25,7 @@ import com.hans.newslook.model.GirlItemModel;
 import com.hans.newslook.model.bean.GirlItemData;
 import com.hans.newslook.presenter.GirlItemPresenter;
 import com.hans.newslook.utils.CommonSubscriber;
+import com.hans.newslook.utils.Constants;
 import com.hans.newslook.utils.LogUtil;
 import com.hans.newslook.utils.image.GlideApp;
 import com.hans.newslook.utils.wechatimage.ImagePagerUtils;
@@ -151,7 +152,7 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
         LogUtil.e(TAG, "initData");
         if (getArguments() == null)
             return;
-        mSubtype = getArguments().getString(SUB_TYPE);
+        mSubtype = getArguments().getString(Constants.SUB_TYPE);
         LogUtil.e(TAG, "mSubtype:" + mSubtype);
 
     }
@@ -237,7 +238,7 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
         LogUtil.e("GirlItemFragment", "GirlItemFragment newInstance");
         GirlItemFragment fragment = new GirlItemFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(SUB_TYPE, subtype);
+        bundle.putString(Constants.SUB_TYPE, subtype);
         fragment.setArguments(bundle);
         return fragment;
     }

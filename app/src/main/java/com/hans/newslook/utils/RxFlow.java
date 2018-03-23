@@ -6,11 +6,11 @@ import io.reactivex.processors.FlowableProcessor;
 import io.reactivex.processors.PublishProcessor;
 
 /**
- * description：
- * author： bzx
- * date: 2017/7/26
- * e-mail: seeyou_x@126.com
+ * Created by hans
+ * date: 2017/8/9 09:13 17:15.
+ * e-mail: hxxx1992@163.com
  */
+
 
 public class RxFlow {
     private final FlowableProcessor<Object> mBus;
@@ -20,10 +20,10 @@ public class RxFlow {
     }
 
     private static class Holder {
-        private static RxBus instance = new RxBus();
+        private static RxFlow instance = new RxFlow();
     }
 
-    public static RxBus getInstance() {
+    public static RxFlow getInstance() {
         return Holder.instance;
     }
 

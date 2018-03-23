@@ -1,6 +1,7 @@
 package com.hans.newslook.ui.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,7 +9,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hans.newslook.R;
 import com.hans.newslook.adapter.GankItemAdapter;
@@ -20,6 +23,7 @@ import com.hans.newslook.model.GankItemModel;
 import com.hans.newslook.model.bean.GankItemData;
 import com.hans.newslook.presenter.GankItemPresenter;
 import com.hans.newslook.ui.activity.WebDetailActivity;
+import com.hans.newslook.utils.Constants;
 import com.hans.newslook.utils.LogUtil;
 
 import java.util.ArrayList;
@@ -45,8 +49,6 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
     private boolean isLoading;
 
     private int mLastVisibleItemPosition;
-
-    private LinearLayoutManager layoutManager;
 
 
     @BindView(R.id.type_item_recyclerview)
@@ -93,23 +95,8 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
                 loadMore();
             }
         }, mRecyclerview);
-        layoutManager = new LinearLayoutManager(context);
-        mRecyclerview.setLayoutManager(layoutManager);
+        mRecyclerview.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerview.setAdapter(adapter);
-
-        mRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (mLastVisibleItemPosition < layoutManager.findLastVisibleItemPosition())
-                    mFab.show();
-                if (mLastVisibleItemPosition > layoutManager.findLastVisibleItemPosition() && mFab.isShown())
-                    mFab.hide();
-                if (dy>50 && mSwipfreshlayout.isRefreshing())
-                    mSwipfreshlayout.setRefreshing(false);
-                mLastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
-            }
-        });
 
         mSwipfreshlayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent, R.color.colorPrimaryDark);
         mSwipfreshlayout.setOnRefreshListener(this);
@@ -126,12 +113,13 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
 
     }
 
+
     @Override
     protected void initData() {
         LogUtil.e(TAG, "initData");
         if (getArguments() == null)
             return;
-        mSubtype = getArguments().getString(SUB_TYPE);
+        mSubtype = getArguments().getString(Constants.SUB_TYPE);
         LogUtil.e(TAG, "mSubtype:" + mSubtype);
 
     }
@@ -187,7 +175,7 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
         LogUtil.e("GankItemFragment", "GankItemFragment newInstance");
         GankItemFragment fragment = new GankItemFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(SUB_TYPE, subtype);
+        bundle.putString(Constants.SUB_TYPE, subtype);
         fragment.setArguments(bundle);
         return fragment;
     }

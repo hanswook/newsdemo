@@ -14,7 +14,34 @@ public class Constants {
     /**
      * 是否为debug模式
      */
-    public static boolean IS_DEBUG_MODE = true;
+    public static final boolean IS_DEBUG_MODE = true;
+
+
+
+    public static final String SUB_TYPE = "subtype";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * app存储目录路径
      */

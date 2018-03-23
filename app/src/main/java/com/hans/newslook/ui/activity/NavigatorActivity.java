@@ -44,7 +44,7 @@ public class NavigatorActivity extends BaseActivity {
 
                 break;
             case R.id.btn3:
-                startActivity(new Intent(context, SplashActivity.class));
+                startActivity(new Intent(context, GankIOActivity.class));
                 break;
         }
     }

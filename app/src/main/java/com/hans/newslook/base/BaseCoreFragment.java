@@ -13,17 +13,17 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
- * Created by hans on 2017/7/10 11:06.
+ * Created by hans
+ * date: 2017/7/10 11:06 17:20.
+ * e-mail: hxxx1992@163.com
  */
 
 public abstract class BaseCoreFragment extends Fragment {
     protected View rootView;
-
     protected Unbinder unbinder;
     protected Context context;
     protected String TAG;
     protected abstract int getLayoutId();
-
     protected abstract void init();
 
     @Override
