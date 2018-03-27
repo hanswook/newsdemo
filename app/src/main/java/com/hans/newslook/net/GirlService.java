@@ -3,6 +3,7 @@ package com.hans.newslook.net;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -12,14 +13,17 @@ import retrofit2.http.Query;
  */
 public interface GirlService {
 
-
+    @Headers({"url_name:dbgirl"})
     @GET("{id}")
     Observable<String> getGirlDetailData(@Path("id") String id);
 
+    @Headers({"url_name:dbgirl"})
     @GET("dbgroup/show.htm")
     Observable<String> getGirlItemData(@Query("cid") String cid, @Query("pager_offset") int pager_offset);
 
+    @Headers({"url_name:dbgirl"})
     @GET("show.htm")
     Observable<Object> getGirlItemData1(@Query("cid") String cid, @Query("pager_offset") int pager_offset);
+
 
 }

@@ -19,7 +19,6 @@ import com.hans.newslook.base.BaseRxFragment;
 import com.hans.newslook.contract.GankItemContract;
 import com.hans.newslook.di.DaggerGankItemComponent;
 import com.hans.newslook.di.GankItemModule;
-import com.hans.newslook.model.GankItemModel;
 import com.hans.newslook.model.bean.GankItemData;
 import com.hans.newslook.presenter.GankItemPresenter;
 import com.hans.newslook.ui.activity.WebDetailActivity;
@@ -47,8 +46,6 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
     private boolean isLoadMore;
 
     private boolean isLoading;
-
-    private int mLastVisibleItemPosition;
 
 
     @BindView(R.id.type_item_recyclerview)
@@ -100,6 +97,18 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
 
         mSwipfreshlayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent, R.color.colorPrimaryDark);
         mSwipfreshlayout.setOnRefreshListener(this);
+        mRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LogUtil.e(TAG, "dx:" + dx + ",dy:" + dy);
+                if (dy > 0) {
+                    mFab.hide();
+                } else {
+                    mFab.show();
+                }
+            }
+        });
     }
 
     private void loadMore() {
@@ -127,7 +136,7 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
     @Override
     protected void fetchData() {
         LogUtil.e(TAG, "fetchData");
-        DaggerGankItemComponent.builder().gankItemModule(new GankItemModule(this, new GankItemModel()))
+        DaggerGankItemComponent.builder().gankItemModule(new GankItemModule(this))
                 .build().inject(this);
         addPresenter(mPresenter);
         mPresenter.loadData(mSubtype, PAGE_COUNT);
@@ -143,10 +152,6 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
 
     }
 
-    @Override
-    public void complete() {
-
-    }
 
     @Override
     public void updateUI(List<GankItemData> data) {

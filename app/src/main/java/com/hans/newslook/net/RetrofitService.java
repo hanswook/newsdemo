@@ -12,6 +12,7 @@ import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by hans on 2017/10/11.
@@ -45,6 +46,8 @@ public interface RetrofitService {
 
     @GET("http://lab.zuimeia.com/wallpaper/category/1/?page_size=1")
     Observable<SplashBean> getImage();
+
+
 
 
 }

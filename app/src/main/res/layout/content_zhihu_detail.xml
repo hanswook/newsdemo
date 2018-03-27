@@ -5,20 +5,15 @@
     android:id="@+id/content_zhihu_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:scrollbars="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ui.activity.ZhihuDetailActivity"
     tools:showIn="@layout/activity_zhihu_detail">
-
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/web_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+    </FrameLayout>
 
-        <WebView
-            android:id="@+id/zhihu_detail_webview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+
 </android.support.v4.widget.NestedScrollView>

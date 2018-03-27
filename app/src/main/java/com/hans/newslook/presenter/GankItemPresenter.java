@@ -4,11 +4,19 @@ import com.hans.newslook.base.BasePresenter;
 import com.hans.newslook.contract.GankItemContract;
 import com.hans.newslook.contract.callback.GetDataCallBack;
 import com.hans.newslook.model.bean.GankItemData;
+import com.hans.newslook.model.bean.HttpResult;
+import com.hans.newslook.net.RetrofitHelper;
+import com.hans.newslook.net.RetrofitService;
+import com.hans.newslook.utils.CommonSubscriber;
 import com.hans.newslook.utils.LogUtil;
+import com.hans.newslook.utils.RxUtils;
 
 import java.util.List;
 
 import javax.inject.Inject;
+
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Function;
 
 /**
  * Created by hans on 2017/8/11 10:54.
@@ -17,33 +25,35 @@ import javax.inject.Inject;
 public class GankItemPresenter extends BasePresenter<GankItemContract.View> implements GankItemContract.Presenter<GankItemContract.View> {
 
 
-    private GankItemContract.Model model;
 
     @Inject
-    public GankItemPresenter(GankItemContract.View mView, GankItemContract.Model model) {
+    public GankItemPresenter(GankItemContract.View mView) {
         attachView(mView);
-        this.model = model;
     }
 
     @Override
     public void loadData(String type, int pageCount) {
         LogUtil.e("GankItemPresenter", "loadData:type:" + type + ",pageCount:" + pageCount);
-        model.requestNetForData(type, pageCount, mView, new GetDataCallBack<List<GankItemData>>() {
-            @Override
-            public void getDataSuccess(List<GankItemData> gankItemData) {
-                if (!isAttached()) {
-                    return;
-                } if (gankItemData != null && gankItemData.size() > 0)
-                    mView.updateUI(gankItemData);
-            }
-
-            @Override
-            public void getDataFailed() {
-                if (!isAttached()) {
-                    return;
-                }  mView.showError();
-            }
-        });
+        RetrofitHelper.getInstance().create(RetrofitService.class)
+                .getGankData(type, pageCount)
+                .compose(RxUtils.applySchedulers())
+                .map(new Function<HttpResult<List<GankItemData>>, List<GankItemData>>() {
+                    @Override
+                    public List<GankItemData> apply(@NonNull HttpResult<List<GankItemData>> listHttpResult) throws Exception {
+                        if (listHttpResult.isError())
+                            throw new Exception("网络请求失败");
+                        return listHttpResult.getResults();
+                    }
+                })
+                .subscribe(new CommonSubscriber<List<GankItemData>>(mView) {
+                    @Override
+                    public void onNext(List<GankItemData> gankItemData) {
+                        if (!isAttached()) {
+                            return;
+                        }
+                        mView.updateUI(gankItemData);
+                    }
+                });
     }
 
 

@@ -177,10 +177,6 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
 
     }
 
-    @Override
-    public void complete() {
-
-    }
 
     @Override
     public void updateUI(List<GirlItemData> data) {

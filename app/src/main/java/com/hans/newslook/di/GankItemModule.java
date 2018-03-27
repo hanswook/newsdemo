@@ -12,11 +12,9 @@ import dagger.Provides;
 public class GankItemModule {
 
     private GankItemContract.View mView;
-    private GankItemContract.Model mModel;
 
-    public GankItemModule(GankItemContract.View mView, GankItemContract.Model mModel) {
+    public GankItemModule(GankItemContract.View mView) {
         this.mView = mView;
-        this.mModel = mModel;
     }
 
     @Provides
@@ -24,10 +22,6 @@ public class GankItemModule {
         return mView;
     }
 
-    @Provides
-    GankItemContract.Model provideModel() {
-        return mModel;
-    }
 
 
 }

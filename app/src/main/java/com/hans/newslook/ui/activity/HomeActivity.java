@@ -252,11 +252,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     }
 
     @Override
-    public void complete() {
-
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         homePresenter.attachView(this);
