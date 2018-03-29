@@ -23,4 +23,12 @@ public class HttpResult<T> {
     public void setResults(T results) {
         this.results = results;
     }
+
+    @Override
+    public String toString() {
+        return "HttpResult{" +
+                "error=" + error +
+                ", results=" + results +
+                '}';
+    }
 }

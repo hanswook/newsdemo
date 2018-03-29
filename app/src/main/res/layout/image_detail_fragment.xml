@@ -11,6 +11,4 @@
         android:contentDescription="@string/app_name" />
     <!--android:adjustViewBounds="true"-->
 
-
-
 </LinearLayout><!--点击放大展示图片使用布局-->

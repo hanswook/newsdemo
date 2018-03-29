@@ -10,7 +10,7 @@ import com.hans.newslook.R;
 import com.hans.newslook.adapter.TypePageAdapter;
 import com.hans.newslook.base.BaseCoreFragment;
 import com.hans.newslook.base.BaseRxFragment;
-import com.hans.newslook.utils.LogUtil;
+import com.hans.newslook.utils.LogUtils;
 import com.hans.newslook.utils.ResourceUtil;
 
 import java.util.ArrayList;
@@ -44,8 +44,7 @@ public class TypeFragment extends BaseCoreFragment {
 
     @Override
     protected void init() {
-        LogUtil.e(TAG, "init");
-
+        LogUtils.e(TAG, "init");
         mTypeAdapter = new TypePageAdapter(getChildFragmentManager());
         mTypeAdapter.setData(fragments, mTitles);
         mViewpager.setAdapter(mTypeAdapter);
@@ -72,17 +71,18 @@ public class TypeFragment extends BaseCoreFragment {
 
     @Override
     protected void initData() {
-        LogUtil.e(TAG, "initData");
+        LogUtils.e(TAG, "initData");
         if (getArguments() == null)
             return;
         fragments = new ArrayList<>();
         mType = getArguments().getString(TYPE);
         if (ResourceUtil.res2String(getActivity(), R.string.gank).equalsIgnoreCase(mType)) {
             mTitles = ResourceUtil.stringArray2List(getActivity(), R.array.gank);
-            LogUtil.e(TAG, "mTitles:" + mTitles.size() + ",:" + mTitles.get(0));
+            LogUtils.e(TAG, "mTitles:" + mTitles.size() + ",:" + mTitles.get(0));
             for (String title : mTitles) {
                 fragments.add(GankItemFragment.newInstance(title));
             }
+
         } else if (ResourceUtil.res2String(getActivity(), R.string.girl).equalsIgnoreCase(mType)) {
             mTitles = ResourceUtil.stringArray2List(getActivity(), R.array.girl);
             List<String> subTypes = ResourceUtil.stringArray2List(getActivity(), R.array.girl_cid);
@@ -93,8 +93,7 @@ public class TypeFragment extends BaseCoreFragment {
     }
 
     public static TypeFragment newInstance(String type) {
-        LogUtil.e("TypeFragment", "TypeFragment newInstance");
-
+        LogUtils.e("TypeFragment", "newInstance type:" + type);
         TypeFragment fragment = new TypeFragment();
         Bundle bundle = new Bundle();
         bundle.putString(TYPE, type);

@@ -9,7 +9,7 @@ import com.hans.newslook.base.AppContext;
  * Created by hans on 2017/4/11 14:56.
  */
 
-public class LogUtil {
+public class LogUtils {
     public static void d(String tag, String str) {
         if (Constants.IS_DEBUG_MODE) {
             try {

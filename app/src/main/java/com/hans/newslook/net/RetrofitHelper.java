@@ -1,6 +1,6 @@
 package com.hans.newslook.net;
 
-import com.hans.newslook.utils.LogUtil;
+import com.hans.newslook.utils.LogUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -67,8 +67,8 @@ public class RetrofitHelper {
                     } else {
                         newBaseUrl = oldHttpUrl;
                     }
-                    LogUtil.e("retrofit helper", "new url:" + newBaseUrl);
-                    LogUtil.e("retrofit helper", "oldHttpUrl:" + oldHttpUrl);
+                    LogUtils.e("retrofit helper", "new url:" + newBaseUrl);
+                    LogUtils.e("retrofit helper", "oldHttpUrl:" + oldHttpUrl);
 
                     //重建新的HttpUrl，修改需要修改的url部分
                     HttpUrl newFullUrl = oldHttpUrl
@@ -77,7 +77,7 @@ public class RetrofitHelper {
                             .host(newBaseUrl.host())
                             .port(newBaseUrl.port())
                             .build();
-                    LogUtil.e("retrofit helper", "newFullUrl:" + newFullUrl);
+                    LogUtils.e("retrofit helper", "newFullUrl:" + newFullUrl);
 
                     //重建这个request，通过builder.url(newFullUrl).build()；
                     //然后返回一个response至此结束修改

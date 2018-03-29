@@ -13,7 +13,7 @@ import com.hans.newslook.di.SplashModule;
 import com.hans.newslook.model.SplashModel;
 import com.hans.newslook.model.bean.SplashBean;
 import com.hans.newslook.presenter.SplashPresenter;
-import com.hans.newslook.utils.LogUtil;
+import com.hans.newslook.utils.LogUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -56,7 +56,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
     @Override
     public void updateUI(SplashBean splashBean) {
         Glide.with(context).load(splashBean.getData().getBase_url() + splashBean.getData().getImages().get(0).getImage_url()).into(splashImage);
-        LogUtil.e(TAG, splashBean.getData().getBase_url() + splashBean.getData().getImages().get(0).getImage_url());
+        LogUtils.e(TAG, splashBean.getData().getBase_url() + splashBean.getData().getImages().get(0).getImage_url());
         turnToNext(3);
     }
 

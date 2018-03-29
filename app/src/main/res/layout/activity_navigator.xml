@@ -9,26 +9,56 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/zhihuC"
-            android:text="去看看知乎头条" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            <Button
+                android:id="@+id/btn1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/zhihuC"
+                android:text="去看看知乎头条" />
+
+            <Button
+                android:id="@+id/btn2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/gankC"
+                android:text="跳转去GankIO的新闻和妹子" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/gankC"
-            android:text="跳转去GankIO的新闻和妹子" />
+            android:orientation="horizontal">
 
+            <Button
+                android:id="@+id/btn3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/zxingC"
+                android:text="试试Zxing" />
+
+            <Button
+                android:id="@+id/btn4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/kuaidiC"
+                android:text="查快递" />
+
+        </LinearLayout>
     </LinearLayout>
-
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btn_float"

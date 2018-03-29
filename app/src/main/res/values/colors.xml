@@ -33,5 +33,8 @@
     <color name="nav_item_icon">#0099ff</color>
     <color name="zhihuC">#cc33ff</color>
     <color name="gankC">#3399ff</color>
+    <color name="zxingC">#99ff33</color>
+    <color name="kuaidiC">#33cc99</color>
+
 
 </resources>

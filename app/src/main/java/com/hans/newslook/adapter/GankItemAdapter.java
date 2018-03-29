@@ -9,7 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hans.newslook.R;
 import com.hans.newslook.model.bean.GankItemData;
-import com.hans.newslook.utils.LogUtil;
+import com.hans.newslook.utils.LogUtils;
 import com.hans.newslook.utils.image.GlideApp;
 
 import java.util.List;
@@ -38,7 +38,7 @@ public class GankItemAdapter extends BaseQuickAdapter<GankItemData, BaseViewHold
         publishDateTv.setText(item.getPublishedAt().substring(0, 10));
         String[] images = item.getImages();
         if (images != null && images.length > 0) {
-            LogUtil.e(TAG, images[0] + "?imageView2/0/w/100");
+            LogUtils.e(TAG, images[0] + "?imageView2/0/w/100");
             GlideApp.with(mContext).load(images[0] + "?imageView2/0/w/100").placeholder(R.mipmap.web).into(iconImg);
         } else {
             String url = item.getUrl();

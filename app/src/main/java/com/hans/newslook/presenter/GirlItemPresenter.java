@@ -4,7 +4,7 @@ import com.hans.newslook.base.BasePresenter;
 import com.hans.newslook.contract.GirlItemContract;
 import com.hans.newslook.contract.callback.GetDataCallBack;
 import com.hans.newslook.model.bean.GirlItemData;
-import com.hans.newslook.utils.LogUtil;
+import com.hans.newslook.utils.LogUtils;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class GirlItemPresenter extends BasePresenter<GirlItemContract.View> impl
 
     @Override
     public void loadData(String type, int pageCount) {
-        LogUtil.e("GankItemPresenter", "loadData:type:" + type + ",pageCount:" + pageCount);
+        LogUtils.e("GirlItemPresenter", "loadData:type:" + type + ",pageCount:" + pageCount);
         model.requestNetForData(type, pageCount, mView, new GetDataCallBack<List<GirlItemData>>() {
             @Override
             public void getDataSuccess(List<GirlItemData> girlItemData) {

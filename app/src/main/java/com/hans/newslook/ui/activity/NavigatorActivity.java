@@ -22,8 +22,12 @@ public class NavigatorActivity extends BaseActivity {
 
     @BindView(R.id.btn1)
     Button btn1;
+    @BindView(R.id.btn2)
+    Button btn2;
     @BindView(R.id.btn3)
     Button btn3;
+    @BindView(R.id.btn4)
+    Button btn4;
     @BindView(R.id.btn_float)
     FloatingActionButton btnFloat;
 
@@ -32,20 +36,25 @@ public class NavigatorActivity extends BaseActivity {
         return R.layout.activity_navigator;
     }
 
-    @OnClick({R.id.btn1, R.id.btn_float, R.id.btn3})
+    @OnClick({R.id.btn1, R.id.btn_float, R.id.btn3, R.id.btn2, R.id.btn4})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn1:
                 startActivity(new Intent(context, HomeActivity.class));
-
                 break;
             case R.id.btn_float:
                 startActivity(new Intent(context, AboutActivity.class));
-
                 break;
-            case R.id.btn3:
+            case R.id.btn2:
                 startActivity(new Intent(context, GankIOActivity.class));
                 break;
+            case R.id.btn3:
+                startActivity(new Intent(context, ZxingActivity.class));
+                break;
+            case R.id.btn4:
+                startActivity(new Intent(context, ExpressHomeActivity.class));
+                break;
+
         }
     }
 

@@ -10,17 +10,15 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hans.newslook.R;
 import com.hans.newslook.base.BaseActivity;
 import com.hans.newslook.base.BaseCoreFragment;
+import com.hans.newslook.ui.fragment.GankGirlFragment;
 import com.hans.newslook.ui.fragment.TypeFragment;
-import com.hans.newslook.utils.LogUtil;
+import com.hans.newslook.utils.LogUtils;
 import com.hans.newslook.utils.ResourceUtil;
-import com.hans.newslook.utils.image.GlideApp;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -104,22 +102,24 @@ public class GankIOActivity extends BaseActivity {
     }
 
     private void doReplace(String type) {
-        LogUtil.e(TAG, "doReplace");
-
+        LogUtils.e(TAG, "doReplace");
         if (!type.equalsIgnoreCase(mCurrentType)) {
-            replaceFragment(TypeFragment.newInstance(type), type, mCurrentType);
+//            replaceFragment(TypeFragment.newInstance(type), type, mCurrentType);
+            if (type.equalsIgnoreCase(ResourceUtil.res2String(context, R.string.gank))) {
+                replaceFragment(TypeFragment.newInstance(type), type, mCurrentType);
+            } else if (type.equalsIgnoreCase(ResourceUtil.res2String(context, R.string.girl))) {
+                replaceFragment(new GankGirlFragment(), type, mCurrentType);
+            }
             mCurrentType = type;
         }
-
     }
 
-    private void replaceFragment(BaseCoreFragment baseFragment, String tag, String lastTag) {
-        LogUtil.e(TAG, "replaceFragment");
+    private void replaceFragment(BaseCoreFragment typeFragment, String tag, String lastTag) {
+        LogUtils.e(TAG, "replaceFragment");
         if (mTypeFragments.get(tag) == null) {
-            mTypeFragments.put(tag, baseFragment);
-
+            mTypeFragments.put(tag, typeFragment);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.add(R.id.main_fragment_container, baseFragment, tag).commit();
+            transaction.add(R.id.main_fragment_container, typeFragment, tag).commit();
         }
 
         if (mTypeFragments.get(lastTag) != null) {

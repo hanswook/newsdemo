@@ -1,6 +1,5 @@
 package com.hans.newslook.ui.activity;
 
-import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +19,12 @@ import com.hans.newslook.model.ZhihuDetailModel;
 import com.hans.newslook.model.bean.zhihu.TheStoryBean;
 import com.hans.newslook.presenter.ZhihuDetailPresenter;
 import com.hans.newslook.utils.HtmlUtils;
-import com.hans.newslook.utils.LogUtil;
+import com.hans.newslook.utils.LogUtils;
 import com.hans.newslook.widget.IconFontTextView;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailContract.View {
 
@@ -106,10 +104,10 @@ public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailCont
 
     @Override
     public void updateUI(TheStoryBean data) {
-        LogUtil.e(TAG, "updateUI");
+        LogUtils.e(TAG, "updateUI");
 
         String aaa = HtmlUtils.structHtml(data);
-        LogUtil.e(TAG, "aaa:" + aaa);
+        LogUtils.e(TAG, "aaa:" + aaa);
 //        zhihuWebview.loadData(aaa, "text/html", "utf-8");
         zhihuWebview.loadDataWithBaseURL("file:///android_asset/", aaa, "text/html", "UTF-8", null);
 
@@ -118,7 +116,7 @@ public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailCont
 
     @Override
     public void requestFailed() {
-        LogUtil.e(TAG, "requestFailed");
+        LogUtils.e(TAG, "requestFailed");
     }
 
     @Override

@@ -5,7 +5,7 @@ import com.hans.newslook.base.BasePresenter;
 import com.hans.newslook.model.bean.zhihu.StoriesBean;
 import com.hans.newslook.contract.callback.GetDataCallBack;
 import com.hans.newslook.contract.HomeContract;
-import com.hans.newslook.utils.LogUtil;
+import com.hans.newslook.utils.LogUtils;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
 
     @Override
     public void loadData() {
-        LogUtil.e(mView.getClass().getSimpleName(), "loadDetailData");
+        LogUtils.e(mView.getClass().getSimpleName(), "loadDetailData");
         model.requestLastDailyData(mView, new GetDataCallBack<List<StoriesBean>>() {
             @Override
             public void getDataSuccess(List<StoriesBean> zhihuEntity) {

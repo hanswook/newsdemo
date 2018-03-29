@@ -4,7 +4,7 @@ import android.view.MotionEvent;
 
 import com.hans.newslook.R;
 import com.hans.newslook.base.BaseActivity;
-import com.hans.newslook.utils.LogUtil;
+import com.hans.newslook.utils.LogUtils;
 
 
 public class AboutActivity extends BaseActivity{
@@ -17,7 +17,7 @@ public class AboutActivity extends BaseActivity{
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        LogUtil.e(TAG,"event:"+event.toString());
+        LogUtils.e(TAG,"event:"+event.toString());
         if (event.getAction()==MotionEvent.ACTION_UP){
             this.finish();
         }

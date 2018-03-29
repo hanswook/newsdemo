@@ -8,15 +8,13 @@ import com.hans.newslook.contract.HomeContract;
 import com.hans.newslook.net.RetrofitHelper;
 import com.hans.newslook.net.RetrofitService;
 import com.hans.newslook.utils.CommonSubscriber;
-import com.hans.newslook.utils.LogUtil;
+import com.hans.newslook.utils.LogUtils;
 import com.hans.newslook.utils.RxUtils;
 
 import java.util.List;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by hans on 2017/7/25 14:01.
@@ -39,7 +37,7 @@ public class HomeModel implements HomeContract.Model {
                 .subscribe(new CommonSubscriber<List<StoriesBean>>(mView) {
                     @Override
                     public void onNext(List<StoriesBean> zhihuEntity) {
-                        LogUtil.e(mView.getClass().getSimpleName(), "loadDetailData");
+                        LogUtils.e(mView.getClass().getSimpleName(), "loadDetailData");
                         getDataCallBack.getDataSuccess(zhihuEntity);
                     }
 

@@ -26,7 +26,7 @@ import com.hans.newslook.model.bean.GirlItemData;
 import com.hans.newslook.presenter.GirlItemPresenter;
 import com.hans.newslook.utils.CommonSubscriber;
 import com.hans.newslook.utils.Constants;
-import com.hans.newslook.utils.LogUtil;
+import com.hans.newslook.utils.LogUtils;
 import com.hans.newslook.utils.image.GlideApp;
 import com.hans.newslook.utils.wechatimage.ImagePagerUtils;
 
@@ -55,7 +55,6 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
     private boolean isLoadMore;
 
     private boolean isLoading;
-
 
     private StaggeredGridLayoutManager layoutManager;
 
@@ -99,14 +98,14 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
         adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                LogUtil.e(TAG, "onLoadMoreRequested,data.size:" + datas.size() + "/pageNo:" + PAGE_COUNT);
+                LogUtils.e(TAG, "onLoadMoreRequested,data.size:" + datas.size() + "/pageNo:" + PAGE_COUNT);
                 if (datas.size() > (PAGE_COUNT * 20)) {
-                    LogUtil.e("没有加载更多,data.size:" + datas.size() + "/pageNo:" + PAGE_COUNT);
+                    LogUtils.e("没有加载更多,data.size:" + datas.size() + "/pageNo:" + PAGE_COUNT);
                     return;
                 } else {
                     isLoadMore = true;
                     loadMore();
-                    LogUtil.e("加载更多了一次,当前页数为:" + PAGE_COUNT + "加载后总页数会加一");
+                    LogUtils.e("加载更多了一次,当前页数为:" + PAGE_COUNT + "加载后总页数会加一");
                 }
             }
         }, mRecyclerview);
@@ -125,7 +124,7 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                LogUtil.e(TAG, "dx:" + dx + ",dy:" + dy);
+                LogUtils.e(TAG, "dx:" + dx + ",dy:" + dy);
                 if (dy > 15)
                     mFab.show();
                 if (dy < -15 && mFab.isShown())
@@ -137,8 +136,8 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
     }
 
     private void loadMore() {
-        LogUtil.e(TAG, "loadMore:mSubtype:" + mSubtype + ",PAGE_COUNT:" + PAGE_COUNT);
-        LogUtil.e(TAG, "load data isLoading:" + isLoading);
+        LogUtils.e(TAG, "loadMore:mSubtype:" + mSubtype + ",PAGE_COUNT:" + PAGE_COUNT);
+        LogUtils.e(TAG, "load data isLoading:" + isLoading);
         if (!isLoading) {
             isLoading = true;
             PAGE_COUNT++;
@@ -149,17 +148,17 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
 
     @Override
     protected void initData() {
-        LogUtil.e(TAG, "initData");
+        LogUtils.e(TAG, "initData");
         if (getArguments() == null)
             return;
         mSubtype = getArguments().getString(Constants.SUB_TYPE);
-        LogUtil.e(TAG, "mSubtype:" + mSubtype);
+        LogUtils.e(TAG, "mSubtype:" + mSubtype);
 
     }
 
     @Override
     protected void fetchData() {
-        LogUtil.e(TAG, "fetchData");
+        LogUtils.e(TAG, "fetchData");
         DaggerGirlItemComponent.builder()
                 .girlItemModule(new GirlItemModule(this, new GirlItemModel()))
                 .build().inject(this);
@@ -191,7 +190,7 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
                                 .submit(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                                 .get();
                         if (bitmap != null) {
-//                                LogUtil.e(TAG, "bitmap:w:" + bitmap.getWidth() + ",h:" + bitmap.getHeight());
+//                                LogUtils.e(TAG, "bitmap:w:" + bitmap.getWidth() + ",h:" + bitmap.getHeight());
                             item.setWidth(bitmap.getWidth());
                             item.setHeight(bitmap.getHeight());
                         }
@@ -206,14 +205,14 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
                         isLoading = false;
                         if (isLoadMore) {
                             if (girlItemDatas.size() == 0) {
-                                LogUtil.e(TAG, "updateUI : 获取数据成功，数据数量为0");
+                                LogUtils.e(TAG, "updateUI : 获取数据成功，数据数量为0");
                                 adapter.loadMoreFail();
                             } else {
                                 int originSize = datas.size();
                                 int size = girlItemDatas.size();
                                 datas.addAll(girlItemDatas);
 //                                adapter.notifyDataSetChanged();
-                                LogUtil.e(TAG, "originsize:" + originSize + ",size:" + size);
+                                LogUtils.e(TAG, "originsize:" + originSize + ",size:" + size);
                                 adapter.notifyItemRangeInserted(originSize, datas.size() - originSize);
                                 adapter.loadMoreComplete();
                             }
@@ -231,7 +230,7 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
 
 
     public static GirlItemFragment newInstance(String subtype) {
-        LogUtil.e("GirlItemFragment", "GirlItemFragment newInstance");
+        LogUtils.e("GirlItemFragment", "GirlItemFragment newInstance");
         GirlItemFragment fragment = new GirlItemFragment();
         Bundle bundle = new Bundle();
         bundle.putString(Constants.SUB_TYPE, subtype);

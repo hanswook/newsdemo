@@ -22,7 +22,7 @@ import com.hans.newslook.model.HomeModel;
 import com.hans.newslook.presenter.HomePresenter;
 import com.hans.newslook.utils.CommonSubscriber;
 import com.hans.newslook.utils.DateUtil;
-import com.hans.newslook.utils.LogUtil;
+import com.hans.newslook.utils.LogUtils;
 import com.hans.newslook.utils.ShortTimeUtil;
 import com.hans.newslook.utils.recycler.BaseRecyclerAdapter;
 
@@ -86,7 +86,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         datas = new ArrayList<>();
         dataDate = Integer.parseInt(new SimpleDateFormat("yyyyMMdd").format(new Date()));
         dateNow = dataDate;
-        LogUtil.e(TAG, "dataDate:" + dataDate + ",dateShow:" + dateShow);
+        LogUtils.e(TAG, "dataDate:" + dataDate + ",dateShow:" + dateShow);
     }
 
     private void initDagger() {
@@ -134,7 +134,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (isLoading) {
-                    LogUtil.e(TAG, "正在加载哦哦哦哦哦哦哦哦");
+                    LogUtils.e(TAG, "正在加载哦哦哦哦哦哦哦哦");
                     return;
                 }
                 RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
@@ -149,12 +149,12 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
                     if (lastItemPosition == datas.size() - 1) {
 //                        根据滑动间隔，避免多次加载的情况。
                         if (ShortTimeUtil.isFastClick()) {
-                            LogUtil.e(TAG, "滑动间隔过短");
+                            LogUtils.e(TAG, "滑动间隔过短");
                             return;
                         }
                         loadMore();
                     }
-                    LogUtil.e(TAG, lastItemPosition + " /  " + firstItemPosition + " /  " + "/datasize:" + datas.size());
+                    LogUtils.e(TAG, lastItemPosition + " /  " + firstItemPosition + " /  " + "/datasize:" + datas.size());
                 }
             }
 
@@ -209,7 +209,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
     @Override
     public void updateList(List<StoriesBean> stories) {
-        LogUtil.e(TAG, "zhihu:" + stories.get(0).getDataDate() + ",size:" + stories.size());
+        LogUtils.e(TAG, "zhihu:" + stories.get(0).getDataDate() + ",size:" + stories.size());
         getDataString();
         for (int i = 0; i < stories.size(); i++) {
             stories.get(i).setDelegateType(0);
@@ -221,15 +221,15 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         stories.add(0, sb);
         datas.addAll(stories);
         adapter.notifyItemRangeInserted(datas.size() - stories.size(), datas.size() - 1);
-        LogUtil.e(TAG, datas.size() + "");
-        LogUtil.e(TAG, "storiesSize:" + stories.size());
+        LogUtils.e(TAG, datas.size() + "");
+        LogUtils.e(TAG, "storiesSize:" + stories.size());
         isLoading = false;
     }
 
     @Override
     public void showGetdataFailed() {
-        LogUtil.e(TAG, "zhihu:showGetdataFailed");
-        LogUtil.e(TAG, "getDataFailed");
+        LogUtils.e(TAG, "zhihu:showGetdataFailed");
+        LogUtils.e(TAG, "getDataFailed");
         isLoading = false;
     }
 

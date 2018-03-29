@@ -1,7 +1,6 @@
 package com.hans.newslook.utils;
 
 
-import com.hans.newslook.base.AppContext;
 import com.hans.newslook.base.BaseActivity;
 import com.hans.newslook.base.BaseContract;
 
@@ -33,7 +32,7 @@ public abstract class CommonSubscriber<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
-        LogUtil.e(TAG, "e:" + e.toString());
+        LogUtils.e(TAG, "e:" + e.toString());
     }
 
     @Override
