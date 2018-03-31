@@ -1,5 +1,6 @@
 package com.hans.newslook.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.support.v4.widget.NestedScrollView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.hans.newslook.di.DaggerZhihuDetailComponent;
 import com.hans.newslook.di.ZhihuDetailModule;
 import com.hans.newslook.model.ZhihuDetailModel;
 import com.hans.newslook.model.bean.zhihu.TheStoryBean;
+import com.hans.newslook.net.X5WebView;
 import com.hans.newslook.presenter.ZhihuDetailPresenter;
 import com.hans.newslook.utils.HtmlUtils;
 import com.hans.newslook.utils.LogUtils;
@@ -46,6 +48,7 @@ public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailCont
 
     private String detailId;
     private WebView zhihuWebview;
+//    private X5WebView zhihuWebview;
 
     @Override
     public int getLayoutId() {
@@ -59,20 +62,29 @@ public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailCont
         initIntentData();
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private void initWebview() {
+
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         zhihuWebview = new WebView(context);
+//        zhihuWebview = new X5WebView(this, null);
         zhihuWebview.setLayoutParams(params);
         webContent.addView(zhihuWebview);
         //能够的调用JavaScript代码
         WebSettings settings = zhihuWebview.getSettings();
+//        com.tencent.smtt.sdk.WebSettings settings = zhihuWebview.getSettings();
         settings.setJavaScriptEnabled(true);
-        settings.setUseWideViewPort(true);
+//        settings.setUseWideViewPort(true);
+        settings.setSupportZoom(true);
         settings.setLoadWithOverviewMode(true);
         settings.setLoadsImagesAutomatically(true);
         settings.setBlockNetworkImage(false);
         settings.setDomStorageEnabled(true);
-        zhihuWebview.setWebChromeClient(new WebChromeClient());
+
+        settings.setAllowFileAccess(true);
+        settings.setAppCacheEnabled(true);
+        // 如果是图片频道，则必须设置该接口为true，否则页面无法展现
+
     }
 
 

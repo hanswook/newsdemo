@@ -67,28 +67,20 @@ dependencies {
     api rootProject.ext.dependencies["design"]
     api rootProject.ext.dependencies["cardview"]
     api rootProject.ext.dependencies["recyclerview-v7"]
-
     api rootProject.ext.dependencies["glide"]
     api rootProject.ext.dependencies["gson"]
     api rootProject.ext.dependencies["glide-okhttp3"]
     annotationProcessor rootProject.ext.dependencies["glide-compiler"]
-
-
-
     api rootProject.ext.dependencies["rxjava"]
     api rootProject.ext.dependencies["rxandroid"]
-
     api rootProject.ext.dependencies["okhttp3"]
     api rootProject.ext.dependencies["logging-interceptor"]
-
     api rootProject.ext.dependencies["retrofit"]
     api rootProject.ext.dependencies["converter-gson"]
     api rootProject.ext.dependencies["adapter"]
     api rootProject.ext.dependencies["converters"]
-
     api rootProject.ext.dependencies["butterknife"]
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
-
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.google.dagger:dagger:2.13'
     compile 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
@@ -98,10 +90,11 @@ dependencies {
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.35'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.13'
-
     compile 'com.tencent.bugly:crashreport:2.6.6.1'
-
-    compile 'com.google.zxing:core:3.3.0'      //zxing核心依赖
-    compile 'com.journeyapps:zxing-android-embedded:3.3.0'  //生成二维码依赖
-
+    compile 'com.google.zxing:core:3.3.0'
+    //zxing核心依赖
+    compile 'com.journeyapps:zxing-android-embedded:3.3.0'
+    //生成二维码依赖
+    compile 'com.airbnb.android:lottie:2.3.0'
+    implementation files('libs/tbs.jar')
 }

@@ -22,6 +22,15 @@ public class HtmlUtils {
         String mNewsContent = "<link rel=\"stylesheet\" type=\"text/css\" href=\"news_content_style.css\"/>"
                 + "<link rel=\"stylesheet\" type=\"text/css\" href=\"news_header_style.css\"/>"
                 + storyDetailsEntity.getBody().replace("<div class=\"img-place-holder\">", sb.toString());
+        mNewsContent = getHtmlData(mNewsContent);
         return mNewsContent;
+    }
+
+    private static String getHtmlData(String bodyHTML) {
+        String head = "<head>" +
+                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " +
+                "<style>img{max-width: 100%; width:auto; height:auto;}</style>" +
+                "</head>";
+        return "<html>" + head + "<body>" + bodyHTML + "</body></html>";
     }
 }

@@ -3,8 +3,10 @@ package com.hans.newslook.ui.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +16,12 @@ import com.google.zxing.integration.android.IntentResult;
 import com.hans.newslook.R;
 import com.hans.newslook.base.BaseActivity;
 import com.hans.newslook.test.ZxingUtils;
+import com.hans.newslook.utils.Constants;
+import com.hans.newslook.utils.LogUtils;
+import com.hans.newslook.utils.SaveImageUtils;
+import com.hans.newslook.utils.ToastUtils;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +37,10 @@ public class ZxingActivity extends BaseActivity {
     Button btnTest;
     @BindView(R.id.btn_test2)
     Button btnTest2;
+    @BindView(R.id.btn_test3)
+    Button btnTest3;
+    @BindView(R.id.zxing_edit)
+    EditText zxingEdit;
 
     @Override
     public int getLayoutId() {
@@ -41,8 +53,13 @@ public class ZxingActivity extends BaseActivity {
         btnTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bitmap bitmap = ZxingUtils.createBitmap("韩旭韩旭韩旭learn");
-                picTest.setImageBitmap(bitmap);
+                String result = zxingEdit.getEditableText().toString();
+                if (result.equalsIgnoreCase("")) {
+                    ToastUtils.show("请输入内容。才可以生成二维码");
+                } else {
+                    Bitmap bitmap = ZxingUtils.createBitmap(result);
+                    picTest.setImageBitmap(bitmap);
+                }
             }
         });
 
@@ -55,7 +72,17 @@ public class ZxingActivity extends BaseActivity {
                         .initiateScan(); // 初始化扫描
             }
         });
-
+        btnTest3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String filePath = Constants.HOME_PATH;
+                picTest.setDrawingCacheEnabled(true);
+                Bitmap bitmap = picTest.getDrawingCache();
+                LogUtils.e(TAG, "bitmap:" + bitmap.toString());
+                SaveImageUtils.createFile(bitmap, context, filePath);
+                picTest.setDrawingCacheEnabled(false);
+            }
+        });
 
 
     }
@@ -63,18 +90,18 @@ public class ZxingActivity extends BaseActivity {
     // 通过 onActivityResult的方法获取扫描回来的值
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
-        if(intentResult != null) {
-            if(intentResult.getContents() == null) {
-                Toast.makeText(this,"内容为空",Toast.LENGTH_LONG).show();
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (intentResult != null) {
+            if (intentResult.getContents() == null) {
+                Toast.makeText(this, "内容为空", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(this,"扫描成功",Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "扫描成功", Toast.LENGTH_LONG).show();
                 // ScanResult 为 获取到的字符串
                 String ScanResult = intentResult.getContents();
                 tvTest.setText(ScanResult);
             }
         } else {
-            super.onActivityResult(requestCode,resultCode,data);
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 }

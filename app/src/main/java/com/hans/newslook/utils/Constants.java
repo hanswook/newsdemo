@@ -17,27 +17,11 @@ public class Constants {
     public static final boolean IS_DEBUG_MODE = true;
 
 
-
     public static final String SUB_TYPE = "subtype";
 
+    public static final String FLODER_NAME="hans";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public static final String HOME_PATH = Environment.getExternalStorageDirectory().getPath() + File.separator + FLODER_NAME;
 
 
 

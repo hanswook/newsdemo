@@ -1,4 +1,4 @@
-package com.hans.newslook.utils.wechatimage;
+package com.hans.newslook.widget.wechatimage;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

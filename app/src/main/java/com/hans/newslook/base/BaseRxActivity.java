@@ -12,7 +12,7 @@ import io.reactivex.disposables.Disposable;
  * e-mail: hxxx1992@163.com
  */
 
-public abstract class BaseRxActivity extends AppCompatActivity {
+public abstract class BaseRxActivity extends AppCompatActivity implements IBaseView {
 
     private CompositeDisposable disposables2Stop;
 

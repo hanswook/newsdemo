@@ -28,7 +28,7 @@ import com.hans.newslook.utils.CommonSubscriber;
 import com.hans.newslook.utils.Constants;
 import com.hans.newslook.utils.LogUtils;
 import com.hans.newslook.utils.image.GlideApp;
-import com.hans.newslook.utils.wechatimage.ImagePagerUtils;
+import com.hans.newslook.widget.wechatimage.ImagePagerUtils;
 
 import java.util.ArrayList;
 import java.util.List;

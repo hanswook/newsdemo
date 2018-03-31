@@ -21,7 +21,7 @@ import butterknife.BindView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TypeFragment extends BaseCoreFragment {
+public class TypeFragment extends BaseRxFragment {
 
     private static final String TYPE = "type";
 
@@ -102,4 +102,8 @@ public class TypeFragment extends BaseCoreFragment {
     }
 
 
+    @Override
+    protected void fetchData() {
+
+    }
 }

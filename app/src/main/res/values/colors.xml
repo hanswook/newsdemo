@@ -15,7 +15,6 @@
     <color name="Gray600">#999999</color>
 
     <color name="black_7F7F7F">#7F7F7F</color>
-    <color name="white">#ffffffff</color>
     <color name="gray">#808080</color>
 
     <color name="toolbar_color">#27B7F3</color>
@@ -25,7 +24,6 @@
     <color name="login_hint">#666666</color>
     <color name="LightGray">#999999</color>
     <color name="aLightGray">#50999999</color>
-    <color name="black">#000000</color>
 
     <color name="red">#ff0000</color>
     <color name="nev_item">#88ff0000</color>
@@ -35,6 +33,18 @@
     <color name="gankC">#3399ff</color>
     <color name="zxingC">#99ff33</color>
     <color name="kuaidiC">#33cc99</color>
+
+
+
+    <color name="gray_33">#ff333333</color>
+    <color name="gray_66">#ff666666</color>
+    <color name="gray_99">#ff999999</color>
+    <color name="gray_cc">#ffCCCCCC</color>
+    <color name="gray_dd">#ffDDDDDD</color>
+    <color name="gray_ee">#ffEEEEEE</color>
+    <color name="gray_f6">#ffF6F6F6</color>
+    <color name="white">#ffFFFFFF</color>
+    <color name="black">#ff000000</color>
 
 
 </resources>

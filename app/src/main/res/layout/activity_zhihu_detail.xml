@@ -21,7 +21,7 @@
             <RelativeLayout
                 android:id="@+id/rl_topbar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="40dp"
                 android:background="@color/colorPrimary">
 
                 <com.hans.newslook.widget.IconFontTextView
@@ -44,7 +44,7 @@
                     android:maxLines="1"
                     android:textColor="@color/white"
                     android:textSize="25sp" />
-
+z
 
             </RelativeLayout>
 

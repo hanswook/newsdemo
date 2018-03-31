@@ -1,4 +1,4 @@
-package com.hans.newslook.utils.wechatimage;
+package com.hans.newslook.widget.wechatimage;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

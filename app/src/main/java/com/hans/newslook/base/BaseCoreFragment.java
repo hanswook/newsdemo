@@ -1,5 +1,6 @@
 package com.hans.newslook.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
+import com.hans.newslook.widget.dialog.CustomProgressDialog;
+import com.hans.newslook.widget.dialog.CustomProgressDialogHelper;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -18,13 +22,18 @@ import butterknife.Unbinder;
  * e-mail: hxxx1992@163.com
  */
 
-public abstract class BaseCoreFragment extends Fragment {
+public abstract class BaseCoreFragment extends Fragment implements IBaseView{
     protected View rootView;
     protected Unbinder unbinder;
-    protected Context context;
     protected String TAG;
+    protected Activity activity;
+    protected Context context;
+
     protected abstract int getLayoutId();
+
     protected abstract void init();
+
+    private CustomProgressDialog mProgressDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,13 +47,17 @@ public abstract class BaseCoreFragment extends Fragment {
     @Override
     public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+
         if (rootView == null) {
             rootView = inflater.inflate(this.getLayoutId(), container, false);
-            unbinder = ButterKnife.bind(this, rootView);
-            init();
         }
+        mProgressDialog = CustomProgressDialogHelper.createDialog(getContext());
+        mProgressDialog.setCanceledOnTouchOutside(false);
+        unbinder = ButterKnife.bind(this, rootView);
         context = getContext();
+        activity = getActivity();
         TAG = this.getClass().getSimpleName();
+        init();
         return rootView;
     }
 
@@ -52,6 +65,33 @@ public abstract class BaseCoreFragment extends Fragment {
     public void onDestroyView() {
         unbinder.unbind();
         super.onDestroyView();
+    }
+
+    /**
+     * 显示ProgressDialog
+     */
+    @Override
+    public void showProgress(String msg) {
+        mProgressDialog.setMessage(msg);
+        mProgressDialog.show();
+    }
+
+    /**
+     * 显示ProgressDialog
+     */
+    @Override
+    public void showProgress() {
+        mProgressDialog.show();
+    }
+
+    /**
+     * 取消ProgressDialog
+     */
+    @Override
+    public void dismissProgress() {
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+        }
     }
 
 }
