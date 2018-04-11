@@ -1,6 +1,6 @@
 package com.hans.newslook.net;
 
-import com.hans.newslook.utils.LogUtils;
+import com.hans.newslook.utils.baseutils.LogUtils;
 
 import java.io.IOException;
 import java.util.List;

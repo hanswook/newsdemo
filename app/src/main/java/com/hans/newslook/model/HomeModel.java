@@ -8,8 +8,8 @@ import com.hans.newslook.contract.HomeContract;
 import com.hans.newslook.net.RetrofitHelper;
 import com.hans.newslook.net.RetrofitService;
 import com.hans.newslook.utils.CommonSubscriber;
-import com.hans.newslook.utils.LogUtils;
-import com.hans.newslook.utils.RxUtils;
+import com.hans.newslook.utils.baseutils.LogUtils;
+import com.hans.newslook.utils.rxutils.RxUtils;
 
 import java.util.List;
 

@@ -19,11 +19,9 @@ public class Constants {
 
     public static final String SUB_TYPE = "subtype";
 
-    public static final String FLODER_NAME="hans";
+    public static final String FLODER_NAME = "hans";
 
     public static final String HOME_PATH = Environment.getExternalStorageDirectory().getPath() + File.separator + FLODER_NAME;
-
-
 
 
     /**
@@ -83,6 +81,19 @@ public class Constants {
     public static final int GANK_FRAGMENT_TYPE_ANDROID = 0x00000001;
 
     public static final int GANK_FRAGMENT_TYPE_IOS = 0x00000002;
+
+
+    /**
+     * 微信常量
+     */
+
+    public static final String WX_APP_SECRET = "8215d3450bf320369002c1fab36b1d1d";
+    public static final String WX_APP_ID = "wx3490e598dd08cc63";    //这个APP_ID就是注册APP的时候生成的
+    public static final String BUGLY_APP_ID = "0cf59e02b7";    //这个APP_ID就是注册APP的时候生成的
+
+
+    private String sign="629f39fe0343313cb7d36aa0efb66fe7";
+
 
 
 }

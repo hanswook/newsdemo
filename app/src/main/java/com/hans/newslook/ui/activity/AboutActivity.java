@@ -4,11 +4,16 @@ import android.view.MotionEvent;
 
 import com.hans.newslook.R;
 import com.hans.newslook.base.BaseActivity;
-import com.hans.newslook.utils.LogUtils;
+import com.hans.newslook.utils.baseutils.LogUtils;
 
 
 public class AboutActivity extends BaseActivity{
 
+
+    @Override
+    protected void init() {
+
+    }
 
     @Override
     public int getLayoutId() {

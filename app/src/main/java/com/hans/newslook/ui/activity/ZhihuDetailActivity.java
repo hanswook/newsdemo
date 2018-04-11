@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.support.v4.widget.NestedScrollView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
@@ -18,10 +17,9 @@ import com.hans.newslook.di.DaggerZhihuDetailComponent;
 import com.hans.newslook.di.ZhihuDetailModule;
 import com.hans.newslook.model.ZhihuDetailModel;
 import com.hans.newslook.model.bean.zhihu.TheStoryBean;
-import com.hans.newslook.net.X5WebView;
 import com.hans.newslook.presenter.ZhihuDetailPresenter;
 import com.hans.newslook.utils.HtmlUtils;
-import com.hans.newslook.utils.LogUtils;
+import com.hans.newslook.utils.baseutils.LogUtils;
 import com.hans.newslook.widget.IconFontTextView;
 
 import javax.inject.Inject;
@@ -55,12 +53,7 @@ public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailCont
         return R.layout.activity_zhihu_detail;
     }
 
-    @Override
-    protected void initData() {
-        super.initData();
-        initDagger();
-        initIntentData();
-    }
+
 
     @SuppressLint("SetJavaScriptEnabled")
     private void initWebview() {
@@ -101,8 +94,9 @@ public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailCont
     }
 
     @Override
-    protected void initView() {
-        super.initView();
+    protected void init() {
+        initDagger();
+        initIntentData();
         tvReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

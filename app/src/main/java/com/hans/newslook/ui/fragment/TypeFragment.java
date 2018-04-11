@@ -8,10 +8,9 @@ import android.support.v4.view.ViewPager;
 
 import com.hans.newslook.R;
 import com.hans.newslook.adapter.TypePageAdapter;
-import com.hans.newslook.base.BaseCoreFragment;
 import com.hans.newslook.base.BaseRxFragment;
-import com.hans.newslook.utils.LogUtils;
-import com.hans.newslook.utils.ResourceUtil;
+import com.hans.newslook.utils.baseutils.LogUtils;
+import com.hans.newslook.utils.baseutils.ResourceUtil;
 
 import java.util.ArrayList;
 import java.util.List;

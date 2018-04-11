@@ -9,7 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hans.newslook.R;
 import com.hans.newslook.model.bean.GankItemData;
-import com.hans.newslook.utils.LogUtils;
+import com.hans.newslook.utils.baseutils.LogUtils;
 import com.hans.newslook.utils.image.GlideApp;
 
 import java.util.List;

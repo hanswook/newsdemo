@@ -11,7 +11,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.hans.newslook.R;
-import com.hans.newslook.utils.DensityUtils;
+import com.hans.newslook.utils.baseutils.DensityUtils;
 
 
 /**

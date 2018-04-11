@@ -8,7 +8,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 
-import com.hans.newslook.utils.LogUtils;
+import com.hans.newslook.utils.baseutils.LogUtils;
 import com.hans.newslook.widget.dialog.CustomProgressDialog;
 import com.hans.newslook.widget.dialog.CustomProgressDialogHelper;
 
@@ -41,18 +41,11 @@ public abstract class BaseActivity extends BaseRxActivity {
         context = this;
         mProgressDialog = CustomProgressDialogHelper.createDialog(this);
         mProgressDialog.setCanceledOnTouchOutside(false);
-        initData();
-        initView();
+        init();
     }
 
+    protected abstract void init();
 
-    protected void initData() {
-
-    }
-
-    protected void initView() {
-
-    }
 
     public abstract int getLayoutId();
 

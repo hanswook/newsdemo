@@ -7,10 +7,7 @@ import com.hans.newslook.model.bean.SplashBean;
 import com.hans.newslook.net.RetrofitHelper;
 import com.hans.newslook.net.RetrofitService;
 import com.hans.newslook.utils.CommonSubscriber;
-import com.hans.newslook.utils.RxUtils;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import com.hans.newslook.utils.rxutils.RxUtils;
 
 /**
  * Created by hans on 2017/8/9 16:00.

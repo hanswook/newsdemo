@@ -1,13 +1,15 @@
 package com.hans.newslook.ui.activity;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.Button;
 
 import com.hans.newslook.R;
 import com.hans.newslook.base.BaseActivity;
-import com.hans.newslook.utils.SnackBarUtil;
+import com.hans.newslook.utils.baseutils.SnackBarUtil;
+import com.hans.newslook.utils.palette.PaletteUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -32,6 +34,11 @@ public class NavigatorActivity extends BaseActivity {
     FloatingActionButton btnFloat;
 
     @Override
+    protected void init() {
+        PaletteUtil.getBitmap(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher));
+    }
+
+    @Override
     public int getLayoutId() {
         return R.layout.activity_navigator;
     }
@@ -53,10 +60,13 @@ public class NavigatorActivity extends BaseActivity {
                 break;
             case R.id.btn4:
                 startActivity(new Intent(context, ExpressHomeActivity.class));
+//                WxShareUtils.shareText(context);
                 break;
 
         }
     }
+
+
 
     private boolean isBackPressed = false;
 

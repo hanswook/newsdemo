@@ -3,6 +3,7 @@ package com.hans.newslook.utils;
 
 import com.hans.newslook.base.BaseActivity;
 import com.hans.newslook.base.BaseContract;
+import com.hans.newslook.utils.baseutils.LogUtils;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;

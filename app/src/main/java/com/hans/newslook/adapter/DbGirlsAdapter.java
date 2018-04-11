@@ -6,7 +6,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hans.newslook.R;
 import com.hans.newslook.model.bean.GirlItemData;
-import com.hans.newslook.utils.ScaleImageView;
+import com.hans.newslook.utils.baseutils.ScaleImageView;
 import com.hans.newslook.utils.image.GlideApp;
 
 import java.util.List;

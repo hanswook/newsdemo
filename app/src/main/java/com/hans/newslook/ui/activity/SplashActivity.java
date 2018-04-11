@@ -13,7 +13,7 @@ import com.hans.newslook.di.SplashModule;
 import com.hans.newslook.model.SplashModel;
 import com.hans.newslook.model.bean.SplashBean;
 import com.hans.newslook.presenter.SplashPresenter;
-import com.hans.newslook.utils.LogUtils;
+import com.hans.newslook.utils.baseutils.LogUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -37,19 +37,14 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
         return R.layout.activity_splash;
     }
 
+
     @Override
-    protected void initData() {
-        super.initData();
+    protected void init() {
         DaggerSplashComponent.builder()
                 .splashModule(new SplashModule(this, new SplashModel()))
                 .build()
                 .inject(this);
         addPresenter(splashPresenter);
-    }
-
-    @Override
-    protected void initView() {
-        super.initView();
         splashPresenter.loadData();
     }
 

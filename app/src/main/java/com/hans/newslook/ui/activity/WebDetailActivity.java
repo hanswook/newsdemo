@@ -18,14 +18,9 @@ public class WebDetailActivity extends BaseActivity {
     WebView gankioWebview;
 
     private String loadUrl;
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_web_detail;
-    }
 
     @Override
-    protected void initData() {
-        super.initData();
+    protected void init() {
         initIntentData();
 
         //能够的调用JavaScript代码
@@ -38,8 +33,14 @@ public class WebDetailActivity extends BaseActivity {
         settings.setBlockNetworkImage(false);
         settings.setDomStorageEnabled(true);
         gankioWebview.loadUrl(loadUrl);
-
     }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_web_detail;
+    }
+
+
 
     private void initIntentData() {
         loadUrl=getIntent().getStringExtra("gank_item_data_url");

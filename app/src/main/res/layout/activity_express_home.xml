@@ -9,5 +9,35 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="express activity"/>
+        android:text="express activity" />
+
+    <EditText
+        android:id="@+id/express_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btn_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="分享" />
+
+    <Button
+        android:id="@+id/btn_shareweb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="分享" />
+
+    <Button
+        android:id="@+id/btn_sharemusic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="分享" />
+
+    <Button
+        android:id="@+id/btn_sharevideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="分享" />
+
 </LinearLayout>

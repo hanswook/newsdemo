@@ -17,8 +17,8 @@ import com.hans.newslook.base.BaseActivity;
 import com.hans.newslook.base.BaseCoreFragment;
 import com.hans.newslook.ui.fragment.GankGirlFragment;
 import com.hans.newslook.ui.fragment.TypeFragment;
-import com.hans.newslook.utils.LogUtils;
-import com.hans.newslook.utils.ResourceUtil;
+import com.hans.newslook.utils.baseutils.LogUtils;
+import com.hans.newslook.utils.baseutils.ResourceUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,8 +45,8 @@ public class GankIOActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView() {
-        super.initView();
+    protected void init() {
+        mTypeFragments = new HashMap<>();
         initStatusBar();
         initDrawer();
         initNavigationView();
@@ -130,11 +130,6 @@ public class GankIOActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void initData() {
-        super.initData();
-        mTypeFragments = new HashMap<>();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

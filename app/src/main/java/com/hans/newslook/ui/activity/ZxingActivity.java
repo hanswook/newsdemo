@@ -2,8 +2,6 @@ package com.hans.newslook.ui.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,14 +15,11 @@ import com.hans.newslook.R;
 import com.hans.newslook.base.BaseActivity;
 import com.hans.newslook.test.ZxingUtils;
 import com.hans.newslook.utils.Constants;
-import com.hans.newslook.utils.LogUtils;
-import com.hans.newslook.utils.SaveImageUtils;
-import com.hans.newslook.utils.ToastUtils;
-
-import java.io.File;
+import com.hans.newslook.utils.baseutils.LogUtils;
+import com.hans.newslook.utils.baseutils.SaveImageUtils;
+import com.hans.newslook.utils.baseutils.ToastUtils;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class ZxingActivity extends BaseActivity {
 
@@ -48,8 +43,7 @@ public class ZxingActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView() {
-        super.initView();
+    protected void init() {
         btnTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

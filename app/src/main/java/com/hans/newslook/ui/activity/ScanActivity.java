@@ -10,7 +10,6 @@ import com.journeyapps.barcodescanner.CaptureManager;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class ScanActivity extends BaseActivity {
 
@@ -34,9 +33,7 @@ public class ScanActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView() {
-        super.initView();
-
+    protected void init() {
     }
 
     @Override

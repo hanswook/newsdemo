@@ -12,7 +12,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.hans.newslook.R;
-import com.hans.newslook.utils.GetSize;
+import com.hans.newslook.utils.baseutils.GetSize;
 import com.hans.newslook.utils.image.GlideApp;
 
 import uk.co.senab.photoview.PhotoViewAttacher;

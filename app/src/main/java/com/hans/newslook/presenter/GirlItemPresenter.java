@@ -4,7 +4,7 @@ import com.hans.newslook.base.BasePresenter;
 import com.hans.newslook.contract.GirlItemContract;
 import com.hans.newslook.contract.callback.GetDataCallBack;
 import com.hans.newslook.model.bean.GirlItemData;
-import com.hans.newslook.utils.LogUtils;
+import com.hans.newslook.utils.baseutils.LogUtils;
 
 import java.util.List;
 

@@ -21,7 +21,7 @@ import com.hans.newslook.model.bean.GankItemData;
 import com.hans.newslook.presenter.GankItemPresenter;
 import com.hans.newslook.ui.activity.WebDetailActivity;
 import com.hans.newslook.utils.Constants;
-import com.hans.newslook.utils.LogUtils;
+import com.hans.newslook.utils.baseutils.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;

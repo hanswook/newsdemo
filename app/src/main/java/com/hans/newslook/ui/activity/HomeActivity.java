@@ -21,9 +21,9 @@ import com.hans.newslook.di.HomeModule;
 import com.hans.newslook.model.HomeModel;
 import com.hans.newslook.presenter.HomePresenter;
 import com.hans.newslook.utils.CommonSubscriber;
-import com.hans.newslook.utils.DateUtil;
-import com.hans.newslook.utils.LogUtils;
-import com.hans.newslook.utils.ShortTimeUtil;
+import com.hans.newslook.utils.baseutils.DateUtil;
+import com.hans.newslook.utils.baseutils.LogUtils;
+import com.hans.newslook.utils.baseutils.ShortTimeUtil;
 import com.hans.newslook.utils.recycler.BaseRecyclerAdapter;
 
 import java.text.SimpleDateFormat;
@@ -68,13 +68,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         return R.layout.activity_home;
     }
 
-    @Override
-    protected void initData() {
-        super.initData();
-        initDagger();
-        initDataType();
-        requestData();
-    }
+
 
     private void requestData() {
         isLoading = true;
@@ -98,8 +92,11 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     }
 
     @Override
-    protected void initView() {
-        super.initView();
+    protected void init() {
+        initDagger();
+        initDataType();
+        requestData();
+
         initTitleBar();
         initRecycler();
         initListener();

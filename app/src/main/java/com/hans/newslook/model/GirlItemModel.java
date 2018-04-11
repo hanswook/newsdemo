@@ -7,9 +7,9 @@ import com.hans.newslook.model.bean.GirlItemData;
 import com.hans.newslook.net.DBGrilNetHelper;
 import com.hans.newslook.net.GirlService;
 import com.hans.newslook.utils.CommonSubscriber;
-import com.hans.newslook.utils.JsoupUtil;
-import com.hans.newslook.utils.LogUtils;
-import com.hans.newslook.utils.RxUtils;
+import com.hans.newslook.utils.baseutils.JsoupUtil;
+import com.hans.newslook.utils.baseutils.LogUtils;
+import com.hans.newslook.utils.rxutils.RxUtils;
 
 import java.util.List;
 

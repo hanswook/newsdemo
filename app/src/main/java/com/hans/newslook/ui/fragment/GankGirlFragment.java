@@ -3,7 +3,6 @@ package com.hans.newslook.ui.fragment;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.Toast;
 
@@ -15,9 +14,8 @@ import com.hans.newslook.contract.GankItemContract;
 import com.hans.newslook.di.DaggerGankGirlComponent;
 import com.hans.newslook.di.GankItemModule;
 import com.hans.newslook.model.bean.GankItemData;
-import com.hans.newslook.model.bean.GirlItemData;
 import com.hans.newslook.presenter.GankItemPresenter;
-import com.hans.newslook.utils.LogUtils;
+import com.hans.newslook.utils.baseutils.LogUtils;
 import com.hans.newslook.widget.wechatimage.ImagePagerUtils;
 
 import java.util.ArrayList;
