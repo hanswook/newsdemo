@@ -30,22 +30,17 @@ android {
 
     }
     buildTypes {
-        debug {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.newslook
-        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.newslook
         }
 
-        news {
+        /*  news {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.newslook
-        }
+        }*/
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -59,7 +54,7 @@ android {
             applicationId "com.hans.newslook"
             manifestPlaceholders = [app_name: "NewsLook", icon: "@mipmap/ic_launcher"]
         }
-        Offline {
+        /*  Offline {
             applicationId "com.hans.newslook"
             manifestPlaceholders = [app_name: "newsoffline", icon: "@mipmap/ic_launcher"]
         }
@@ -67,7 +62,7 @@ android {
             applicationId "com.hans.newslook"
             manifestPlaceholders = [app_name: "newsonline", icon: "@mipmap/icon"]
         }
-
+*/
 
     }
 }
@@ -111,6 +106,7 @@ dependencies {
     //生成二维码依赖
     compile 'com.airbnb.android:lottie:2.3.0'
     implementation files('libs/tbs.jar')
+    implementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
 
     implementation 'com.android.support:palette-v7:26.1.0'
 }

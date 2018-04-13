@@ -1,7 +1,14 @@
 package com.hans.newslook.ui.activity;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.PermissionChecker;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,11 +20,12 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.hans.newslook.R;
 import com.hans.newslook.base.BaseActivity;
-import com.hans.newslook.test.ZxingUtils;
+import com.hans.newslook.utils.ZxingUtils;
 import com.hans.newslook.utils.Constants;
 import com.hans.newslook.utils.baseutils.LogUtils;
 import com.hans.newslook.utils.baseutils.SaveImageUtils;
 import com.hans.newslook.utils.baseutils.ToastUtils;
+import com.hans.newslook.utils.permission.PermissionUtil;
 
 import butterknife.BindView;
 
@@ -37,6 +45,9 @@ public class ZxingActivity extends BaseActivity {
     @BindView(R.id.zxing_edit)
     EditText zxingEdit;
 
+    private final String permission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_zxing;
@@ -44,6 +55,7 @@ public class ZxingActivity extends BaseActivity {
 
     @Override
     protected void init() {
+        PermissionUtil.checkPermission(this, permission, 321);
         btnTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,16 +81,44 @@ public class ZxingActivity extends BaseActivity {
         btnTest3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String filePath = Constants.HOME_PATH;
-                picTest.setDrawingCacheEnabled(true);
-                Bitmap bitmap = picTest.getDrawingCache();
-                LogUtils.e(TAG, "bitmap:" + bitmap.toString());
-                SaveImageUtils.createFile(bitmap, context, filePath);
-                picTest.setDrawingCacheEnabled(false);
+                saveImageFile();
             }
         });
 
 
+    }
+
+    private void saveImageFile() {
+        String filePath = Constants.HOME_PATH;
+        picTest.setDrawingCacheEnabled(true);
+        Bitmap bitmap = picTest.getDrawingCache();
+        if (bitmap == null) {
+            return;
+        }
+        if (!PermissionUtil.checkPermission(this, permission, 321)) {
+            return;
+        }
+        SaveImageUtils.createFile(bitmap, context, filePath);
+        picTest.setDrawingCacheEnabled(false);
+    }
+
+
+    private void showDialogTipUserRequestPermission() {
+        new AlertDialog.Builder(this)
+                .setTitle("存储权限不可用")
+                .setMessage("由于支付宝需要获取存储空间，为你存储个人信息；\n否则，您将无法正常使用支付宝")
+                .setPositiveButton("立即开启", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        PermissionUtil.checkPermission(ZxingActivity.this, permission, 321);
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                }).setCancelable(false).show();
     }
 
     // 通过 onActivityResult的方法获取扫描回来的值
@@ -96,6 +136,26 @@ public class ZxingActivity extends BaseActivity {
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        LogUtils.e(TAG, "onRequestPermissionsResult requestCode:" + requestCode);
+        LogUtils.e(TAG, "onRequestPermissionsResult permissions:" + permissions.length);
+        LogUtils.e(TAG, "onRequestPermissionsResult grantResults:" + grantResults.length);
+        for (String permission : permissions) {
+            LogUtils.e(TAG, "onRequestPermissionsResult permission:" + permission);
+        }
+        for (int result : grantResults) {
+            LogUtils.e(TAG, "onRequestPermissionsResult result:" + result);
+        }
+        if (requestCode == 321) {
+            if (grantResults[0] >= 0)
+                saveImageFile();
+            else
+                ToastUtils.show("权限请求失败");
         }
     }
 }

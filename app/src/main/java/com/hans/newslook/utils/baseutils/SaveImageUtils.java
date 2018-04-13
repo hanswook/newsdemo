@@ -169,10 +169,10 @@ public class SaveImageUtils {
             e.printStackTrace();
         } finally {
             try {
-                assert src != null;
-                src.recycle();
-                assert bitmapWtriter != null;
-                bitmapWtriter.close();
+                if (src != null)
+                    src.recycle();
+                if (bitmapWtriter != null)
+                    bitmapWtriter.close();
                 System.gc();
             } catch (IOException e) {
                 e.printStackTrace();

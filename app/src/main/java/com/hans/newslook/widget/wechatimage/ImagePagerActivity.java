@@ -1,17 +1,29 @@
 package com.hans.newslook.widget.wechatimage;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.support.v7.graphics.Palette;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
 import com.hans.newslook.R;
+import com.hans.newslook.utils.baseutils.LogUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 图片查看器
@@ -31,7 +43,6 @@ public class ImagePagerActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.image_detail_pager);
-
         pagerPosition = getIntent().getIntExtra(EXTRA_IMAGE_INDEX, 0);
         ArrayList<String> urls = getIntent().getStringArrayListExtra(EXTRA_IMAGE_URLS);
 
@@ -43,7 +54,7 @@ public class ImagePagerActivity extends FragmentActivity {
         CharSequence text = getString(R.string.viewpager_indicator, 1, mPager.getAdapter().getCount());
         indicator.setText(text);
         // 更新下标
-        mPager.setOnPageChangeListener(new OnPageChangeListener() {
+        mPager.addOnPageChangeListener(new OnPageChangeListener() {
 
             @Override
             public void onPageScrollStateChanged(int arg0) {
@@ -58,12 +69,10 @@ public class ImagePagerActivity extends FragmentActivity {
                 CharSequence text = getString(R.string.viewpager_indicator, arg0 + 1, mPager.getAdapter().getCount());
                 indicator.setText(text);
             }
-
         });
         if (savedInstanceState != null) {
             pagerPosition = savedInstanceState.getInt(STATE_POSITION);
         }
-
         mPager.setCurrentItem(pagerPosition);
     }
 
@@ -76,9 +85,9 @@ public class ImagePagerActivity extends FragmentActivity {
 
     private class ImagePagerAdapter extends FragmentStatePagerAdapter {
 
-        public ArrayList<String> fileList;
+        private List<String> fileList;
 
-        public ImagePagerAdapter(FragmentManager fm, ArrayList<String> fileList) {
+        public ImagePagerAdapter(FragmentManager fm, List<String> fileList) {
             super(fm);
             this.fileList = fileList;
         }
@@ -90,8 +99,7 @@ public class ImagePagerActivity extends FragmentActivity {
 
         @Override
         public Fragment getItem(int position) {
-            String url = fileList.get(position);
-            return ImageDetailFragment.newInstance(url);
+            return ImageDetailFragment.newInstance(fileList.get(position));
         }
 
     }
@@ -102,4 +110,5 @@ public class ImagePagerActivity extends FragmentActivity {
         finish();
         System.gc();
     }
+
 }

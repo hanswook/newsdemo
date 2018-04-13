@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.support.v4.widget.NestedScrollView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
@@ -46,13 +47,11 @@ public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailCont
 
     private String detailId;
     private WebView zhihuWebview;
-//    private X5WebView zhihuWebview;
 
     @Override
     public int getLayoutId() {
         return R.layout.activity_zhihu_detail;
     }
-
 
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -130,5 +129,33 @@ public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailCont
 
     }
 
+
+    @Override
+    protected void onDestroy() {
+        removeWebView();
+        super.onDestroy();
+    }
+
+    /**
+     * 移除 webview相关内容。避免内存泄漏
+     */
+    private void removeWebView() {
+        if (zhihuWebview != null) {
+            // 如果先调用destroy()方法，则会命中if (isDestroyed()) return;这一行代码，需要先onDetachedFromWindow()，再
+            // destory()
+            ViewParent parent = zhihuWebview.getParent();
+            if (parent != null) {
+                ((ViewGroup) parent).removeView(zhihuWebview);
+            }
+
+            zhihuWebview.stopLoading();
+            // 退出时调用此方法，移除绑定的服务，否则某些特定系统会报错
+            zhihuWebview.getSettings().setJavaScriptEnabled(false);
+            zhihuWebview.clearHistory();
+            zhihuWebview.clearView();
+            zhihuWebview.removeAllViews();
+            zhihuWebview.destroy();
+        }
+    }
 
 }

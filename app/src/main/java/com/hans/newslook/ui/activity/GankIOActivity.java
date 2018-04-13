@@ -97,7 +97,7 @@ public class GankIOActivity extends BaseActivity {
             drawerLayout.setFitsSystemWindows(true);
             drawerLayout.setClipToPadding(false);
         }
-        setStatusBarColor(R.color.colorAccent);
+        setStatusBarColor(R.color.red);
 
     }
 
