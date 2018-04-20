@@ -50,7 +50,6 @@ public class Constants {
             + DIRECTORY;
 
 
-
     /**
      * 微信常量
      */
@@ -60,8 +59,13 @@ public class Constants {
     public static final String BUGLY_APP_ID = "0cf59e02b7";    //这个APP_ID就是注册APP的时候生成的
 
 
-    private String sign="629f39fe0343313cb7d36aa0efb66fe7";
+    private String sign = "629f39fe0343313cb7d36aa0efb66fe7";
 
+
+    /**
+     * map
+     */
+    public static final String map_ak = "a4Qz2VozZVZF2IF6IWcBzgtLRzDSeGPL";
 
 
 }

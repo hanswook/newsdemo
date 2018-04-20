@@ -65,6 +65,12 @@ android {
 */
 
     }
+
+    sourceSets{
+        main{
+            jniLibs.srcDirs=['libs']
+        }
+    }
 }
 
 dependencies {
@@ -105,8 +111,6 @@ dependencies {
     compile 'com.journeyapps:zxing-android-embedded:3.3.0'
     //生成二维码依赖
     compile 'com.airbnb.android:lottie:2.3.0'
-    implementation files('libs/tbs.jar')
     implementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-
     implementation 'com.android.support:palette-v7:26.1.0'
 }

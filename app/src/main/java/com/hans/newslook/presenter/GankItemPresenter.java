@@ -1,7 +1,9 @@
 package com.hans.newslook.presenter;
 
 import com.hans.newslook.base.BasePresenter;
+import com.hans.newslook.callbacks.DataCallback;
 import com.hans.newslook.contract.GankItemContract;
+import com.hans.newslook.model.NewsModel;
 import com.hans.newslook.model.bean.GankItemData;
 import com.hans.newslook.model.bean.HttpResult;
 import com.hans.newslook.net.RetrofitHelper;
@@ -33,26 +35,16 @@ public class GankItemPresenter extends BasePresenter<GankItemContract.View> impl
     @Override
     public void loadData(String type, int pageCount) {
         LogUtils.e("GankItemPresenter", "loadData:type:" + type + ",pageCount:" + pageCount);
-        RetrofitHelper.getInstance().create(RetrofitService.class)
-                .getGankData(type, pageCount)
-                .compose(RxUtils.applySchedulers())
-                .map(new Function<HttpResult<List<GankItemData>>, List<GankItemData>>() {
-                    @Override
-                    public List<GankItemData> apply(@NonNull HttpResult<List<GankItemData>> listHttpResult) throws Exception {
-                        if (listHttpResult.isError())
-                            throw new Exception("网络请求失败");
-                        return listHttpResult.getResults();
-                    }
-                })
-                .subscribe(new CommonSubscriber<List<GankItemData>>(mView) {
-                    @Override
-                    public void onNext(List<GankItemData> gankItemData) {
-                        if (!isAttached()) {
-                            return;
-                        }
-                        mView.updateUI(gankItemData);
-                    }
-                });
+        NewsModel.getInstance().getGankItemData(type,pageCount, new DataCallback<List<GankItemData>>() {
+            @Override
+            public void success(List<GankItemData> gankItemData) {
+                if (!isAttached()) {
+                    return;
+                }
+                mView.updateUI(gankItemData);
+            }
+        });
+
     }
 
 

@@ -58,7 +58,7 @@ public class NavigatorActivity extends BaseActivity {
                 startActivity(new Intent(context, ZxingActivity.class));
                 break;
             case R.id.btn4:
-                startActivity(new Intent(context, ExpressHomeActivity.class));
+                startActivity(new Intent(context, BaiduMapActivity.class));
 //                WxShareUtils.shareText(context);
                 break;
 

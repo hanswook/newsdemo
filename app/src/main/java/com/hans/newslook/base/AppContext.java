@@ -3,6 +3,7 @@ package com.hans.newslook.base;
 import android.app.Application;
 import android.content.Context;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.hans.newslook.utils.Constants;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -26,6 +27,7 @@ public class AppContext extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        SDKInitializer.initialize(getApplicationContext());
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return;
         }
