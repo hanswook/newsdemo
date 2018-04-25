@@ -24,17 +24,16 @@
     <color name="login_hint">#666666</color>
     <color name="LightGray">#999999</color>
     <color name="aLightGray">#50999999</color>
+    <color name="gray_text">#ff777777</color>
 
     <color name="red">#ff0000</color>
     <color name="nev_item">#88ff0000</color>
 
     <color name="nav_item_icon">#0099ff</color>
-    <color name="zhihuC">#cc33ff</color>
-    <color name="gankC">#3399ff</color>
+    <color name="zhihuC">#3399ff</color>
+    <color name="gankC">#33cc99</color>
     <color name="zxingC">#99ff33</color>
-    <color name="kuaidiC">#33cc99</color>
-
-
+    <color name="kuaidiC">#cc33ff</color>
 
     <color name="gray_33">#ff333333</color>
     <color name="gray_66">#ff666666</color>

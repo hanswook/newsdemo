@@ -1,5 +1,8 @@
 package com.hans.newslook.model.bean.zhihu;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.hans.newslook.utils.Constants;
+
 import java.util.List;
 
 
@@ -7,7 +10,7 @@ import java.util.List;
  * Created by hans on 2017/5/11 16:51.
  */
 
-public class StoriesBean  {
+public class StoriesBean implements MultiItemEntity {
     /**
      * images : ["https://pic4.zhimg.com/v2-abf262f484c3cc4d9282749f1fccc1ef.jpg"]
      * type : 0
@@ -29,19 +32,11 @@ public class StoriesBean  {
 
     private int type;
     private String dataDate;
-    private int delegateType;
     private int id;
     private String ga_prefix;
     private String title;
     private List<String> images;
 
-    public int getDelegateType() {
-        return delegateType;
-    }
-
-    public void setDelegateType(int delegateType) {
-        this.delegateType = delegateType;
-    }
 
     public String getDataDate() {
         return dataDate;
@@ -89,5 +84,17 @@ public class StoriesBean  {
 
     public void setImages(List<String> images) {
         this.images = images;
+    }
+
+
+    private int itemType = Constants.ZHIHU_ITEMCONTENT;
+
+    public void setItemType(int itemType) {
+        this.itemType = itemType;
+    }
+
+    @Override
+    public int getItemType() {
+        return itemType;
     }
 }

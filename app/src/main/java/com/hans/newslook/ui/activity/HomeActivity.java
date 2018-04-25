@@ -2,6 +2,8 @@ package com.hans.newslook.ui.activity;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,8 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hans.newslook.R;
 import com.hans.newslook.adapter.ZhihuListAdapter;
 import com.hans.newslook.base.BaseActivity;
@@ -20,24 +22,19 @@ import com.hans.newslook.di.DaggerHomeComponent;
 import com.hans.newslook.di.HomeModule;
 import com.hans.newslook.model.HomeModel;
 import com.hans.newslook.presenter.HomePresenter;
-import com.hans.newslook.utils.CommonSubscriber;
+import com.hans.newslook.utils.Constants;
 import com.hans.newslook.utils.baseutils.DateUtil;
 import com.hans.newslook.utils.baseutils.LogUtils;
 import com.hans.newslook.utils.baseutils.ShortTimeUtil;
-import com.hans.newslook.utils.recycler.BaseRecyclerAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class HomeActivity extends BaseActivity implements HomeContract.View {
 
@@ -60,14 +57,11 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     private ZhihuListAdapter adapter;
     protected Boolean isLoading;
 
-    int a = 0;
-
 
     @Override
     public int getLayoutId() {
         return R.layout.activity_home;
     }
-
 
 
     private void requestData() {
@@ -101,28 +95,13 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         initRecycler();
         initListener();
         zhihuSwipe.setOnRefreshListener(() -> {
-            a++;
-            Toast.makeText(context, "拉了一下:" + a, Toast.LENGTH_SHORT).show();
-
-            /*if (a % 2 == 0) {
-                zhihuRecycler.setVisibility(View.VISIBLE);
-                zhihuNoInternet.setVisibility(View.GONE);
-            } else {
-                zhihuRecycler.setVisibility(View.GONE);
-                zhihuNoInternet.setVisibility(View.VISIBLE);
-            }
-
-            */
-            Observable.timer(2, TimeUnit.SECONDS)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new CommonSubscriber<Long>(this) {
-                        @Override
-                        public void onNext(Long aLong) {
-                            zhihuSwipe.setRefreshing(false);
-                        }
-                    });
+            refreshData();
         });
+    }
+
+    private void refreshData() {
+        homePresenter.loadData();
+
     }
 
     private void initListener() {
@@ -166,32 +145,31 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
                     LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
                     //获取第一个可见view的位置
                     int firstItemPosition = linearManager.findFirstVisibleItemPosition();
-                    zhihuToolbar.setTitle(datas.get(firstItemPosition).getDataDate());
+                    if (firstItemPosition < datas.size() && firstItemPosition > 0)
+                        zhihuToolbar.setTitle(datas.get(firstItemPosition).getDataDate());
                 }
 
             }
         });
-
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                SharedPreferences sharedPreferences = context.getSharedPreferences("zhihu_history", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(datas.get(position).getId() + "", true);
+                LogUtils.e(TAG, "datas.get(position).getId()：" + datas.get(position).getId() + ",position:" + position);
+                editor.apply();
+                ((TextView) adapter.getViewByPosition(zhihuRecycler,position, R.id.item_android_tv_title)).setTextColor(getResources().getColor(R.color.gray_text));
+                Intent intent = new Intent(context, ZhihuDetailActivity.class);
+                intent.putExtra("zhihu_id", datas.get(position).getId() + "");
+                context.startActivity(intent);
+            }
+        });
     }
 
     private void initRecycler() {
-        adapter = new ZhihuListAdapter(context, datas);
-        adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-//                Bundle bundle = new Bundle();
-//                bundle.putString("id", datas.get(position).getId() + "");
-                Intent intent = new Intent(context, ZhihuDetailActivity.class);
-                intent.putExtra("zhihu_id", datas.get(position).getId() + "");
-//                intent.putExtras(bundle);
-                context.startActivity(intent);
-            }
+        adapter = new ZhihuListAdapter(datas);
 
-            @Override
-            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                return true;
-            }
-        });
 
         zhihuRecycler.setAdapter(adapter);
         zhihuRecycler.setLayoutManager(new LinearLayoutManager(context));
@@ -206,14 +184,17 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
     @Override
     public void updateList(List<StoriesBean> stories) {
+        if (zhihuSwipe.isRefreshing()) {
+            LogUtils.e(TAG, "zhihu:showGetdataFailed");
+            zhihuSwipe.setRefreshing(false);
+            dataDate = dateNow;
+            datas.clear();
+            adapter.notifyDataSetChanged();
+        }
         LogUtils.e(TAG, "zhihu:" + stories.get(0).getDataDate() + ",size:" + stories.size());
         getDataString();
-        for (int i = 0; i < stories.size(); i++) {
-            stories.get(i).setDelegateType(0);
-            stories.get(i).setDataDate(dateShow);
-        }
         StoriesBean sb = new StoriesBean();
-        sb.setDelegateType(1);
+        sb.setItemType(Constants.ZHIHU_DATETITLE);
         sb.setDataDate(dateShow);
         stories.add(0, sb);
         datas.addAll(stories);
@@ -225,7 +206,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
     @Override
     public void showGetdataFailed() {
-        LogUtils.e(TAG, "zhihu:showGetdataFailed");
         LogUtils.e(TAG, "getDataFailed");
         isLoading = false;
     }
@@ -251,7 +231,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        homePresenter.attachView(this);
     }
 
     @Override

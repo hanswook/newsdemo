@@ -68,4 +68,11 @@ public class Constants {
     public static final String map_ak = "a4Qz2VozZVZF2IF6IWcBzgtLRzDSeGPL";
 
 
+    /**
+     * 多类型item
+     */
+    public static final int ZHIHU_DATETITLE = 1;
+    public static final int ZHIHU_ITEMCONTENT = 2;
+
+
 }
