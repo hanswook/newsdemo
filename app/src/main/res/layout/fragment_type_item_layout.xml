@@ -23,9 +23,9 @@
         android:id="@+id/type_item_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_behavior="com.hans.newslook.ui.behavior.FabFollowListBehavior"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:src="@mipmap/monkey"
-        />
+        android:src="@mipmap/monkey" />
 
 </android.support.design.widget.CoordinatorLayout>

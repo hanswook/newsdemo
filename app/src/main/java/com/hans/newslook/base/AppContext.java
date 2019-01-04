@@ -2,10 +2,9 @@ package com.hans.newslook.base;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
 
-import com.baidu.mapapi.SDKInitializer;
 import com.hans.newslook.utils.Constants;
-import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -22,16 +21,19 @@ public class AppContext extends Application {
 
 
     public IWXAPI api;
+    private boolean aaa=false;
 
 
     @Override
     public void onCreate() {
         super.onCreate();
-        SDKInitializer.initialize(getApplicationContext());
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return;
-        }
-        LeakCanary.install(this);
+        /*if (aaa) {
+
+            if (LeakCanary.isInAnalyzerProcess(this)) {
+                return;
+            }
+            LeakCanary.install(this);
+        }*/
         CrashReport.initCrashReport(getApplicationContext(), Constants.BUGLY_APP_ID, false);
         instance = this;
         registerWeChat(this);
@@ -45,6 +47,12 @@ public class AppContext extends Application {
     public void registerWeChat(Context context) {   //向微信注册app
         api = WXAPIFactory.createWXAPI(context, Constants.WX_APP_ID, true);
         api.registerApp(Constants.WX_APP_ID);
+    }
+
+    @Override
+    public void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
 }
