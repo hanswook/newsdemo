@@ -77,11 +77,11 @@
                 android:value="com.hans.newslook.ui.activity.NavigatorActivity" />
         </activity>
         <activity android:name=".ui.activity.SplashActivity">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity android:name=".ui.activity.WebDetailActivity" />
         <activity
@@ -91,7 +91,14 @@
         <activity android:name=".ui.activity.ScanActivity" />
         <activity android:name=".ui.activity.ExpressHomeActivity" />
         <activity android:name=".ui.activity.MortgageActivity" />
-        <activity android:name=".test.CanvasTest1Activity" />
+        <activity android:name=".test.CanvasTest1Activity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity android:name=".test.CanvasTest2Activity" />
         <activity android:name=".test.CanvasTest3Activity" />
         <activity android:name=".test.CanvasTest4Activity"></activity>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -14,6 +15,7 @@ import android.view.View;
 
 import com.hans.newslook.test.utils.HelpDraw;
 import com.hans.newslook.utils.baseutils.DensityUtils;
+import com.hans.newslook.utils.baseutils.LogUtils;
 
 /**
  * @author Hans
@@ -44,8 +46,8 @@ public class CanvasView extends View {
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setColor(Color.RED);
-        mPaint.setStrokeWidth(10);
-        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setStrokeWidth(5);
+        mPaint.setStyle(Paint.Style.STROKE);
 
 
         //准备屏幕尺寸
@@ -64,36 +66,149 @@ public class CanvasView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         drawColor(canvas);
-        //TODO drawGrid 绘制网格：release：
-        HelpDraw.drawGrid(canvas, mWinSize, mGridPaint);
-        //TODO drawCoo 绘制坐标系:release：
-        HelpDraw.drawCoo(canvas, mCoo, mWinSize, mGridPaint);
+        // drawGrid 绘制网格：release：
+//        HelpDraw.drawGrid(canvas, mWinSize, mGridPaint);
+        // drawCoo 绘制坐标系:release：
+//        HelpDraw.drawCoo(canvas, mCoo, mWinSize, mGridPaint);
+
 
 //        drawPoint(canvas);
 //        drawLines(canvas);
 //        drawRect(canvas);
+
+
+//        testStateSaveStore(canvas);
+//        testStateSkew(canvas);
 //        drawLikeCircle(canvas);
 
-        testState(canvas);
+        drawNStar(canvas, 5, 100, 50);
+
+        drawHexagon(canvas, 60, 40, 50, 70, 90, 100);
 
     }
 
-    private void testState(Canvas canvas) {
+    private void drawHexagon(Canvas canvas, int one, int two, int three, int four, int five, int six) {
 
-        canvas.drawLine(mCoo.x + 500, mCoo.y + 200, mCoo.x + 900, mCoo.y + 400, mPaint);
+        canvas.getSaveCount();
+        for (int i=0;i<canvas.getSaveCount();i++){
+            canvas.restore();
+        }
 
-        canvas.drawRect(mCoo.x + 100, mCoo.x + 100, mCoo.y + 300, mCoo.y + 200, mPaint);
+        mPaint.setColor(Color.BLUE);
+
+        canvas.translate(400, 500);
+//        canvas.rotate(-90, 0, 0);
+
+        Path path = new Path();
+        path.moveTo(100, 0);
+
+
+        float radius = 100;
+
+        float degree = 360f / 6f;
+
+        for (int i = 0; i < 6; i++) {
+
+            float x = (float) (radius * Math.cos(Math.toRadians(degree * i)));
+            float y = (float) (radius * Math.sin(Math.toRadians(degree * i)));
+            LogUtils.e("degree:,x:" + x + ",y:" + y);
+
+            path.lineTo(x, y);
+
+        }
+
+        path.close();
+
+        canvas.drawPath(path, mPaint);
+        canvas.save();
+    }
+
+    private void drawNStar(Canvas canvas, int num, float rOut, float rIn) {
+        canvas.save();
+        canvas.translate(100, 100);
+        canvas.translate(rOut, rOut);
+
+        canvas.rotate(-90, 0, 0);
+
+        Path path = new Path();
+        path.moveTo(rOut, 0);
+
+        float degre = 360f / 2 / num;
+        for (int i = 0; i < num; i++) {
+            float degre2 = (float) Math.toRadians(degre * i * 2);
+            float x = (float) (rOut * Math.cos(degre2));
+            float y = (float) (rOut * Math.sin(degre2));
+            LogUtils.e("degre2:" + degre2 + ",x:" + x + ",y:" + y);
+            path.lineTo(x, y);
+
+            float degre3 = (float) Math.toRadians(degre * (i * 2 + 1));
+            float xIn = (float) (rIn * Math.cos(degre3));
+            float yIn = (float) (rIn * Math.sin(degre3));
+            LogUtils.e("degre3:" + degre3 + ",xIn:" + xIn + ",yIn:" + yIn);
+            path.lineTo(xIn, yIn);
+
+        }
+        path.close();
+
+        canvas.drawPath(path, mPaint);
+        canvas.save();
+    }
+
+
+    private void testStateSkew(Canvas canvas) {
+
+        canvas.drawRect(100, 100, 300, 250, mPaint);
+
+        canvas.save();
+
+        mPaint.setColor(Color.parseColor("#880fb5fd"));
+
+//        对于skew(float sx,float sy),sx和sy分别表示将画布在x和y方向上倾斜相应的角度对应的tan值
+        canvas.skew(0, 1);
+
+        canvas.drawRect(100, 100, 300, 250, mPaint);
+    }
+
+    private void testStateSaveStore(Canvas canvas) {
+
+        canvas.drawLine(500, 200, 900, 400, mPaint);
+
+        canvas.drawRect(100, 100, 300, 200, mPaint);
 
         canvas.save();//保存canvas状态
 
         //(角度,中心点x,中心点y)
-        canvas.rotate(45, mCoo.x + 100, mCoo.y + 100);
+        canvas.rotate(45, 100, 100);
 
         mPaint.setColor(Color.parseColor("#880FB5FD"));
 
-        canvas.drawRect(mCoo.x + 100, mCoo.x + 100, mCoo.y + 300, mCoo.y + 200, mPaint);
+        int left = 100;
+        int top = 100;
+        canvas.drawRect(left, top, left + 200, top + 100, mPaint);
 
         canvas.restore();//图层向下合并
+        canvas.save();//保存canvas状态
+
+
+//        canvas.rotate(45, 400, 400);
+
+        left = 400;
+        top = 400;
+        canvas.drawRect(left, top, left + 200, top + 100, mPaint);
+
+        canvas.save();//保存canvas状态
+
+//        canvas.restore();//图层向下合并
+
+        canvas.rotate(45, 400, 800);
+
+        left = 500;
+        top = 800;
+
+        canvas.drawRect(left, top, left + 200, top + 100, mPaint);
+
+        canvas.restore();//图层向下合并
+
 
     }
 
@@ -141,6 +256,9 @@ public class CanvasView extends View {
 
 
     private void drawLikeCircle(Canvas canvas) {
+        mPaint.setColor(Color.RED);
+        //255值最大
+        mPaint.setAlpha(160);
         canvas.drawCircle(200, 200, 150, mPaint);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
