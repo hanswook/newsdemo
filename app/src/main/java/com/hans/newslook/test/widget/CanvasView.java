@@ -72,7 +72,29 @@ public class CanvasView extends View {
 //        drawPoint(canvas);
 //        drawLines(canvas);
 //        drawRect(canvas);
-        drawLikeCircle(canvas);
+//        drawLikeCircle(canvas);
+
+        testState(canvas);
+
+    }
+
+    private void testState(Canvas canvas) {
+
+        canvas.drawLine(mCoo.x + 500, mCoo.y + 200, mCoo.x + 900, mCoo.y + 400, mPaint);
+
+        canvas.drawRect(mCoo.x + 100, mCoo.x + 100, mCoo.y + 300, mCoo.y + 200, mPaint);
+
+        canvas.save();//保存canvas状态
+
+        //(角度,中心点x,中心点y)
+        canvas.rotate(45, mCoo.x + 100, mCoo.y + 100);
+
+        mPaint.setColor(Color.parseColor("#880FB5FD"));
+
+        canvas.drawRect(mCoo.x + 100, mCoo.x + 100, mCoo.y + 300, mCoo.y + 200, mPaint);
+
+        canvas.restore();//图层向下合并
+
     }
 
 
