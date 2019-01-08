@@ -1,5 +1,8 @@
 package com.hans.newslook.test.widget;
 
+import android.animation.FloatEvaluator;
+import android.animation.TypeEvaluator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -11,7 +14,12 @@ import android.graphics.RectF;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AnticipateInterpolator;
+import android.view.animation.BounceInterpolator;
+import android.view.animation.LinearInterpolator;
 
 import com.hans.newslook.test.utils.HelpDraw;
 import com.hans.newslook.utils.baseutils.DensityUtils;
@@ -28,6 +36,10 @@ public class CanvasView extends View {
     private Paint mGridPaint;
     private Point mWinSize;
     private Point mCoo;
+
+    private int startX = 0;
+    private ValueAnimator mAnimator;
+
 
     public CanvasView(Context context) {
         this(context, null);
@@ -59,18 +71,61 @@ public class CanvasView extends View {
         mWinSize.y = screenH;
         mGridPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
+        mAnimator = ValueAnimator.ofFloat(0, 1);
+        mAnimator.setRepeatCount(-1);
+        mAnimator.setDuration(1000);
+        mAnimator.setInterpolator(new LinearInterpolator());
+        mAnimator.setEvaluator(new FloatEvaluator());
+        mAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float animatedValue = (float) animation.getAnimatedValue();
+                //更新小球信息
+                updateStartX(animatedValue);
+
+                invalidate();
+            }
+        });
+
 
     }
+
+    private long lasttime = 0;
+
+    private void updateStartX(float animatedValue) {
+        long nowTime = System.currentTimeMillis();
+        Log.e("updateStartX", "animatedValue：" + animatedValue + ":--timenow:" + (nowTime - lasttime));
+        lasttime = nowTime;
+        startX += 4;
+        if (startX > 80) {
+            startX -= 80;
+        }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mAnimator.start();//开启时间流
+                break;
+            case MotionEvent.ACTION_UP:
+                mAnimator.pause();//暂停时间流
+                break;
+        }
+        return true;
+    }
+
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         drawColor(canvas);
         // drawGrid 绘制网格：release：
-//        HelpDraw.drawGrid(canvas, mWinSize, mGridPaint);
+        HelpDraw.drawGrid(canvas, mWinSize, mGridPaint);
         // drawCoo 绘制坐标系:release：
-//        HelpDraw.drawCoo(canvas, mCoo, mWinSize, mGridPaint);
+        HelpDraw.drawCoo(canvas, mCoo, mWinSize, mGridPaint);
 
+        drawPathSin(canvas);
 
 //        drawPoint(canvas);
 //        drawLines(canvas);
@@ -81,16 +136,32 @@ public class CanvasView extends View {
 //        testStateSkew(canvas);
 //        drawLikeCircle(canvas);
 
-        drawNStar(canvas, 5, 100, 50);
+//        drawNStar(canvas, 5, 100, 50);
 
-        drawHexagon(canvas, 60, 40, 50, 70, 90, 100);
+//        drawHexagon(canvas, 60, 40, 50, 70, 90, 100);
+
+    }
+
+    private void drawPathSin(Canvas canvas) {
+        mPaint.setStrokeWidth(2);
+        Path mPath = new Path();
+        mPath.moveTo(startX - 80, 100);
+
+        int size = 50;
+        for (int i = 0; i < 20; i++) {
+            //rQuadTo
+            mPath.rQuadTo(20, size, 40, 0);
+            mPath.rQuadTo(20, -size, 40, 0);
+        }
+
+        canvas.drawPath(mPath, mPaint);
 
     }
 
     private void drawHexagon(Canvas canvas, int one, int two, int three, int four, int five, int six) {
 
         canvas.getSaveCount();
-        for (int i=0;i<canvas.getSaveCount();i++){
+        for (int i = 0; i < canvas.getSaveCount(); i++) {
             canvas.restore();
         }
 

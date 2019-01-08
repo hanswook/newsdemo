@@ -11,6 +11,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.hans.newslook.utils.baseutils.LogUtils;
+
 /**
  * @author Hans
  * @create 2019/1/7
@@ -29,6 +31,10 @@ public class BounceBall extends View {
     private float defaultVY = 0;
     private int defaultColor = Color.RED;
     private float defaultA = 9.8f;
+    private float defaultF = 0.95f;
+
+    private float mWidth = 0;
+    private float mHeight = 0;
 
 
     public BounceBall(Context context) {
@@ -68,14 +74,27 @@ public class BounceBall extends View {
                 invalidate();
             }
         });
+    }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        mWidth = getMeasuredWidth();
+        mHeight = getMeasuredHeight();
+
+        if (mWidth > 0) {
+            mWidth = mWidth - mCoo.x * 2;
+        }
+
+
+        LogUtils.e("mWidth:" + mWidth + ",:mHeight:" + mHeight);
 
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawARGB(88,0,155,0);
+        canvas.drawARGB(88, 0, 155, 0);
         canvas.save();
         canvas.translate(mCoo.x, mCoo.y);
         drawBall(canvas, mBall);
@@ -84,7 +103,24 @@ public class BounceBall extends View {
 
 
     private void updateBall() {
+        if (mBall.x > mWidth) {
+            mBall.vX = -mBall.vX;
+        } else if (mBall.x < 0) {
+            mBall.vX = -mBall.vX;
+        }
+
+        mBall.vY += mBall.ay;
+        mBall.y += mBall.vY;
+
+        if (mBall.y > 860 && mBall.vY > 0) {
+            mBall.vY = -mBall.vY;
+            mBall.y += mBall.vY;
+            mBall.vY = mBall.vY * defaultF;
+        }
+
+
         mBall.x += mBall.vX;
+        LogUtils.d("updateBall", "mBall.x:" + mBall.x + ",:mBall.y:" + mBall.y + ",mBall.vY:" + mBall.vY);
     }
 
     /**
