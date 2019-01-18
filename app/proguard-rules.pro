@@ -29,3 +29,36 @@
 -keep class com.baidu.** {*;}
 -keep class vi.com.** {*;}
 -dontwarn com.baidu.**
+
+-keep class com.umeng.** {*;}
+-keepclassmembers class * {
+   public <init> (org.json.JSONObject);
+}
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+-keep public class [com.hans.newslook].R$*{
+public static final int *;
+}
+
+-keep class com.growingio.** {
+    *;
+}
+-dontwarn com.growingio.**
+-keepnames class * extends android.view.View
+-keepnames class * extends android.app.Fragment
+-keepnames class * extends android.support.v4.app.Fragment
+-keepnames class * extends androidx.fragment.app.Fragment
+-keep class android.support.v4.view.ViewPager{
+  *;
+}
+-keep class android.support.v4.view.ViewPager$**{
+  *;
+}
+-keep class androidx.viewpager.widget.ViewPager{
+  *;
+}
+-keep class androidx.viewpager.widget.ViewPager$**{
+  *;
+}

@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.growingio.android'
 
 android {
     compileSdkVersion 26
@@ -11,6 +12,9 @@ android {
         multiDexEnabled true
         flavorDimensions "versionCode"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        resValue("string", "growingio_project_id", "92982fef97747077")
+        resValue("string", "growingio_url_scheme", "growing.75bacc719c8a703c")
     }
     // 多套签名文件
     signingConfigs {
@@ -115,5 +119,10 @@ dependencies {
     implementation 'com.airbnb.android:lottie:2.3.0'
 //    implementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     implementation 'com.android.support:palette-v7:26.1.0'
+
+    compile  'com.umeng.umsdk:analytics:8.0.0'
+    compile  'com.umeng.umsdk:common:2.0.0'
+
+    compile 'com.growingio.android:vds-android-agent:autotrack-2.6.8@aar'
 
 }

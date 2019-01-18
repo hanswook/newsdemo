@@ -6,10 +6,12 @@ import android.view.View;
 import android.widget.Button;
 
 import com.hans.newslook.R;
+import com.hans.newslook.base.AppContext;
 import com.hans.newslook.base.BaseActivity;
 import com.hans.newslook.test.CanvasTest1Activity;
 import com.hans.newslook.utils.baseutils.LogUtils;
 import com.hans.newslook.utils.baseutils.SnackBarUtil;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.concurrent.TimeUnit;
 
@@ -47,20 +49,27 @@ public class NavigatorActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn1:
+                MobclickAgent.onEvent(AppContext.getInstance().getApplicationContext(), "event_app_1");
                 toBtn1();
                 break;
             case R.id.btn_float:
                 toBtnFloat();
                 break;
             case R.id.btn2:
+                MobclickAgent.onEvent(AppContext.getInstance().getApplicationContext(), "event_app_2");
+
                 toBtn2();
                 break;
             case R.id.btn3:
+                MobclickAgent.onEvent(AppContext.getInstance().getApplicationContext(), "event_app_3");
+
                 toBtn5();
 
 //                toBtn3();
                 break;
             case R.id.btn4:
+                MobclickAgent.onEvent(AppContext.getInstance().getApplicationContext(), "event_app_4");
+
                 toBtn4();
                 break;
             default:

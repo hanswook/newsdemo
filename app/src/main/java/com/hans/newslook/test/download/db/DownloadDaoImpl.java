@@ -28,10 +28,12 @@ public class DownloadDaoImpl implements DownloadDao {
     public void insertThread(ThreadBean threadBean) {
 
         SQLiteDatabase db = mDBHelper.getWritableDatabase();
+
         db.execSQL(Constant.DB_SQL_INSERT,
                 new Object[]{threadBean.getId(), threadBean.getUrl(),
                         threadBean.getStart(), threadBean.getEnd(), threadBean.getLoadedLen()
                 });
+
         db.close();
 
     }

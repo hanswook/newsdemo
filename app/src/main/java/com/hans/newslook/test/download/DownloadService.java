@@ -50,14 +50,19 @@ public class DownloadService extends Service {
     private void download(FileBean fileBean) {
         //从数据获取线程信息
         List<ThreadBean> threads = mDao.getThreads(fileBean.getUrl());
-        if (threads.size() == 0) {//如果没有线程信息，就新建线程信息
+        //如果没有线程信息，就新建线程信息
+        if (threads.size() == 0) {
+            //初始化线程信息对象
             mThreadBean = new ThreadBean(
-                    0, fileBean.getUrl(), 0, fileBean.getLength(), 0);//初始化线程信息对象
+                    0, fileBean.getUrl(), 0, fileBean.getLength(), 0);
         } else {
-            mThreadBean = threads.get(0);//否则取第一个
+            //否则取第一个
+            mThreadBean = threads.get(0);
         }
-        mDownLoadThread = new DownloadThread(mThreadBean, fileBean, this);//创建下载线程
-        mDownLoadThread.start();//开始线程
+        //创建下载线程
+        mDownLoadThread = new DownloadThread(mThreadBean, fileBean, this);
+        //开始线程
+        mDownLoadThread.start();
         mDownLoadThread.isDownLoading = true;
 
     }
@@ -97,6 +102,12 @@ public class DownloadService extends Service {
             }
         }
         return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacksAndMessages(null);
     }
 
     private void startDownload(FileBean fileBean) {
