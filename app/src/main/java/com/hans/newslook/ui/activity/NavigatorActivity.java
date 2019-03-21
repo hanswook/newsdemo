@@ -1,6 +1,7 @@
 package com.hans.newslook.ui.activity;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.Button;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import com.hans.newslook.R;
 import com.hans.newslook.base.AppContext;
 import com.hans.newslook.base.BaseActivity;
+import com.hans.newslook.broadcast.PhoneBroadcast;
 import com.hans.newslook.test.CanvasTest1Activity;
 import com.hans.newslook.utils.baseutils.LogUtils;
 import com.hans.newslook.utils.baseutils.SnackBarUtil;
@@ -38,6 +40,7 @@ public class NavigatorActivity extends BaseActivity {
     @Override
     protected void init() {
         LogUtils.e(TAG, "init");
+        registerIt();
     }
 
     @Override
@@ -102,6 +105,17 @@ public class NavigatorActivity extends BaseActivity {
 
     private void toBtn1() {
         startActivity(new Intent(context, HomeActivity.class));
+    }
+
+    PhoneBroadcast mBroadcastReceiver;
+
+    //按钮1-注册广播
+    public void registerIt() {
+        mBroadcastReceiver = new PhoneBroadcast();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Intent.ACTION_NEW_OUTGOING_CALL);
+        intentFilter.setPriority(Integer.MAX_VALUE);
+        registerReceiver(mBroadcastReceiver, intentFilter);
     }
 
 
