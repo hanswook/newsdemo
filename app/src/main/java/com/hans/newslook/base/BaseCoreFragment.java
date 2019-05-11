@@ -1,15 +1,18 @@
 package com.hans.newslook.base;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.hans.newslook.base_core.LoadingDialogManager;
 import com.hans.newslook.widget.dialog.CustomProgressDialog;
 import com.hans.newslook.widget.dialog.CustomProgressDialogHelper;
 
@@ -28,6 +31,7 @@ public abstract class BaseCoreFragment extends Fragment implements IBaseView{
     protected String TAG;
     protected Activity activity;
     protected Context context;
+    private LoadingDialogManager loadingDialogManager;
 
     protected abstract int getLayoutId();
 
@@ -58,6 +62,7 @@ public abstract class BaseCoreFragment extends Fragment implements IBaseView{
         activity = getActivity();
         TAG = this.getClass().getSimpleName();
         init();
+        loadingDialogManager = new LoadingDialogManager(getActivity());
         return rootView;
     }
 
@@ -92,6 +97,12 @@ public abstract class BaseCoreFragment extends Fragment implements IBaseView{
         if (mProgressDialog != null) {
             mProgressDialog.dismiss();
         }
+    }
+    public void showLoadingDialog(@StringRes int res) {
+        loadingDialogManager.showLoadingDialog(res);
+    }
+    public void dismissLoadingDialog() {
+        loadingDialogManager.dismissLoadingDialog();
     }
 
 }

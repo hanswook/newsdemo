@@ -25,6 +25,9 @@ import io.reactivex.functions.Function;
 
 public class GankItemPresenter extends BasePresenter<GankItemContract.View> implements GankItemContract.Presenter<GankItemContract.View> {
 
+    private boolean isLoading = false;
+
+    private int pageCount = 1;
 
 
     @Inject
@@ -33,19 +36,36 @@ public class GankItemPresenter extends BasePresenter<GankItemContract.View> impl
     }
 
     @Override
-    public void loadData(String type, int pageCount) {
+    public void loadData(String type) {
+        if (isLoading) {
+            return;
+        }
+        mView.showProgress("加载中...");
+        isLoading = true;
         LogUtils.e("GankItemPresenter", "loadData:type:" + type + ",pageCount:" + pageCount);
-        NewsModel.getInstance().getGankItemData(type,pageCount, new DataCallback<List<GankItemData>>() {
-            @Override
-            public void success(List<GankItemData> gankItemData) {
-                if (!isAttached()) {
-                    return;
-                }
-                mView.updateUI(gankItemData);
-            }
-        });
+        NewsModel.getInstance()
+                .getGankItemData(type, pageCount, new DataCallback<List<GankItemData>>() {
+                    @Override
+                    public void success(List<GankItemData> gankItemData) {
+                        if (!isAttached()) {
+                            return;
+                        }
+                        mView.dismissProgress();
+                        pageCount++;
+                        mView.updateUI(gankItemData);
+                        isLoading = false;
+                    }
+                });
 
     }
 
+    @Override
+    public void refreshData(String type) {
+        if (isLoading) {
+            return;
+        }
+        pageCount = 1;
+        loadData(type);
+    }
 
 }

@@ -36,9 +36,7 @@ public class GankGirlFragment extends BaseRxFragment implements GankItemContract
     GankItemPresenter mPresenter;
 
     private String type = "福利";
-    private int pageNum = 1;
 
-    private boolean isLoading = false;
 
     private ArrayList<String> imageDatas;
 
@@ -57,18 +55,12 @@ public class GankGirlFragment extends BaseRxFragment implements GankItemContract
         DaggerGankGirlComponent.builder().gankItemModule(new GankItemModule(this))
                 .build().inject(this);
         addPresenter(mPresenter);
-        mPresenter.loadData(type, pageNum);
-        isLoading = true;
+        mPresenter.loadData(type);
         girlsAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
                 LogUtils.e(TAG, "onLoadMoreRequested");
-                if (isLoading) {
-                    girlsAdapter.loadMoreComplete();
-                    return;
-                }
-                isLoading = true;
-                mPresenter.loadData(type, pageNum);
+                mPresenter.loadData(type);
             }
         }, gankRecyclerView);
         girlsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -102,12 +94,13 @@ public class GankGirlFragment extends BaseRxFragment implements GankItemContract
 
     @Override
     public void updateUI(List<GankItemData> data) {
-
+        if (data.size() <= 0) {
+            girlsAdapter.loadMoreEnd();
+            return;
+        }
         for (GankItemData item : data) {
             imageDatas.add(item.getUrl());
         }
-        isLoading = false;
-        pageNum++;
         girlsAdapter.addData(data);
         girlsAdapter.loadMoreComplete();
     }

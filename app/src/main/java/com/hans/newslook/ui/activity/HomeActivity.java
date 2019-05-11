@@ -159,7 +159,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
                 editor.putBoolean(datas.get(position).getId() + "", true);
                 LogUtils.e(TAG, "datas.get(position).getId()：" + datas.get(position).getId() + ",position:" + position);
                 editor.apply();
-                ((TextView) adapter.getViewByPosition(zhihuRecycler,position, R.id.item_android_tv_title)).setTextColor(getResources().getColor(R.color.gray_text));
+                ((TextView) adapter.getViewByPosition(zhihuRecycler, position, R.id.item_android_tv_title)).setTextColor(getResources().getColor(R.color.gray_text));
                 Intent intent = new Intent(context, ZhihuDetailActivity.class);
                 intent.putExtra("zhihu_id", datas.get(position).getId() + "");
                 context.startActivity(intent);
@@ -197,6 +197,9 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         sb.setItemType(Constants.ZHIHU_DATETITLE);
         sb.setDataDate(dateShow);
         stories.add(0, sb);
+        for (StoriesBean storiesBean : stories) {
+            storiesBean.setDataDate(dateShow);
+        }
         datas.addAll(stories);
         adapter.notifyItemRangeInserted(datas.size() - stories.size(), datas.size() - 1);
         LogUtils.e(TAG, datas.size() + "");

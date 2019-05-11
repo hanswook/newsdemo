@@ -27,4 +27,6 @@ public interface IBaseView {
      * 取消ProgressDialog
      */
     void dismissProgress();
+
+
 }

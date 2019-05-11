@@ -36,9 +36,8 @@ import butterknife.OnClick;
  */
 public class GankItemFragment extends BaseRxFragment implements GankItemContract.View, SwipeRefreshLayout.OnRefreshListener {
 
-    private int PAGE_COUNT = 0;
     private String mSubtype;
-    private GankItemAdapter adapter;
+    private GankItemAdapter itemAdapter;
     private List<GankItemData> datas;
 
     private boolean isLoadMore;
@@ -72,17 +71,17 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
         isLoading = false;
         isLoadMore = false;
         datas = new ArrayList<>();
-        adapter = new GankItemAdapter(R.layout.item_gank_layout, datas) {
+        itemAdapter = new GankItemAdapter(R.layout.item_gank_layout, datas) {
         };
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        itemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(context, WebDetailActivity.class);
-                intent.putExtra("gank_item_data_url", datas.get(position).getUrl());
+                intent.putExtra("gank_item_data_url", itemAdapter.getData().get(position).getUrl());
                 startActivity(intent);
             }
         });
-        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+        itemAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
                 isLoadMore = true;
@@ -90,7 +89,7 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
             }
         }, mRecyclerview);
         mRecyclerview.setLayoutManager(new LinearLayoutManager(context));
-        mRecyclerview.setAdapter(adapter);
+        mRecyclerview.setAdapter(itemAdapter);
         mSwipfreshlayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent, R.color.colorPrimaryDark);
         mSwipfreshlayout.setOnRefreshListener(this);
         mRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -108,12 +107,10 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
     }
 
     private void loadMore() {
-        LogUtils.e(TAG, "loadMore:mSubtype:" + mSubtype + ",PAGE_COUNT:" + PAGE_COUNT);
         if (!isLoading) {
             isLoading = true;
             LogUtils.e(TAG, "load data isLoading:" + isLoading);
-            PAGE_COUNT++;
-            mPresenter.loadData(mSubtype, PAGE_COUNT);
+            mPresenter.loadData(mSubtype);
         }
 
     }
@@ -135,8 +132,7 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
         DaggerGankItemComponent.builder().gankItemModule(new GankItemModule(this))
                 .build().inject(this);
         addPresenter(mPresenter);
-        mPresenter.loadData(mSubtype, PAGE_COUNT);
-        PAGE_COUNT++;
+        mPresenter.loadData(mSubtype);
 
     }
 
@@ -155,18 +151,16 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
         if (isLoadMore) {
             if (data.size() == 0) {
                 LogUtils.e(TAG, "updateUI : 获取数据成功，数据数量为0");
-                adapter.loadMoreFail();
+                itemAdapter.loadMoreFail();
             } else {
                 int size = data.size();
-                datas.addAll(data);
-                adapter.notifyItemRangeInserted(PAGE_COUNT * 10, ((PAGE_COUNT * 10) + size));
-                adapter.loadMoreComplete();
+                itemAdapter.addData(data);
+                itemAdapter.loadMoreComplete();
 
             }
         } else {
-            datas.clear();
-            datas.addAll(data);
-            adapter.notifyDataSetChanged();
+            itemAdapter.replaceData(data);
+            itemAdapter.notifyDataSetChanged();
             mSwipfreshlayout.setRefreshing(false);
         }
     }
@@ -184,7 +178,14 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
     @Override
     public void onRefresh() {
         isLoadMore = false;
-        PAGE_COUNT = 0;
-        loadMore();
+        refresh();
+    }
+
+    private void refresh(){
+        if (!isLoading) {
+            isLoading = true;
+            LogUtils.e(TAG, "load data isLoading:" + isLoading);
+            mPresenter.refreshData(mSubtype);
+        }
     }
 }

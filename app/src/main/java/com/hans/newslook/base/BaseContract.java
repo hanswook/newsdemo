@@ -17,7 +17,7 @@ public interface BaseContract {
         boolean isAttached();
     }
 
-    interface BaseView {
+    interface BaseView extends IBaseView{
         void showError();
     }
 }

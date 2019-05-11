@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="theme_color">#ff27b7f3</color>
+
+
     <color name="colorPrimary">#27B7F3</color>
     <color name="colorPrimaryDark">#27B7F3</color>
     <color name="colorAccent">#0099ff</color>
@@ -44,6 +48,7 @@
     <color name="gray_f6">#ffF6F6F6</color>
     <color name="white">#ffFFFFFF</color>
     <color name="black">#ff000000</color>
+
 
 
 </resources>

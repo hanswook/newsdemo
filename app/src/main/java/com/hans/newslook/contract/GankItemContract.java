@@ -16,7 +16,8 @@ public interface GankItemContract {
     }
 
     interface Presenter<T> extends BaseContract.BasePresenter<T> {
-        void loadData(String type, int pageCount);
+        void loadData(String type);
+        void refreshData(String type);
 
     }
 
