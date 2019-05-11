@@ -16,7 +16,7 @@ public interface GirlService {
     @GET("{id}")
     Observable<String> getGirlDetailData(@Path("id") String id);
 
-    @GET("dbgroup/show.htm")
+    @GET("index.htm")
     Observable<String> getGirlItemData(@Query("cid") String cid, @Query("pager_offset") int pager_offset);
 
     @GET("show.htm")

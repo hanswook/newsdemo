@@ -108,7 +108,8 @@ public class GankIOActivity extends BaseActivity {
             if (type.equalsIgnoreCase(ResourceUtil.res2String(context, R.string.gank))) {
                 replaceFragment(TypeFragment.newInstance(type), type, mCurrentType);
             } else if (type.equalsIgnoreCase(ResourceUtil.res2String(context, R.string.girl))) {
-                replaceFragment(new GankGirlFragment(), type, mCurrentType);
+//                replaceFragment(new GankGirlFragment(), type, mCurrentType);
+                replaceFragment(TypeFragment.newInstance(type), type, mCurrentType);
             }
             mCurrentType = type;
         }

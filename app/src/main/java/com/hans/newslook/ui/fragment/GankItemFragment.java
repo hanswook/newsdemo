@@ -92,7 +92,7 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
         mRecyclerview.setAdapter(itemAdapter);
         mSwipfreshlayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent, R.color.colorPrimaryDark);
         mSwipfreshlayout.setOnRefreshListener(this);
-        mRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
+       /* mRecyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -103,7 +103,7 @@ public class GankItemFragment extends BaseRxFragment implements GankItemContract
                     mFab.show();
                 }
             }
-        });
+        });*/
     }
 
     private void loadMore() {

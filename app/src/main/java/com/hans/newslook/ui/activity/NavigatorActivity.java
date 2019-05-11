@@ -1,14 +1,19 @@
 package com.hans.newslook.ui.activity;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.Button;
 
 import com.hans.newslook.R;
+import com.hans.newslook.base.AppContext;
 import com.hans.newslook.base.BaseActivity;
+import com.hans.newslook.broadcast.PhoneBroadcast;
+import com.hans.newslook.test.CanvasTest1Activity;
 import com.hans.newslook.utils.baseutils.LogUtils;
 import com.hans.newslook.utils.baseutils.SnackBarUtil;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.concurrent.TimeUnit;
 
@@ -34,7 +39,8 @@ public class NavigatorActivity extends BaseActivity {
 
     @Override
     protected void init() {
-        LogUtils.e(TAG,"init");
+        LogUtils.e(TAG, "init");
+        registerIt();
     }
 
     @Override
@@ -46,25 +52,71 @@ public class NavigatorActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn1:
-                startActivity(new Intent(context, HomeActivity.class));
+                MobclickAgent.onEvent(AppContext.getInstance().getApplicationContext(), "event_app_1");
+                toBtn1();
                 break;
             case R.id.btn_float:
-                startActivity(new Intent(context, AboutActivity.class));
+                toBtnFloat();
                 break;
             case R.id.btn2:
-                startActivity(new Intent(context, GankIOActivity.class));
+                MobclickAgent.onEvent(AppContext.getInstance().getApplicationContext(), "event_app_2");
+
+                toBtn2();
                 break;
             case R.id.btn3:
-                startActivity(new Intent(context, ZxingActivity.class));
+                MobclickAgent.onEvent(AppContext.getInstance().getApplicationContext(), "event_app_3");
+
+                toBtn5();
+
+//                toBtn3();
                 break;
             case R.id.btn4:
-                startActivity(new Intent(context, MortgageActivity.class));
-//                WxShareUtils.shareText(context);
-                break;
+                MobclickAgent.onEvent(AppContext.getInstance().getApplicationContext(), "event_app_4");
 
+                toBtn4();
+                break;
+            default:
+                break;
         }
     }
 
+    private void toBtn5() {
+        startActivity(new Intent(context, CanvasTest1Activity.class));
+    }
+
+    private void toBtn3() {
+        startActivity(new Intent(context, ZxingActivity.class));
+
+    }
+
+    private void toBtn4() {
+        startActivity(new Intent(context, MortgageActivity.class));
+
+    }
+
+    private void toBtn2() {
+        startActivity(new Intent(context, GankIOActivity.class));
+
+    }
+
+    private void toBtnFloat() {
+        startActivity(new Intent(context, AboutActivity.class));
+    }
+
+    private void toBtn1() {
+        startActivity(new Intent(context, HomeActivity.class));
+    }
+
+    PhoneBroadcast mBroadcastReceiver;
+
+    //按钮1-注册广播
+    public void registerIt() {
+        mBroadcastReceiver = new PhoneBroadcast();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Intent.ACTION_NEW_OUTGOING_CALL);
+        intentFilter.setPriority(Integer.MAX_VALUE);
+        registerReceiver(mBroadcastReceiver, intentFilter);
+    }
 
 
     private boolean isBackPressed = false;

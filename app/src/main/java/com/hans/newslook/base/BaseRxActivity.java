@@ -3,6 +3,8 @@ package com.hans.newslook.base;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.umeng.analytics.MobclickAgent;
+
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
@@ -86,5 +88,17 @@ public abstract class BaseRxActivity extends AppCompatActivity implements IBaseV
         }
         disposables2Destroy.dispose();
         disposables2Destroy = null;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }
