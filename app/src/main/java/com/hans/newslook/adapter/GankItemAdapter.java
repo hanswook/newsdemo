@@ -1,6 +1,6 @@
 package com.hans.newslook.adapter;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,7 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.hans.newslook.R;
 import com.hans.newslook.model.bean.GankItemData;
 import com.hans.newslook.utils.baseutils.LogUtils;
-import com.hans.newslook.utils.image.GlideApp;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -39,7 +39,7 @@ public class GankItemAdapter extends BaseQuickAdapter<GankItemData, BaseViewHold
         String[] images = item.getImages();
         if (images != null && images.length > 0) {
             LogUtils.e(TAG, images[0] + "?imageView2/0/w/100");
-            GlideApp.with(mContext).load(images[0] + "?imageView2/0/w/100").placeholder(R.mipmap.web).into(iconImg);
+            Glide.with(mContext).load(images[0] + "?imageView2/0/w/100").placeholder(R.mipmap.web).into(iconImg);
         } else {
             String url = item.getUrl();
             int iconId;
@@ -64,7 +64,7 @@ public class GankItemAdapter extends BaseQuickAdapter<GankItemData, BaseViewHold
             } else {
                 iconId = R.mipmap.web;
             }
-            GlideApp.with(mContext).load(iconId).into(iconImg);
+            Glide.with(mContext).load(iconId).into(iconImg);
         }
     }
 }

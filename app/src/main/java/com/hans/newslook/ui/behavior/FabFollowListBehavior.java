@@ -3,13 +3,17 @@ package com.hans.newslook.ui.behavior;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.RecyclerView;
+//import  androidx.annotation.NonNull;
+//import androidx.coordinatorlayout.widget.CoordinatorLayout;
+//import com.google.android.material.floatingactionbutton.FloatingActionButton;
+//import androidx.recyclerview.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hans.newslook.utils.baseutils.LogUtils;
 
 public class FabFollowListBehavior extends CoordinatorLayout.Behavior<FloatingActionButton> {
@@ -49,8 +53,13 @@ public class FabFollowListBehavior extends CoordinatorLayout.Behavior<FloatingAc
         int end = show ? 0 : hatHeight;
         float start = fab.getTranslationY();
         ValueAnimator animator = ValueAnimator.ofFloat(start, end);
-        animator.addUpdateListener(animation ->
-                fab.setTranslationY((Float) animation.getAnimatedValue()));
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                fab.setTranslationY((Float) valueAnimator.getAnimatedValue());
+
+            }
+        });
         return animator;
     }
 

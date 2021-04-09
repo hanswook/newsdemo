@@ -1,6 +1,7 @@
 package com.hans.newslook.utils.recycler;
 
-import android.support.v4.util.SparseArrayCompat;
+
+import androidx.collection.SparseArrayCompat;
 
 /**
  * Created by hans on 2017/4/12 13:30.

@@ -2,10 +2,10 @@ package com.hans.newslook.ui.fragment;
 
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.tabs.TabLayout;
 import com.hans.newslook.R;
 import com.hans.newslook.adapter.TypePageAdapter;
 import com.hans.newslook.base.BaseRxFragment;

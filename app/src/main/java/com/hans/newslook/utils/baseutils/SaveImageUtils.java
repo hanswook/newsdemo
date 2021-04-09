@@ -87,7 +87,7 @@ public class SaveImageUtils {
         canvas.drawBitmap(bitmap, 0, 0, null);
         canvas.drawText(mstrTitle, 0, hhh / 2, p);
         canvas.drawText(location, 0, hhh / 2 - 30, p);
-        canvas.save(Canvas.ALL_SAVE_FLAG);
+//        canvas.save(Canvas.ALL_SAVE_FLAG);
         canvas.restore();
 
         bmpTemp.compress(Bitmap.CompressFormat.JPEG, 100, baos);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中

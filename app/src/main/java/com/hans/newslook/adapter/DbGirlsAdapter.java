@@ -1,13 +1,15 @@
 package com.hans.newslook.adapter;
 
-import android.support.annotation.Nullable;
+//import androidx.annotation.Nullable;
 
+import androidx.annotation.Nullable;
+
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hans.newslook.R;
 import com.hans.newslook.model.bean.GirlItemData;
 import com.hans.newslook.utils.baseutils.ScaleImageView;
-import com.hans.newslook.utils.image.GlideApp;
 
 import java.util.List;
 
@@ -27,6 +29,6 @@ public class DbGirlsAdapter extends BaseQuickAdapter<GirlItemData, BaseViewHolde
     protected void convert(BaseViewHolder helper, GirlItemData item) {
         ScaleImageView imageView = helper.getView(R.id.girl_item_iv);
         imageView.setInitSize(item.getWidth(), item.getHeight());
-        GlideApp.with(mContext).load(item.getUrl()).into(imageView);
+        Glide.with(mContext).load(item.getUrl()).into(imageView);
     }
 }

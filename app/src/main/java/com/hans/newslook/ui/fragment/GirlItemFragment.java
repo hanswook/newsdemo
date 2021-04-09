@@ -3,11 +3,13 @@ package com.hans.newslook.ui.fragment;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+
+import com.bumptech.glide.Glide;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
@@ -27,7 +29,6 @@ import com.hans.newslook.presenter.GirlItemPresenter;
 import com.hans.newslook.utils.CommonSubscriber;
 import com.hans.newslook.utils.Constants;
 import com.hans.newslook.utils.baseutils.LogUtils;
-import com.hans.newslook.utils.image.GlideApp;
 import com.hans.newslook.widget.wechatimage.ImagePagerUtils;
 
 import java.util.ArrayList;
@@ -184,7 +185,7 @@ public class GirlItemFragment extends BaseRxFragment implements GirlItemContract
                 .map(girlItemDatas -> {
                     for (GirlItemData item : girlItemDatas) {
                         imageDatas.add(item.getUrl());
-                        Bitmap bitmap = GlideApp.with(context).asBitmap().load(item.getUrl())
+                        Bitmap bitmap = Glide.with(context).asBitmap().load(item.getUrl())
                                 .apply(new RequestOptions()
                                         .diskCacheStrategy(DiskCacheStrategy.ALL))
                                 .submit(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)

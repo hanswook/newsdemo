@@ -1,12 +1,13 @@
 package com.hans.newslook.adapter;
 
 import android.graphics.Bitmap;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
@@ -15,7 +16,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.hans.newslook.R;
 import com.hans.newslook.model.bean.GankItemData;
 import com.hans.newslook.utils.baseutils.LogUtils;
-import com.hans.newslook.utils.image.GlideApp;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class GankGirlAdapter extends BaseQuickAdapter<GankItemData, BaseViewHold
     @Override
     protected void convert(BaseViewHolder helper, GankItemData item) {
         ImageView imageView = helper.getView(R.id.item_girls_image);
-        GlideApp.with(mContext)
+        Glide.with(mContext)
                 .asBitmap()
                 .load(item.getUrl())
                 .placeholder(R.mipmap.ns_empty_placeholder)

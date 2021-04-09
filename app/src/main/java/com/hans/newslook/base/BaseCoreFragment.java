@@ -1,12 +1,12 @@
 package com.hans.newslook.base;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.v4.app.Fragment;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +38,8 @@ public abstract class BaseCoreFragment extends Fragment implements IBaseView{
     protected abstract void init();
 
     private CustomProgressDialog mProgressDialog;
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

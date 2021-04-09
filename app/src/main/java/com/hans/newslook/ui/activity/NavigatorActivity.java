@@ -2,7 +2,7 @@ package com.hans.newslook.ui.activity;
 
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.support.design.widget.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.view.View;
 import android.widget.Button;
 

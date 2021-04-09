@@ -1,7 +1,7 @@
 package com.hans.newslook.utils.palette;
 
 import android.graphics.Bitmap;
-import android.support.v7.graphics.Palette;
+import androidx.palette.graphics.Palette;
 
 import com.hans.newslook.callbacks.PaletteCallBack;
 import com.hans.newslook.utils.baseutils.LogUtils;

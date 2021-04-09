@@ -2,10 +2,7 @@ package com.hans.newslook.base;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.multidex.MultiDex;
 
-import com.growingio.android.sdk.collection.Configuration;
-import com.growingio.android.sdk.collection.GrowingIO;
 import com.hans.newslook.utils.Constants;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -39,10 +36,10 @@ public class AppContext extends Application {
             LeakCanary.install(this);
         }*/
 
-        GrowingIO.startWithConfiguration(this, new Configuration()
-                .trackAllFragments()
-                .setChannel("XXX应用商店")
-        );
+//        GrowingIO.startWithConfiguration(this, new Configuration()
+//                .trackAllFragments()
+//                .setChannel("XXX应用商店")
+//        );
 
 
         initUmeng();
@@ -80,13 +77,6 @@ public class AppContext extends Application {
         api = WXAPIFactory.createWXAPI(context, Constants.WX_APP_ID, true);
         api.registerApp(Constants.WX_APP_ID);
     }
-
-    @Override
-    public void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        MultiDex.install(this);
-    }
-
 }
 
 

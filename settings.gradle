@@ -1,1 +1,3 @@
+include ':sample-runtime'
+include ':sample-loader'
 include ':app'

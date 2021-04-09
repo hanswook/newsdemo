@@ -4,11 +4,13 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 
+import androidx.appcompat.widget.AppCompatTextView;
+
 /**
  * @user  lqm
  * @desc  使用IConFont TextView
  */
-public class IconFontTextView extends android.support.v7.widget.AppCompatTextView {
+public class IconFontTextView extends AppCompatTextView {
 
     private Context mContext;
 

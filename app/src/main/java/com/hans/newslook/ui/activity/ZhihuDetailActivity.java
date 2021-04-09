@@ -1,7 +1,7 @@
 package com.hans.newslook.ui.activity;
 
 import android.annotation.SuppressLint;
-import android.support.v4.widget.NestedScrollView;
+import androidx.core.widget.NestedScrollView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;

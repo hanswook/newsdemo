@@ -1,6 +1,6 @@
 package com.hans.newslook.base_core;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import java.util.Collection;
 import java.util.Map;

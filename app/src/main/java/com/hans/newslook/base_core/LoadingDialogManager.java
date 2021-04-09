@@ -1,7 +1,8 @@
 package com.hans.newslook.base_core;
 
 import android.app.Activity;
-import android.support.annotation.StringRes;
+
+import androidx.annotation.StringRes;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.hans.newslook.R;

@@ -1,13 +1,13 @@
 package com.hans.newslook.widget.wechatimage;
 
-import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.graphics.Palette;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.palette.graphics.Palette;
+//import androidx.palette.graphics.Palette;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +26,7 @@ import com.bumptech.glide.request.target.Target;
 import com.hans.newslook.R;
 import com.hans.newslook.callbacks.PaletteCallBack;
 import com.hans.newslook.utils.baseutils.GetSize;
-import com.hans.newslook.utils.baseutils.LogUtils;
-import com.hans.newslook.utils.image.GlideApp;
+import com.bumptech.glide.Glide;
 import com.hans.newslook.utils.palette.PaletteUtils;
 
 import uk.co.senab.photoview.PhotoViewAttacher;
@@ -80,7 +79,7 @@ public class ImageDetailFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        GlideApp.with(getContext()).load(mImageUrl)
+        Glide.with(getContext()).load(mImageUrl)
                 .override(GetSize.getScreenWidth(getContext()), GetSize.getScreenHeight(getContext()))
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

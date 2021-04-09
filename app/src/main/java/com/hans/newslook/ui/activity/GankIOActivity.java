@@ -2,20 +2,23 @@ package com.hans.newslook.ui.activity;
 
 
 import android.os.Build;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
+//import android.support.design.widget.NavigationView;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.core.view.GravityCompat;
+//import androidx.drawerlayout.widget.DrawerLayout;
+//import android.support.v7.app.ActionBarDrawerToggle;
+//import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
 import com.hans.newslook.R;
 import com.hans.newslook.base.BaseActivity;
 import com.hans.newslook.base.BaseCoreFragment;
-import com.hans.newslook.ui.fragment.GankGirlFragment;
 import com.hans.newslook.ui.fragment.TypeFragment;
 import com.hans.newslook.utils.baseutils.LogUtils;
 import com.hans.newslook.utils.baseutils.ResourceUtil;
