@@ -13,7 +13,8 @@ public class API {
 
     public static final String ZHIHU_URL="http://news-at.zhihu.com/";
 
-    public static final String URL_GET_GIRL = "http://www.dbmeinv.com/";
+    public static final String URL_GET_GIRL = "http://www.buxiuse.com/";
+//    public static final String URL_GET_GIRL = "http://www.dbmeinv.com/";
 
 
 

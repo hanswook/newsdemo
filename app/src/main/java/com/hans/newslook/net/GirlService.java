@@ -16,10 +16,13 @@ public interface GirlService {
     @GET("{id}")
     Observable<String> getGirlDetailData(@Path("id") String id);
 
-    @GET("index.htm")
+    @GET("http://www.buxiuse.com/")
     Observable<String> getGirlItemData(@Query("cid") String cid, @Query("pager_offset") int pager_offset);
 
-    @GET("show.htm")
+    // @GET("index.html")
+    //    Observable<String> getGirlItemData(@Query("cid") String cid, @Query("pager_offset") int pager_offset);
+
+    @GET("show.html")
     Observable<Object> getGirlItemData1(@Query("cid") String cid, @Query("pager_offset") int pager_offset);
 
 
