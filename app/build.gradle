@@ -117,16 +117,16 @@ dependencies {
     implementation 'com.journeyapps:zxing-android-embedded:3.3.0'
     //生成二维码依赖
 
-    compile 'com.airbnb.android:lottie:2.3.0'
+    implementation 'com.airbnb.android:lottie:2.3.0'
     implementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     implementation 'com.android.support:palette-v7:27.1.0'
 
     implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
 
 
-    compile  'com.umeng.umsdk:analytics:8.0.0'
-    compile  'com.umeng.umsdk:common:2.0.0'
+    implementation  'com.umeng.umsdk:analytics:8.0.0'
+    implementation  'com.umeng.umsdk:common:2.0.0'
 
-    compile 'com.growingio.android:vds-android-agent:autotrack-2.6.8@aar'
+    implementation 'com.growingio.android:vds-android-agent:autotrack-2.6.8@aar'
 
 }
