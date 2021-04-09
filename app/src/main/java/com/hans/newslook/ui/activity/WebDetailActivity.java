@@ -2,8 +2,10 @@ package com.hans.newslook.ui.activity;
 
 
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.hans.newslook.R;
@@ -31,8 +33,27 @@ public class WebDetailActivity extends BaseActivity {
         settings.setLoadWithOverviewMode(true);
         settings.setLoadsImagesAutomatically(true);
         settings.setBlockNetworkImage(false);
+        gankioWebview.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                loadurlLocalMethod(view, url);
+                return false;
+            }
+
+
+        });
         settings.setDomStorageEnabled(true);
         gankioWebview.loadUrl(loadUrl);
+    }
+
+    public void loadurlLocalMethod(final WebView webView, final String url) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                webView.loadUrl(url);
+            }
+        });
     }
 
     @Override
@@ -41,10 +62,9 @@ public class WebDetailActivity extends BaseActivity {
     }
 
 
-
     private void initIntentData() {
-        loadUrl=getIntent().getStringExtra("gank_item_data_url");
-        Toast.makeText(context, "url:"+loadUrl, Toast.LENGTH_SHORT).show();
+        loadUrl = getIntent().getStringExtra("gank_item_data_url");
+        Toast.makeText(context, "url:" + loadUrl, Toast.LENGTH_SHORT).show();
     }
 
 }

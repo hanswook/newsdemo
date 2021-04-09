@@ -40,7 +40,7 @@ public class NavigatorActivity extends BaseActivity {
     @Override
     protected void init() {
         LogUtils.e(TAG, "init");
-        registerIt();
+//        registerIt();
     }
 
     @Override
