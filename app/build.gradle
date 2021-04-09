@@ -7,8 +7,8 @@ plugins {
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId "com.dbgirl.newslook"
-//        applicationId "com.jinjiangonline.shanghai.unify"
+//        applicationId "com.dbgirl.newslook"
+        applicationId "com.jinjiangonline.shanghai.unify"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 2
@@ -55,22 +55,22 @@ android {
 
 
 
-    productFlavors {
-        newslook {
-            applicationId "com.hans.newslook"
-            manifestPlaceholders = [app_name: "NewsLook", icon: "@mipmap/ic_launcher"]
-        }
-        /*  Offline {
-            applicationId "com.hans.newslook"
-            manifestPlaceholders = [app_name: "newsoffline", icon: "@mipmap/ic_launcher"]
-        }
-        Online {
-            applicationId "com.hans.newslook"
-            manifestPlaceholders = [app_name: "newsonline", icon: "@mipmap/icon"]
-        }
-*/
-
-    }
+//    productFlavors {
+//        newslook {
+//            applicationId "com.hans.newslook"
+//            manifestPlaceholders = [app_name: "NewsLook", icon: "@mipmap/ic_launcher"]
+//        }
+//        /*  Offline {
+//            applicationId "com.hans.newslook"
+//            manifestPlaceholders = [app_name: "newsoffline", icon: "@mipmap/ic_launcher"]
+//        }
+//        Online {
+//            applicationId "com.hans.newslook"
+//            manifestPlaceholders = [app_name: "newsonline", icon: "@mipmap/icon"]
+//        }
+//*/
+//
+//    }
 
     sourceSets {
         main {
@@ -135,46 +135,46 @@ dependencies {
 
 
 
-//apply plugin: 'com.tencent.shadow.plugin'
-//
-//shadow {
-//    packagePlugin {
-//        pluginTypes {
-//            debug {
-//                loaderApkConfig = new Tuple2('sample-loader-debug.apk', ':sample-loader:assembleDebug')
-//                runtimeApkConfig = new Tuple2('sample-runtime-debug.apk', ':sample-runtime:assembleDebug')
-//                pluginApks {
-//                    pluginApk1 {
-//                        businessName = 'sample-plugin'//businessName相同的插件，context获取的Dir是相同的。businessName留空，表示和宿主相同业务，直接使用宿主的Dir。
-//                        partKey = 'sample-plugin'
-//                        buildTask = 'assembleDebug'
-//                        apkName = 'plugin-shadow-apk-debug.apk'
-//                        apkPath = 'plugin-shadow-apk/build/outputs/apk/debug/plugin-shadow-apk-debug.apk'
-//                    }
-//                }
-//            }
-//
-//            release {
-//                loaderApkConfig = new Tuple2('sample-loader-release.apk', ':sample-loader:assembleRelease')
-//                runtimeApkConfig = new Tuple2('sample-runtime-release.apk', ':sample-runtime:assembleRelease')
-//                pluginApks {
-//                    pluginApk1 {
-//                        businessName = 'demo'
-//                        partKey = 'sample-plugin'
-//                        buildTask = 'assembleRelease'
-//                        apkName = 'plugin-shadow-apk-release.apk'
-//                        apkPath = 'plugin-shadow-apk/build/outputs/apk/release/plugin-shadow-apk-release.apk'
-//                    }
-//                }
-//            }
-//        }
-//
-//        loaderApkProjectPath = 'sample-loader'
-//
-//        runtimeApkProjectPath = 'sample-runtime'
-//
-//        version = 6
-//        compactVersion = [1, 2, 3]
-//        uuidNickName = "1.1.6"
-//    }
-//}
+apply plugin: 'com.tencent.shadow.plugin'
+
+shadow {
+    packagePlugin {
+        pluginTypes {
+            debug {
+                loaderApkConfig = new Tuple2('sample-loader-debug.apk', ':sample-loader:assembleDebug')
+                runtimeApkConfig = new Tuple2('sample-runtime-debug.apk', ':sample-runtime:assembleDebug')
+                pluginApks {
+                    pluginApk1 {
+                        businessName = 'sample-plugin'//businessName相同的插件，context获取的Dir是相同的。businessName留空，表示和宿主相同业务，直接使用宿主的Dir。
+                        partKey = 'sample-plugin'
+                        buildTask = 'assembleDebug'
+                        apkName = 'app-debug.apk'
+                        apkPath = 'app/build/outputs/apk/debug/app-debug.apk'
+                    }
+                }
+            }
+
+            release {
+                loaderApkConfig = new Tuple2('sample-loader-release.apk', ':sample-loader:assembleRelease')
+                runtimeApkConfig = new Tuple2('sample-runtime-release.apk', ':sample-runtime:assembleRelease')
+                pluginApks {
+                    pluginApk1 {
+                        businessName = 'demo'
+                        partKey = 'sample-plugin'
+                        buildTask = 'assembleRelease'
+                        apkName = 'app-release.apk'
+                        apkPath = 'app/build/outputs/apk/release/app-release.apk'
+                    }
+                }
+            }
+        }
+
+        loaderApkProjectPath = 'sample-loader'
+
+        runtimeApkProjectPath = 'sample-runtime'
+
+        version = 6
+        compactVersion = [1, 2, 3]
+        uuidNickName = "1.1.6"
+    }
+}

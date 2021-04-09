@@ -1,3 +1,6 @@
+include ':plugin-normal-apk'
+include ':plugin-main-lib'
+include ':plugin-shadow-apk'
 include ':sample-runtime'
 include ':sample-loader'
 include ':app'

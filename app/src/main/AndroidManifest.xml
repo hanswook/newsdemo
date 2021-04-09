@@ -48,10 +48,10 @@
     <application
         android:name=".base.AppContext"
         android:allowBackup="true"
-        android:icon="${icon}"
+        android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
-        android:label="${app_name}"
+        android:label="newslook"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
