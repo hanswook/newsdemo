@@ -15,7 +15,10 @@ android {
         versionName "1.0.1"
         flavorDimensions "versionCode"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
-
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'arm64-v8a' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
     }
     // 多套签名文件
     signingConfigs {
@@ -131,50 +134,3 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
 }
-
-
-
-
-//apply plugin: 'com.tencent.shadow.plugin'
-//
-//shadow {
-//    packagePlugin {
-//        pluginTypes {
-//            debug {
-//                loaderApkConfig = new Tuple2('sample-loader-debug.apk', ':sample-loader:assembleDebug')
-//                runtimeApkConfig = new Tuple2('sample-runtime-debug.apk', ':sample-runtime:assembleDebug')
-//                pluginApks {
-//                    pluginApk1 {
-//                        businessName = 'sample-plugin'//businessName相同的插件，context获取的Dir是相同的。businessName留空，表示和宿主相同业务，直接使用宿主的Dir。
-//                        partKey = 'sample-plugin'
-//                        buildTask = 'assembleDebug'
-//                        apkName = 'plugin-shadow-apk-debug.apk'
-//                        apkPath = 'plugin-shadow-apk/build/outputs/apk/debug/plugin-shadow-apk-debug.apk'
-//                    }
-//                }
-//            }
-//
-//            release {
-//                loaderApkConfig = new Tuple2('sample-loader-release.apk', ':sample-loader:assembleRelease')
-//                runtimeApkConfig = new Tuple2('sample-runtime-release.apk', ':sample-runtime:assembleRelease')
-//                pluginApks {
-//                    pluginApk1 {
-//                        businessName = 'demo'
-//                        partKey = 'sample-plugin'
-//                        buildTask = 'assembleRelease'
-//                        apkName = 'plugin-shadow-apk-release.apk'
-//                        apkPath = 'plugin-shadow-apk/build/outputs/apk/release/plugin-shadow-apk-release.apk'
-//                    }
-//                }
-//            }
-//        }
-//
-//        loaderApkProjectPath = 'sample-loader'
-//
-//        runtimeApkProjectPath = 'sample-runtime'
-//
-//        version = 6
-//        compactVersion = [1, 2, 3]
-//        uuidNickName = "1.1.6"
-//    }
-//}
