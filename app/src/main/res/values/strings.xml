@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">dbgirl</string>
+    <string name="app_name">newslook</string>
     <string name="navigation_drawer_open" translatable="false">open drawer</string>
     <string name="navigation_drawer_close" translatable="false">close drawer</string>
     <!-- TODO: Remove or change this placeholder text -->
