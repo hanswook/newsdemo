@@ -6,6 +6,9 @@ buildscript {
     ext.kotlin_version = "1.3.72"
 
     repositories {
+        maven {
+            url "http://nexus.vshanghai.tech/repository/jinjiangonline-public/"
+        }
         mavenLocal()
         maven { url 'https://dl.bintray.com/umsdk/release' }
         google()
@@ -16,6 +19,7 @@ buildscript {
         classpath 'com.growingio.android:vds-gradle-plugin:autotrack-2.6.8'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.tencent.shadow.core:gradle-plugin:$shadow_version"
+        classpath "com.jjonline.plugins:test:0.0.14"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -24,6 +28,9 @@ buildscript {
 
 allprojects {
     repositories {
+        maven {
+            url "http://nexus.vshanghai.tech/repository/jinjiangonline-public/"
+        }
         mavenLocal()
         maven { url "https://jitpack.io" }
         google()

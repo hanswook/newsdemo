@@ -1,5 +1,6 @@
 package com.hans.newslook.ui.activity;
 
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.hans.newslook.R;
